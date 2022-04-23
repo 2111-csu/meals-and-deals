@@ -23,7 +23,7 @@ async function buildTables() {
         description TEXT NOT NULL,
         price VARCHAR(255) NOT NULL,
         imageURL NVARCHAR(n),
-        inStock BOOLEAN DEFAULT false,
+        "inStock" NOT NULL BOOLEAN DEFAULT false,
         category TEXT NOT NULL
       );
     `);
