@@ -9,8 +9,25 @@ async function buildTables() {
     client.connect();
 
     // drop tables in correct order
-
+    await  client.query(`
+  //   DROP TABLE IF EXISTS order_products;
+  //   DROP TABLE IF EXISTS orders;
+  //   DROP TABLE IF EXISTS products;
+  //   DROP TABLE IF EXISTS users;
+  `)
     // build tables in correct order
+    await  client.query(`
+      CREATE TABLE products(
+        id SERIAL PRIMARY KEY, 
+        name VARCHAR(255) UNIQUE NOT NULL,
+        description TEXT NOT NULL,
+        price VARCHAR(255) NOT NULL,
+        imageURL NVARCHAR(n),
+        inStock BOOLEAN DEFAULT false,
+        category TEXT NOT NULL
+      );
+    `);
+    
   } catch (error) {
     throw error;
   }
