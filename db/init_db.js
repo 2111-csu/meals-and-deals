@@ -142,8 +142,8 @@ async function populateInitialData() {
 
     const productsToCreate = [
       {
-        name: "created",
-        description: "Pasta",
+        name: "Pasta",
+        description: "Yummy!",
         price: "$30",
         imageURL:
           "https://media.istockphoto.com/photos/penne-pasta-with-mushrooms-chicken-spinach-and-cream-sauce-cuisine-picture-id1147319538?s=612x612",
@@ -151,17 +151,17 @@ async function populateInitialData() {
         category: "Dinner",
       },
       {
-        name: "created",
-        description: "Chicken Teriyaki",
+        name: "Chicken Teriyaki",
+        description: "Sweet and salty",
         price: "$30",
         imageURL:
-          "https://media.istockphoto.com/photos/plate-of-japanese-chicken-teriyaki-picture-id536109727?k=20&m=536109727&s=612x612&w=0&h=yjfMcmAH_OEG6LpSkcIe30BbBpX9jy3sbA6cep4_CNI=",
+          "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
         inStock: true,
         category: "Dinner",
       },
       {
-        name: "cancelled",
-        description: "French Onion Soup",
+        name: "French Onion Soup",
+        description: "Warm and gooey",
         price: "$10",
         imageURL:
           "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
@@ -169,11 +169,11 @@ async function populateInitialData() {
         category: "Lunch",
       },
       {
-        name: "created",
-        description: "Spinach Salad",
+        name: "Spinach Salad",
+        description: "Light and healty",
         price: "$10",
         imageURL:
-          "https://media.istockphoto.com/photos/vegan-thai-green-curry-with-tofu-sweet-potato-corn-and-spinach-top-picture-id1212759107?k=20&m=1212759107&s=612x612&w=0&h=cpmIeGocHnX0RjRz-lS_8pzfiLwH8CLYFanUskLv1LM=",
+          "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
         inStock: true,
         category: "Lunch",
       },
@@ -188,7 +188,6 @@ async function populateInitialData() {
 }
 
 buildTables()
-  // .then(createOrders)
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
