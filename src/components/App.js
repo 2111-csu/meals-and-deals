@@ -7,6 +7,7 @@ import '../style/App.css';
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
