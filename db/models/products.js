@@ -10,6 +10,7 @@ async function getAllProducts() {
     throw error;
   }
 }
+
 async function getProductById(id) {
   try {
     const {
@@ -57,3 +58,4 @@ module.exports = {
   getProductById,
   createProduct,
 };
+
