@@ -2,7 +2,7 @@
 const { Client } = require("pg");
 
 // change the DB_NAME string to whatever your group decides on
-const DB_NAME = 'meals_and_deals';
+const DB_NAME = "meals_and_deals";
 
 const DB_URL =
   process.env.DATABASE_URL || `postgres://localhost:5432/${DB_NAME}`;
@@ -22,5 +22,5 @@ if (process.env.CI) {
   // local / heroku client config
   client = new Client(DB_URL);
 }
-console.log(client, "CLIENT IS HERE");
+
 module.exports = client;
