@@ -1,4 +1,7 @@
-const { createOrders } = require("./");
+const { 
+  createOrders,
+  createProduct
+} = require("./");
 const client = require("./client");
 console.log(client, "CLIENT");
 
@@ -67,6 +70,47 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
+    const productsToCreate = [
+      {
+        name: "created",
+        description: "Pasta",
+        price: "$30",
+        imageURL:
+          "https://media.istockphoto.com/photos/penne-pasta-with-mushrooms-chicken-spinach-and-cream-sauce-cuisine-picture-id1147319538?s=612x612",
+        inStock: true,
+        category: "Dinner",
+      },
+      {
+        name: "created",
+        description: "Chicken Teriyaki",
+        price: "$30",
+        imageURL:
+          "https://media.istockphoto.com/photos/plate-of-japanese-chicken-teriyaki-picture-id536109727?k=20&m=536109727&s=612x612&w=0&h=yjfMcmAH_OEG6LpSkcIe30BbBpX9jy3sbA6cep4_CNI=",
+        inStock: true,
+        category: "Dinner",
+      },
+      {
+        name: "cancelled",
+        description: "French Onion Soup",
+        price: "$10",
+        imageURL:
+          "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
+        inStock: true,
+        category: "Lunch",
+      },
+      {
+        name: "created",
+        description: "Spinach Salad",
+        price: "$10",
+        imageURL:
+          "https://media.istockphoto.com/photos/vegan-thai-green-curry-with-tofu-sweet-potato-corn-and-spinach-top-picture-id1212759107?k=20&m=1212759107&s=612x612&w=0&h=cpmIeGocHnX0RjRz-lS_8pzfiLwH8CLYFanUskLv1LM=",
+        inStock: true,
+        category: "Lunch",
+      },
+    ];
+    const products = await Promise.all(productsToCreate.map(createProduct));
+    console.log("Products Created: ", products);
+    console.log("Finished creating products");
     // create useful starting data by leveraging your
     // Model.method() adapters to seed your db, for example:
     // const user1 = await User.createUser({ ...user info goes here... })
@@ -102,6 +146,8 @@ async function populateInitialData() {
     throw error;
   }
 }
+
+
 
 buildTables()
   // .then(createOrders)

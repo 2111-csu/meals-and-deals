@@ -2,6 +2,7 @@ module.exports = {
   ...require("./user"),
   // ...require("./products"),
   ...require("./orders"),
+  ...require("./products")
   // ...require("./order_products"),
   // add each model to your exports object here
   // so that you can use them in your express server api routers
