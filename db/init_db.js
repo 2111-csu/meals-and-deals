@@ -1,5 +1,5 @@
 const client = require("./client");
-const { createProduct, createOrders, createUser } = require("./models");
+const { createProduct, createOrders, createUser, getUser } = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {

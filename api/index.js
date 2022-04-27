@@ -37,8 +37,8 @@ apiRouter.get("/health", (req, res, next) => {
 // const orderProductsRouter = require('./orderProducts');
  //apiRouter.use('/order_products', orderProductsRouter);
 
-// const usersRouter = require('./users');
- //apiRouter.use('/users', usersRouter);
+const usersRouter = require('./users');
+ apiRouter.use('/users', usersRouter);
 
  const productsRouter = require('./products');
  apiRouter.use('/products', productsRouter);

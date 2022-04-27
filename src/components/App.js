@@ -13,6 +13,7 @@ import {
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState()
 
   
   useEffect(() => {
@@ -28,6 +29,7 @@ const App = () => {
       setProducts(fetchedProducts);
     }
 
+   
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
