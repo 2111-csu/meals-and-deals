@@ -13,7 +13,6 @@ import {
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
-  
 
   
   useEffect(() => {

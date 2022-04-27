@@ -1,8 +1,5 @@
-const { 
-  createOrders,
-  createProduct
-} = require("./");
 const client = require("./client");
+const { createProduct, createOrders, createUser } = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -12,6 +9,7 @@ async function buildTables() {
     console.log("Starting to drop tables...");
 
     // have to make sure to drop in correct order
+
     await client.query(`
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
@@ -27,7 +25,7 @@ async function buildTables() {
           firstName VARCHAR(255) UNIQUE NOT NULL,
           lastName VARCHAR(255) UNIQUE NOT NULL,
           email VARCHAR(255) UNIQUE NOT NULL,
-          "imageURL" VARCHAR(500),
+          "imageURL" VARCHAR(50000),
           username VARCHAR(255) UNIQUE NOT NULL,
           password VARCHAR(255) NOT NULL,
           "isAdmin" BOOLEAN DEFAULT false
@@ -39,7 +37,7 @@ async function buildTables() {
           name VARCHAR(255) UNIQUE NOT NULL,
           description TEXT NOT NULL,
           price VARCHAR(255) NOT NULL,
-          "imageURL" VARCHAR(500),
+          "imageURL" VARCHAR(5000),
           "inStock" BOOLEAN DEFAULT false,
           category TEXT NOT NULL
         );
@@ -70,10 +68,82 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
+    // create useful starting data by leveraging your
+    // Model.method() adapters to seed your db, for example:
+    // const user1 = await User.createUser({ ...user info goes here... })
+    // be created, cancelled, completed) - also optionally, processing
+    const usersToCreate = [
+      {
+        id: 1,
+        firstName: "Leah",
+        lastName: "Lopez",
+        email: "LLeah77@thismail.com",
+        imageURL: "image.url",
+        username: "77LLQueen",
+        password: "Chocol8ch1p!",
+        isAdmin: false,
+      },
+      {
+        id: 2,
+        firstName: "Simon",
+        lastName: "Sayes",
+        email: "simonSays@somemail.com",
+        imageURL: "image.url",
+        username: "SimonSays",
+        password: "ifNotn0wNever!!",
+        isAdmin: false,
+      },
+      {
+        id: 3,
+        firstName: "Daphne",
+        lastName: "McDoogal",
+        email: "DMD123@thismail.com",
+        imageURL: "image.url",
+        username: "Daphn33",
+        password: "D_MD4eva",
+        isAdmin: false,
+      },
+    ];
+
+    const users = await Promise.all(
+      usersToCreate.map((user) => createUser(user))
+    );
+    console.log("Users Created: ", users);
+    console.log("Finished creating users");
+
+    const ordersToCreate = [
+      {
+        status: "created",
+        userId: 1,
+        datePlaced: "04 / 21 / 2022",
+      },
+      {
+        status: "created",
+        userId: 2,
+        datePlaced: "04 / 22 / 2022",
+      },
+      {
+        status: "created",
+        userId: 3,
+        datePlaced: "04 / 23 / 2022",
+      },
+      {
+        status: "created",
+        userId: 2,
+        datePlaced: "04 / 24 / 2022",
+      },
+    ];
+
+    const orders = await Promise.all(
+      ordersToCreate.map((order) => createOrders(order))
+    );
+    console.log("Orders Created: ", orders);
+    console.log("Finished creating orders");
+
     const productsToCreate = [
       {
-        name: "created",
-        description: "Pasta",
+        name: "Pasta",
+        description: "Yummy!",
         price: "$30",
         imageURL:
           "https://media.istockphoto.com/photos/penne-pasta-with-mushrooms-chicken-spinach-and-cream-sauce-cuisine-picture-id1147319538?s=612x612",
@@ -81,17 +151,17 @@ async function populateInitialData() {
         category: "Dinner",
       },
       {
-        name: "created",
-        description: "Chicken Teriyaki",
+        name: "Chicken Teriyaki",
+        description: "Sweet and salty",
         price: "$30",
         imageURL:
-          "https://media.istockphoto.com/photos/plate-of-japanese-chicken-teriyaki-picture-id536109727?k=20&m=536109727&s=612x612&w=0&h=yjfMcmAH_OEG6LpSkcIe30BbBpX9jy3sbA6cep4_CNI=",
+          "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
         inStock: true,
         category: "Dinner",
       },
       {
-        name: "cancelled",
-        description: "French Onion Soup",
+        name: "French Onion Soup",
+        description: "Warm and gooey",
         price: "$10",
         imageURL:
           "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
@@ -99,58 +169,25 @@ async function populateInitialData() {
         category: "Lunch",
       },
       {
-        name: "created",
-        description: "Spinach Salad",
+        name: "Spinach Salad",
+        description: "Light and healthy",
         price: "$10",
         imageURL:
-          "https://media.istockphoto.com/photos/vegan-thai-green-curry-with-tofu-sweet-potato-corn-and-spinach-top-picture-id1212759107?k=20&m=1212759107&s=612x612&w=0&h=cpmIeGocHnX0RjRz-lS_8pzfiLwH8CLYFanUskLv1LM=",
+          "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
         inStock: true,
         category: "Lunch",
       },
     ];
     const products = await Promise.all(productsToCreate.map(createProduct));
+
     console.log("Products Created: ", products);
     console.log("Finished creating products");
-    // create useful starting data by leveraging your
-    // Model.method() adapters to seed your db, for example:
-    // const user1 = await User.createUser({ ...user info goes here... })
-    // be created, cancelled, completed) - also optionally, processing
-    // const ordersToCreate = [
-    //   {
-    //     status: created,
-    //     userId: 1,
-    //     datePlaced: 04 / 21 / 2022,
-    //   },
-    //   {
-    //     status: created,
-    //     userId: 2,
-    //     datePlaced: 04 / 22 / 2022,
-    //   },
-    //   {
-    //     status: created,
-    //     userId: 3,
-    //     datePlaced: 04 / 23 / 2022,
-    //   },
-    //   {
-    //     status: created,
-    //     userId: 4,
-    //     datePlaced: 04 / 24 / 2022,
-    //   },
-    // ];
-    // const orders = await Promise.all(
-    //   ordersToCreate.map((order) => createOrders(order))
-    // );
-    // console.log("Orders Created: ", orders);
-    // console.log("Finished creating orders");
   } catch (error) {
     throw error;
   }
 }
 
-
-
 buildTables()
-  // .then(createOrders)
   .then(populateInitialData)
   .catch(console.error)
   .finally(() => client.end());
