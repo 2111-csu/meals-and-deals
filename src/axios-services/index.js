@@ -8,14 +8,14 @@ import axios from 'axios';
 // we'd probably want to define a getUsers service like this:
 
 
- export async function getUsers() {
-    try {
-      const { data: users } = await axios.get('/api/users')
-      return users;
+   export async function getUsers() {
+     try {
+       const { data: users } = await axios.get('/api/users')
+       return users;
     } catch(err) {
       console.error(err)
     }
-}
+  }
 
 export async function getProducts() {
   try {
