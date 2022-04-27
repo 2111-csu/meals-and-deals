@@ -10,7 +10,6 @@ router.get('/', async (req, res, next) => {
       next(error)
     }
 })
-
 router.get('/:productId', async (req, res, next) => {
     const id = req.params.id
     try {
@@ -27,5 +26,4 @@ router.get('/:productId', async (req, res, next) => {
       next(error);
     }
   });
-
 module.exports = router;

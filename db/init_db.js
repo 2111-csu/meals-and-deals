@@ -170,7 +170,7 @@ async function populateInitialData() {
       },
       {
         name: "Spinach Salad",
-        description: "Light and healthy",
+        description: "Light and healty",
         price: "$10",
         imageURL:
           "https://media.istockphoto.com/photos/french-onion-gratin-soup-picture-id601123554?s=612x612",
