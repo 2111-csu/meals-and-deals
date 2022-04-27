@@ -7,6 +7,29 @@ import axios from 'axios';
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
 
+const { REACT_API_URL = 'https://localhost:3000/api' } = process.env;
+
+export const callApi = async ({ url, method = "GET", token, body }) => {
+  try {
+    const options = {
+        method: method.toUpperCase(),
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        data: body,
+    };
+
+    if (token) {
+        options.headers['Authorization'] = `Bearer ${token}`;
+    }
+    const resp = await axios(REACT_API_URL + url, options);
+    // const data = await resp.json();
+    
+    return resp.data;
+} catch (error) {
+    console.error(error)
+}
+};
 
    export async function getUsers() {
      try {
