@@ -8,6 +8,7 @@ import '../style/App.css';
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState()
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -18,6 +19,7 @@ const App = () => {
       setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
     };
 
+   
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
