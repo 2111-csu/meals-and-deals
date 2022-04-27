@@ -2,6 +2,7 @@ module.exports = {
   ...require("./user"),
   ...require("./products"),
   ...require("./orders"),
+  ...require("./products")
   // ...require("./order_products"),
 };
 
