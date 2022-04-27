@@ -1,30 +1,19 @@
-import React, { useEffect } from "react";
-import { callApi } from "../api";
+import React, { useState, useEffect } from 'react';
 
-const Products = ({ products, setProducts }) => {
-  useEffect(() => {
-    const getProducts = async () => {
-      const data = await callApi({
-        url: `/products`,
-        method: "GET",
-      });
-      setProducts(data);
-    };
-    getProducts();
-  }, []);
-  console.log("PRODUCTS", products);
-  return (
-    <>
-      <h1>Meals-And-Deals Product Listings</h1>
-      {products.map((product) => {
-        return (
-          <div className="singleProduct" key={product.id}>
-            <h2> Product: {product.name}</h2>
-          </div>
-        );
-      })}
+const Products = ({ products, getProducts, setProducts}) => {
+    return <>
+        <h1>Meals-And-Deals Product Listings</h1>
+        {products.map((product) => {
+            return (
+                <div className="singleProduct" key={product.id}>
+                    <h2>{product.name}({product.price})</h2>
+                    <p>{product.description}</p>
+                    <img className="productImage" src={product.imageURL}/>
+                </div>
+            );
+        })}
+        
     </>
-  );
-};
+}
 
 export default Products;

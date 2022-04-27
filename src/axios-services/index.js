@@ -14,7 +14,6 @@ export async function getUsers() {
     console.error(err);
   }
 }
-
 export async function getProducts() {
   try {
     const { data: products } = await axios.get("/api/products");
