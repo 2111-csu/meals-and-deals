@@ -1,29 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const { getAllProducts, getProductById } = require("../db");
+const { getUser, getUserById } = require("../db");
 
 router.get("/", async (req, res, next) => {
   try {
-    const products = await getAllProducts();
-    res.send(products);
+    const user = await getUser();
+    res.send(user);
+    console.log("I AM", user);
   } catch (error) {
     next(error);
   }
 });
-router.get("/:productId", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
   const id = req.params.id;
   try {
-    const product = await getProductById(id);
-    if (product) {
-      res.send(product);
+    const user = await getUserById(id);
+    if (user) {
+      res.send(user);
     } else {
       next({
         name: "NotFound",
-        message: `No Product found`,
+        message: `User found`,
       });
     }
   } catch (error) {
     next(error);
   }
 });
+
 module.exports = router;

@@ -12,7 +12,7 @@ const Products = ({ products, setProducts }) => {
     };
     getProducts();
   }, []);
-
+  console.log("PRODUCTS", products);
   return (
     <>
       <h1>Meals-And-Deals Product Listings</h1>
