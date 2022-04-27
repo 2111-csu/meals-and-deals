@@ -13,10 +13,18 @@ import axios from 'axios';
        const { data: users } = await axios.get('/api/users')
        return users;
     } catch(err) {
-       console.error(err)
-      }
-   }
+      console.error(err)
+    }
+  }
 
+export async function getProducts() {
+  try {
+    const { data: products } = await axios.get('/api/products')
+    return products;
+  } catch(err) {
+    console.error(err)
+  }
+}
 
 export async function getAPIHealth() {
   try {
