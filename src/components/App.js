@@ -9,8 +9,8 @@ import { Products, SingleProduct } from "./";
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
-  // const [users, setUsers] = useState("");
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
+  // const [users, setUsers] = useState();
 
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -49,6 +49,9 @@ const App = () => {
           <Route exact path="/products/:productId">
             <SingleProduct {...props} />
           </Route>
+          {/* <Route exact path="/users/:method">
+            <Users setToken={setToken} setUser={setUser} />
+          </Route> */}
         </BrowserRouter>
       </main>
     </>

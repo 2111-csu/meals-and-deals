@@ -33,41 +33,40 @@ $ git init
 ## Project Structure
 
 ```bash
-├── .github/workflows
-│   └── heroku-deploy.yaml
-│  
+├├── .github/workflows
+│   └── heroku-deploy.yaml
+│  
 ├── api
-│   ├── apiRouter.test.js
-│   └── index.js
+│   ├── apiRouter.test.js
+│   └── index.js
 │
 ├── db
-│   ├── models
-│   │   ├── index.js
-│   │   └── user.js
-│   ├── client.js
-│   ├── index.js
-│   └── init_db.js
+│   ├── models
+│   │   ├── index.js
+│   │   └── user.js
+│   ├── client.js
+│   ├── index.js
+│   └── init_db.js
 │
 ├── public
-│   └── index.html
+│   └── index.html
 │
 ├── src
-│   ├── axios-services
-│   │   └── index.js
-│   ├── components
-│   │   ├── App.js
-│   │   └── index.js
-│   ├── style
-│   │   ├── App.css
-│   │   └── index.css
-│   └── index.js
+│   ├── axios-services
+│   │   └── index.js
+│   ├── components
+│   │   ├── App.js
+│   │   └── index.js
+│   ├── style
+│   │   ├── App.css
+│   │   └── index.css
+│   └── index.js
 │
 ├── .gitignore
 ├── index.js
 ├── package-lock.json
 ├── package.json
 └── README.md
-```
 
 `/db` contains your `index.js` which exports the client instance and your database adapter models, as well as `init_db.js` which should be run when you need to rebuild your tables and seed data.
 

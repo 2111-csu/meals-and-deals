@@ -1,3 +1,4 @@
+//  grab our db client connection to use with our adapters
 const client = require("../client");
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
@@ -22,17 +23,19 @@ const createUser = async ({
     `,
       [firstName, lastName, email, username, hashPassword]
     );
+    console.log("user", user);
     return user;
   } catch (error) {
     throw error;
   }
 };
 /* this adapter should fetch a list of users from your db */
+
 async function getUser({ username, password }) {
   if (!username || !password) {
-    console.log("users is", username);
     return;
   }
+
   try {
     const user = await getUserByUsername(username);
     if (!user) return;
@@ -45,6 +48,7 @@ async function getUser({ username, password }) {
     throw error;
   }
 }
+
 async function getUserById(id) {
   try {
     const {
@@ -57,13 +61,31 @@ async function getUserById(id) {
     `,
       [id]
     );
+
     if (!user) return null;
+
     delete user.password;
     return user;
   } catch (error) {
     throw error;
   }
 }
+
+async function getAllUsers() {
+  try {
+    const {
+      rows: [user],
+    } = await client.query(`
+          SELECT * FROM users;
+        `);
+
+    delete user.password;
+    return user;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getUserByUsername(username) {
   try {
     const { rows } = await client.query(
@@ -74,17 +96,22 @@ async function getUserByUsername(username) {
     `,
       [username]
     );
+
     if (!rows || !rows.length) return null;
+
     const [user] = rows;
+
     return user;
   } catch (error) {
     console.error(error);
   }
 }
+
 module.exports = {
   // add your database adapter fns here
   createUser,
   getUser,
+  getAllUsers,
   getUserById,
   getUserByUsername,
 };

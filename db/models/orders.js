@@ -1,46 +1,41 @@
 const client = require("../client");
 
-const createOrders = async ({ status, userId, datePlaced }) => {
+//  getOrderById
+// getOrderById(id)
+const getOrderById = async (id) => {
   try {
-    const {
-      rows: [orders],
-    } = await client.query(
+    const { rows: order } = await client.query(
       `
-      INSERT INTO orders(status, "userId", "datePlaced") 
-      VALUES ($1, $2, $3)
-      RETURNING *
-    `,
-      [status, userId, datePlaced]
+    SELECT orders.*, order_products.id, AS "orderedProducts"
+    FROM orders
+    JOIN order_products ON order_products."productId" = orders.id
+    WHERE order_products."orderId" = $1;
+  `,
+      [id]
     );
-    return orders;
+
+    console.log("HERE ARE ORDERS w PRODUCTS", order);
+    return order;
   } catch (error) {
     throw error;
   }
 };
 
-//  getOrderById
-// getOrderById(id)
-const getOrderById = async (id) => {
-  try {
-    //  return the order, include the order's products
-    const {
-      rows: [order],
-    } = await client.query(
-      `
-      SELECT * FROM orders
-      WHERE id=$1
-    `,
-      [id]
-    );
-    // return the orders
-    return order;
-  } catch (error) {
-    console.log("error: ", error);
-  }
-};
-
 //  getAllOrders
 //  select and return an array of orders, include their products
+
+const getAllOrders = async () => {
+  try {
+    const { rows: orders } = await client.query(`
+        SELECT * FROM orders JOIN products ON orders.id = products.id;
+        RETURNING *
+        `);
+    console.log("ALL ORDERS W PRODUCTS", orders);
+    return [orders];
+  } catch (error) {
+    throw error;
+  }
+};
 
 //  getOrdersByUser
 // getOrdersByUser({ id })
@@ -60,31 +55,26 @@ const getOrderById = async (id) => {
 // createOrder({ status, userId })
 //  create and return the new order
 
-async function createOrder(order) {
-  // Get the field from the passed in object
-  const { status, userId, datePlaced } = orders;
-
+const createOrders = async ({ status, userId, datePlaced }) => {
   try {
-    // insert the correct field into the users table
-    // remember to return the new row from the query
     const {
-      rows: [order],
+      rows: [orders],
     } = await client.query(
       `
-        INSERT INTO orders (status, "userId", "datePlaced") 
-        VALUES ($1, $2, $3)
-        RETURNING *
-      `,
-      [order]
+      INSERT INTO orders(status, "userId", "datePlaced") 
+      VALUES ($1, $2, $3)
+      RETURNING *
+    `,
+      [status, userId, datePlaced]
     );
-    // return the new user
-    console.log("orders in createOrder", order);
-    return order;
+    return orders;
   } catch (error) {
     throw error;
   }
-}
+};
 
 module.exports = {
+  getOrderById,
+  getAllOrders,
   createOrders,
 };

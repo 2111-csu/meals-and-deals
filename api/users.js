@@ -1,17 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { getUser, getUserById } = require("../db");
+const {
+  getUser,
+  getAllUsers,
+  getUserById,
+  getUserByUsername,
+  createUser,
+} = require("../db");
 
 router.get("/", async (req, res, next) => {
   try {
-    const user = await getUser();
-    res.send(user);
-    console.log("I AM", user);
+    const users = await getUser();
+    res.send(users);
   } catch (error) {
     next(error);
   }
 });
-router.get("/:userId", async (req, res, next) => {
+router.get("users/:userId", async (req, res, next) => {
   const id = req.params.id;
   try {
     const user = await getUserById(id);
