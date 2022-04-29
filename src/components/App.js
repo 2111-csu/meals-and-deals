@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Route, Link, BrowserRouter} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
@@ -7,14 +8,20 @@ import { getAPIHealth, getProducts } from '../axios-services';
 import '../style/App.css';
 import {
   Products,
-  SingleProduct
+  SingleProduct,
+  RegisterLogin,
+  Home
 } from './';
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState()
+  const [token, setToken] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userId, setUserId] = useState(Number);
 
+  const history = useHistory();
   
   useEffect(() => {
     // follow this pattern inside your useEffect calls:
@@ -36,7 +43,31 @@ const App = () => {
     fetchProducts();
   }, []);
 
-  const props = { products, setProducts }
+  useEffect(() => {
+    const matchedToken = localStorage.getItem('token');
+    const matchedUsername = localStorage.getItem('username');
+    const matchedUserId = localStorage.getItem('userId');
+    if (matchedToken) {
+      setToken(matchedToken);
+    };
+    if (matchedUsername) {
+      setUserName(matchedUsername);
+    };
+    if (matchedUserId) {
+      setUserId(matchedUserId);
+    }
+  })
+
+  const props = { 
+    products, 
+    setProducts, 
+    token, 
+    setToken,
+    userName, 
+    setUserName,
+    userId, 
+    setUserId
+  }
 
   return <>
     <header>
@@ -44,16 +75,33 @@ const App = () => {
         <h1>Hello, World!</h1>
         <p>API Status: {APIHealth}</p>
       </div>
+      <Link to='/products' className='nav-link'>Meals</Link>
+      {
+          token
+            ? <button className='logout' onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('username');
+              localStorage.removeItem('userId');
+              setUserName('');
+              setToken('');
+              history.push('/');
+            }}>Logout</button>
+            : <Link to='/account/login' className='nav-link'>Sign In</Link>
+        }
     </header>
     <main>
-      <BrowserRouter>
-        <Route exact path='/products'>
-          <Products {...props} />
-        </Route>
-        <Route exact path='/products/:productId'>
-          <SingleProduct {...props} />
-        </Route>
-      </BrowserRouter>
+    <Route exact path='/'>
+        <Home {...props} />
+      </Route>
+      <Route exact path='/products'>
+        <Products {...props} />
+      </Route>
+      <Route exact path='/products/:productId'>
+        <SingleProduct {...props} />
+      </Route>
+      <Route exact path='/account/:method'>
+        <RegisterLogin {...props} />
+      </Route>
     </main>
   </>;
 };
