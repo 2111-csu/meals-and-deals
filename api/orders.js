@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getAllOrders } = require("../db");
+const { getAllOrders, createOrders } = require("../db");
 
 router.get("/orders", async (req, res, next) => {
   try {
@@ -18,6 +18,14 @@ router.get("/orders", async (req, res, next) => {
 
 //  POST /orders (*)
 // Create a new order. Should initially be status = created.
+router.post("/orders", async (req, res, next) => {
+  try {
+    const orders = await createOrders();
+    res.send(orders);
+  } catch (error) {
+    next(error);
+  }
+});
 
 //  GET /users/:userId/orders (**)
 // Get a list of orders for a particular user.
