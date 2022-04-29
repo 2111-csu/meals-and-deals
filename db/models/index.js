@@ -2,8 +2,8 @@ module.exports = {
   ...require("./users"),
   ...require("./products"),
   ...require("./orders"),
-  ...require("./products")
-  // ...require("./order_products"),
+  ...require("./products"),
+  ...require("./order_products"),
 };
 
 // add each model to your exports object here

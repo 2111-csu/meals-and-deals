@@ -73,6 +73,23 @@ const createOrders = async ({ status, userId, datePlaced }) => {
   }
 };
 
+const getOrdersById = async (id) => {
+  try {
+    const {
+      rows: [orders],
+    } = await client.query(
+      `
+    SELECT * FROM orders
+    WHERE id = $1
+    `,
+      [id]
+    );
+    return orders;
+  } catch (error) {
+    throw error;
+  }
+};
+
 module.exports = {
   getOrderById,
   getAllOrders,
