@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const Products = ({ products, getProducts, setProducts}) => {
     return <>
@@ -8,7 +8,7 @@ const Products = ({ products, getProducts, setProducts}) => {
                 <div className="singleProduct" key={product.id}>
                     <h2>{product.name}({product.price})</h2>
                     <p>{product.description}</p>
-                    <img className="productImage" src={product.imageURL}/>
+                    <img className="productImage" src={product.imageURL} alt='Product'/>
                 </div>
             );
         })}

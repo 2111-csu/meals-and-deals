@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
 
 const SingleProduct = ({ products }) => {
@@ -11,7 +11,7 @@ const SingleProduct = ({ products }) => {
             <div className="singleProduct" key={singleProduct.id}>
                     <h2>{singleProduct.name}({singleProduct.price})</h2>
                     <p>{singleProduct.description}</p>
-                    <img className="productImage" src={singleProduct.imageURL}/>
+                    <img className="productImage" src={singleProduct.imageURL} alt='Product'/>
              </div>
     </>
     }
