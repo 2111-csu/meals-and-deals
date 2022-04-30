@@ -56,7 +56,7 @@ router.post('/register', async (req, res, next) => {
         lastName,
         email,
         username,
-        password
+        password 
       });
       if (!user) {
         next({
