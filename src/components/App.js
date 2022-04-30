@@ -18,7 +18,6 @@ import {
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
-  const [users, setUsers] = useState();
   const [user, setUser] = useState();
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
