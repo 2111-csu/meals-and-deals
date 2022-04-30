@@ -66,11 +66,7 @@ router.post("/register", async (req, res, next) => {
         lastName,
         email,
         username,
-<<<<<<< HEAD
         password,
-=======
-        password 
->>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
       });
       if (!user) {
         next({

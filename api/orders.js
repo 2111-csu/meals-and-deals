@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require("express");
 const router = express.Router();
 const {
@@ -10,6 +9,7 @@ const {
   getUserByUsername,
   getCartByUser,
 } = require("../db");
+
 const { requireUser } = require("./utils");
 
 //  GET /orders (*admin)
@@ -32,8 +32,8 @@ router.get("/", async (req, res, next) => {
 // /api/orders
 router.get("/cart", async (req, res, next) => {
   try {
-    const users = await getAllUsers();
-    const user = await getUserById(users);
+    // const userId = await requireUser();
+    // const user = await getUserById(users);
     console.log("USER?", user);
     // const user = await getOrdersByUser(id);
     console.log("IS THIS AN ID?", user);
@@ -79,21 +79,3 @@ router.get("/:userId/orders", async (req, res, next) => {
 // Get a list of orders for a particular user.
 
 module.exports = router;
-=======
-const express = require('express');
-const router = express.Router();
-
-router.get('/:userId/orders',  async (req, res, next) => {
-    const {userId}= req.params;
-    try{
-      const user = await getUserByUsername(userId);
-      // the other db function to try would be getUserById(userId)
-      const order = await getCartByUser(user);
-      res.send(order);
-  }catch(error){
-      next(error);
-  }
-  });
-
-  module.exports = router;
->>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
