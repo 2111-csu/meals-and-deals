@@ -11,6 +11,7 @@ const createUser = async ({
   password,
 }) => {
   const hashPassword = await bcrypt.hash(password, SALT_COUNT);
+
   try {
     const {
       rows: [user],
@@ -62,7 +63,7 @@ async function getUserById(id) {
       [id]
     );
 
-    if (!user) return null;
+    if (!user) return 1;
 
     delete user.password;
     return user;

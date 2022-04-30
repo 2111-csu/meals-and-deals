@@ -1,5 +1,11 @@
 const client = require("./client");
-const { createProduct, createOrders, createUser, getUser, createOrderProduct } = require("./models");
+const {
+  createProduct,
+  createOrders,
+  createUser,
+  getUser,
+  createOrderProduct,
+} = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -22,8 +28,8 @@ async function buildTables() {
     await client.query(`
         CREATE TABLE users(
           id  SERIAL PRIMARY KEY,
-          firstName VARCHAR(255) UNIQUE NOT NULL,
-          lastName VARCHAR(255) UNIQUE NOT NULL,
+          firstName VARCHAR(255) NOT NULL,
+          lastName VARCHAR(255) NOT NULL,
           email VARCHAR(255) UNIQUE NOT NULL,
           "imageURL" VARCHAR(50000),
           username VARCHAR(255) UNIQUE NOT NULL,
@@ -91,7 +97,7 @@ async function populateInitialData() {
         imageURL: "image.url",
         username: "SimonSays",
         password: "ifNotn0wNever!!",
-        isAdmin: false,
+        isAdmin: true,
       },
       {
         id: 3,
@@ -183,19 +189,22 @@ async function populateInitialData() {
     console.log("Products Created: ", products);
     console.log("Finished creating products");
 
-    const orderProductsToCreate =[
-      {orderId: 1, productId: 1, price: 30, quantity: 2},
-      {orderId: 2, productId: 2, price: 30, quantity: 3},
-      {orderId: 1, productId: 3, price: 10, quantity: 3},
-      {orderId: 2, productId: 4, price: 10, quantity: 1},
-      {orderId: 3, productId: 1, price: 30, quantity: 2},
-      {orderId: 3, productId: 1, price: 30, quantity: 1},
-    ]
-      const orderProducts = await Promise.all(
-        orderProductsToCreate.map((orderProduct) => createOrderProduct(orderProduct)));
-      
-      console.log("orderProducts Created: ", orderProducts);
-      console.log("Finished creating orderProducts");
+    const orderProductsToCreate = [
+      { orderId: 1, productId: 1, price: 30, quantity: 2 },
+      { orderId: 2, productId: 2, price: 30, quantity: 3 },
+      { orderId: 1, productId: 3, price: 10, quantity: 3 },
+      { orderId: 2, productId: 4, price: 10, quantity: 1 },
+      { orderId: 3, productId: 1, price: 30, quantity: 2 },
+      { orderId: 3, productId: 1, price: 30, quantity: 1 },
+    ];
+    const orderProducts = await Promise.all(
+      orderProductsToCreate.map((orderProduct) =>
+        createOrderProduct(orderProduct)
+      )
+    );
+
+    console.log("orderProducts Created: ", orderProducts);
+    console.log("Finished creating orderProducts");
   } catch (error) {
     throw error;
   }

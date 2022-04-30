@@ -1,59 +1,5 @@
 const client = require("../client");
-
-//  getOrderById
-// getOrderById(id)
-const getOrderById = async (id) => {
-  try {
-    const { rows: order } = await client.query(
-      `
-    SELECT orders.*, order_products.id, AS "orderedProducts"
-    FROM orders
-    JOIN order_products ON order_products."productId" = orders.id
-    WHERE order_products."orderId" = $1;
-  `,
-      [id]
-    );
-
-    console.log("HERE ARE ORDERS w PRODUCTS", order);
-    return order;
-  } catch (error) {
-    throw error;
-  }
-};
-
-//  getAllOrders
-//  select and return an array of orders, include their products
-
-const getAllOrders = async () => {
-  try {
-    const { rows: orders } = await client.query(`
-        SELECT * FROM orders JOIN products ON orders.id = products.id;
-        RETURNING *
-        `);
-    console.log("ALL ORDERS W PRODUCTS", orders);
-    return [orders];
-  } catch (error) {
-    throw error;
-  }
-};
-
-//  getOrdersByUser
-// getOrdersByUser({ id })
-//  select and return an array of orders made by user, include their products
-
-//  getOrdersByProduct
-// getOrdersByProduct({ id })
-//  select and return an array of orders which have a specific productId in their order_products join, include their products
-
-//  getCartByUser
-// getCartByUser({ id }) or getCartByUser(user)
-//  select one user's order (look up by orders."userId")
-//  ...an order that that has status = created
-//  return the order, include the order's products
-
-//  createOrder
-// createOrder({ status, userId })
-//  create and return the new order
+const { attachProductsToOrders } = require("./products");
 
 const createOrders = async ({ status, userId, datePlaced }) => {
   try {
@@ -73,10 +19,10 @@ const createOrders = async ({ status, userId, datePlaced }) => {
   }
 };
 
-const getOrdersById = async (id) => {
+const getOrderById = async (id) => {
   try {
     const {
-      rows: [orders],
+      rows: [order],
     } = await client.query(
       `
     SELECT * FROM orders
@@ -84,14 +30,104 @@ const getOrdersById = async (id) => {
     `,
       [id]
     );
-    return orders;
+    return attachProductsToOrders(order);
+  } catch (error) {
+    throw error;
+  }
+};
+
+async function getAllOrders() {
+  try {
+    const { rows: orders } = await client.query(`
+    SELECT orders.*, users.username AS "creatorName"
+    FROM orders
+    JOIN users ON orders."userId" = users.id 
+    `);
+    return attachProductsToOrders(orders);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getOrdersByUser({ id }) {
+  try {
+    const user = await getUserById(id);
+    const { rows: orders } = await client.query(
+      `
+    SELECT orders.*, users.username AS "creatorName"
+    FROM orders
+    JOIN users ON orders."userId" = users.id 
+    WHERE "userId" = $1
+    `,
+      [user.id]
+    );
+    return attachProductsToOrders(orders);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getCartByUser({ id }) {
+  try {
+    const user = await getUserById(id);
+    const { rows: orders } = await client.query(
+      `
+    SELECT orders.*, users.username AS "creatorName"
+    FROM orders
+    JOIN users ON orders."userId" = users.id 
+    WHERE "userId" = $1
+    AND status = "created"
+    `,
+      [user.id]
+    );
+    return attachProductsToOrders(orders);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getOrdersByProduct({ id }) {
+  try {
+    const { rows: orders } = await client.query(
+      `
+      SELECT orders.*, users.username AS "creatorName"
+      FROM orders
+      JOIN users ON orders."userId" = users.id
+      JOIN order_products ON order_products."orderId" = orders.id
+      WHERE order_products."productId" = $1;
+    `,
+      [id]
+    );
+    return attachProductsToOrders(orders);
+  } catch (error) {
+    throw error;
+  }
+}
+
+const createOrder = async ({ status, userId }) => {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      INSERT INTO orders(status, "userId") 
+      VALUES ($1, $2)
+      RETURNING *
+    `,
+      [status, userId]
+    );
+    return order;
   } catch (error) {
     throw error;
   }
 };
 
 module.exports = {
+  createOrders,
+  createOrder,
   getOrderById,
   getAllOrders,
-  createOrders,
+  getOrdersByUser,
+  getOrdersByProduct,
+  getCartByUser,
 };

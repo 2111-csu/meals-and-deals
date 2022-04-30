@@ -19,6 +19,5 @@ const createOrderProduct = async ({ productId, orderId, price, quantity }) => {
 };
 
 module.exports = {
-    createOrderProduct,
-  };
-  
+  createOrderProduct,
+};
