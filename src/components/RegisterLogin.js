@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useParams, useHistory } from "react-router";
 import { callApi } from "../axios-services";
 
+<<<<<<< HEAD
 const RegisterLogin = ({ setToken, setUserName, setUserId }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -52,6 +53,93 @@ const RegisterLogin = ({ setToken, setUserName, setUserId }) => {
                   setUsername("");
                   setPassword("");
                   history.push("/");
+=======
+const RegisterLogin = ({ setToken, setUserName, setUserId, setUser }) => {
+    const [ firstName, setFirstName ] = useState('');
+    const [ lastName, setLastName ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ username, setUsername ] = useState('');
+    const [ password, setPassword ] = useState('');
+    const [ verPass, setVerPass ] = useState('');
+    const [ error, setError] = useState('');
+    const params = useParams();
+    const history = useHistory();
+
+    return <> 
+        <div className='form-container'>
+            <div className='login-header'>            
+                {
+                params.method === 'register' 
+                    ? <h3 className='header'>Register a New Account</h3> 
+                    : <h3 className='header'>Login To Your Account</h3>
+                }           
+            </div>
+            <form className='login-form' onSubmit={async (event) =>{
+                event.preventDefault();
+                try{ 
+                    const response = await callApi ({
+                        url: `/users/${params.method}`,
+                        method: 'POST',
+                        body: { firstName, lastName, email, username, password }                        
+                    });
+                    console.log(response)
+                    if (response.error) {
+                        setError(response.error);
+                    };
+                    if (response.token) {
+                        const { token } = response;
+                        const { user} = response;
+                        setToken(token);
+                        setUser(user)
+                        localStorage.setItem('token', token);
+                        //const user = await callApi({ url: '/users/me', token })
+                    if (user) {
+                            setUserName(user.username);
+                            localStorage.setItem('username', user.username);
+                            setUserId(user.id);
+                            localStorage.setItem('userId', user.id);
+                            setUsername('');
+                            setPassword('');
+                            history.push('/');
+                        }
+                    }
+                } catch(error) {
+                    console.error(error);
+                };                
+            }}>
+                {
+                params.method === 'register' 
+                    ? <>
+                        <fieldset className='input-fieldset'>
+                            <label>First Name </label>
+                            <input 
+                                className='input-field' 
+                                type='text'
+                                name='First Name'
+                                onChange={(event) => setFirstName(event.target.value)}
+                             />
+                        </fieldset>
+                        <fieldset className='input-fieldset'>
+                            <label>Last Name </label>
+                            <input 
+                                className='input-field' 
+                                type='text'
+                                name='Last Name'
+                                onChange={(event) => setLastName(event.target.value)}
+                             />
+                        </fieldset>
+                        <fieldset className='input-fieldset'>
+                            <label>Email </label>
+                            <input 
+                                className='input-field' 
+                                type='text'
+                                name='Email'
+                                onChange={(event) => setEmail(event.target.value)}
+                             />
+                        </fieldset>
+                    </>
+                    : null
+>>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
                 }
               }
             } catch (error) {

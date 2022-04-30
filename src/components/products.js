@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Products = ({ products, getProducts, setProducts }) => {
   return (
@@ -7,9 +8,11 @@ const Products = ({ products, getProducts, setProducts }) => {
       {products.map((product) => {
         return (
           <div className="singleProduct" key={product.id}>
-            <h2>
-              {product.name}({product.price})
-            </h2>
+            <Link to={`/products/${product.id}`}>
+              <h2>
+                {product.name}({product.price})
+              </h2>
+            </Link>
             <p>{product.description}</p>
             <img
               className="productImage"

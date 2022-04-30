@@ -11,3 +11,19 @@
   color: var(--green);
   padding: 1rem;
 }
+
+.nav-link {
+  color: #ffffff;
+  background-color: #67788b;
+  margin-left: 1px;
+  margin-right: 1px;
+  text-decoration: none;
+  font-size: 21px;
+  border-left: 1px solid #67788b;
+  border-top: 1px solid #67788b;
+  border-right: 1px solid #67788b;
+  padding-left: 4px;
+  padding-right: 4px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}

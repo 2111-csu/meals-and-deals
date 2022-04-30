@@ -4,15 +4,35 @@ import { useHistory } from "react-router";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
+<<<<<<< HEAD
 import { getAPIHealth, getProducts } from "../axios-services";
 import "../style/App.css";
 import { Products, SingleProduct, RegisterLogin, Home } from "./";
+=======
+import { getAPIHealth, getProducts } from '../axios-services';
+import '../style/App.css';
+import {
+  Products,
+  SingleProduct,
+  RegisterLogin,
+  Home,
+  Account, 
+  Cart
+} from './';
+>>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
+<<<<<<< HEAD
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
+=======
+  const [users, setUsers] = useState()
+  const [user, setUser] = useState()
+  const [token, setToken] = useState('');
+  const [userName, setUserName] = useState('');
+>>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
   const [userId, setUserId] = useState(Number);
 
   const history = useHistory();
@@ -58,6 +78,7 @@ const App = () => {
     setToken,
     userName,
     setUserName,
+<<<<<<< HEAD
     userId,
     setUserId,
   };
@@ -108,6 +129,59 @@ const App = () => {
       </main>
     </>
   );
+=======
+    userId, 
+    setUserId,
+    user,
+    setUser
+  }
+
+  return <>
+    <header>
+      <div className="app-container">
+        <h1>Hello, World!</h1>
+        <p>API Status: {APIHealth}</p>
+      </div>
+      <Link to='/products' className='nav-link'>Meals</Link>
+      <Link to='/' className='nav-link'>Home</Link>
+      <Link to='/cart' className='nav-link'>Your Cart</Link>
+      {
+          token
+            ? <>
+              <Link to='/account' className='nav-link'>Account</Link>
+              <button className='logout' onClick={() => {
+              localStorage.removeItem('token');
+              localStorage.removeItem('username');
+              localStorage.removeItem('userId');
+              setUserName('');
+              setToken('');
+              history.push('/');
+            }}>Logout</button> </>
+            : <Link to='/account/login' className='nav-link'>Sign In</Link>
+        }
+    </header>
+    <main>
+      <Route exact path='/'>
+        <Home {...props} />
+      </Route>
+      <Route exact path='/products'>
+        <Products {...props} />
+      </Route>
+      <Route exact path='/products/:productId'>
+        <SingleProduct {...props} />
+      </Route>
+      <Route exact path='/account/:method'>
+        <RegisterLogin {...props} />
+      </Route>
+      <Route exact path='/account'>
+        <Account {...props} />
+      </Route>
+      <Route exact path='/cart'>
+        <Cart {...props} />
+      </Route>
+    </main>
+  </>;
+>>>>>>> d9ebd3d1d7c42e9dcb396f08ce2d4bac41947f45
 };
 
 export default App;
