@@ -10,6 +10,7 @@ import axios from 'axios';
 const { REACT_API_URL = 'http://localhost:4000/api' } = process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
+  console.log("url", url)
   try {
     const options = {
         method: method.toUpperCase(),
@@ -18,7 +19,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
         },
         data: body,
     };
-
+    console.log('options', options)
     if (token) {
         options.headers['Authorization'] = `Bearer ${token}`;
     }

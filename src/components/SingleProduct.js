@@ -12,6 +12,7 @@ const SingleProduct = ({ products }) => {
                     <h2>{singleProduct.name}({singleProduct.price})</h2>
                     <p>{singleProduct.description}</p>
                     <img className="productImage" src={singleProduct.imageURL} alt='Product'/>
+                    <button>Add to Cart</button>
              </div>
     </>
     }

@@ -10,13 +10,16 @@ import {
   Products,
   SingleProduct,
   RegisterLogin,
-  Home
+  Home,
+  Account, 
+  Cart
 } from './';
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState()
+  const [user, setUser] = useState()
   const [token, setToken] = useState('');
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState(Number);
@@ -66,7 +69,9 @@ const App = () => {
     userName, 
     setUserName,
     userId, 
-    setUserId
+    setUserId,
+    user,
+    setUser
   }
 
   return <>
@@ -76,21 +81,25 @@ const App = () => {
         <p>API Status: {APIHealth}</p>
       </div>
       <Link to='/products' className='nav-link'>Meals</Link>
+      <Link to='/' className='nav-link'>Home</Link>
+      <Link to='/cart' className='nav-link'>Your Cart</Link>
       {
           token
-            ? <button className='logout' onClick={() => {
+            ? <>
+              <Link to='/account' className='nav-link'>Account</Link>
+              <button className='logout' onClick={() => {
               localStorage.removeItem('token');
               localStorage.removeItem('username');
               localStorage.removeItem('userId');
               setUserName('');
               setToken('');
               history.push('/');
-            }}>Logout</button>
+            }}>Logout</button> </>
             : <Link to='/account/login' className='nav-link'>Sign In</Link>
         }
     </header>
     <main>
-    <Route exact path='/'>
+      <Route exact path='/'>
         <Home {...props} />
       </Route>
       <Route exact path='/products'>
@@ -101,6 +110,12 @@ const App = () => {
       </Route>
       <Route exact path='/account/:method'>
         <RegisterLogin {...props} />
+      </Route>
+      <Route exact path='/account'>
+        <Account {...props} />
+      </Route>
+      <Route exact path='/cart'>
+        <Cart {...props} />
       </Route>
     </main>
   </>;

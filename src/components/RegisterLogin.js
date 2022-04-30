@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams, useHistory } from 'react-router';
 import { callApi } from '../axios-services';
 
-const RegisterLogin = ({ setToken, setUserName, setUserId }) => {
+const RegisterLogin = ({ setToken, setUserName, setUserId, setUser }) => {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -37,11 +37,12 @@ const RegisterLogin = ({ setToken, setUserName, setUserId }) => {
                     };
                     if (response.token) {
                         const { token } = response;
+                        const { user} = response;
                         setToken(token);
-                        const { user } = response
+                        setUser(user)
                         localStorage.setItem('token', token);
-                       // const user = await callApi({ url: '/users/me', })
-                        if (user) {
+                        //const user = await callApi({ url: '/users/me', token })
+                    if (user) {
                             setUserName(user.username);
                             localStorage.setItem('username', user.username);
                             setUserId(user.id);
