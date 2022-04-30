@@ -18,7 +18,7 @@ import {
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState([]);
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(Number);
@@ -57,7 +57,7 @@ const App = () => {
     if (matchedUserId) {
       setUserId(matchedUserId);
     }
-  });
+  }, []);
 
   const props = {
     products,
