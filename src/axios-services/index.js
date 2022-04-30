@@ -40,15 +40,14 @@ export async function getUsers() {
   }
 }
 
-/*export async function getProducts() {
+export async function getOrders() {
   try {
-    const { data: products } = await axios.get('/api/products')
-    return products;
-  } catch(err) {
-    console.error(err)
+    const { data: orders } = await axios.get("/api/orders");
+    return orders;
+  } catch (err) {
+    console.error(err);
   }
-}*/
-
+}
 export async function getProducts() {
   try {
     const products = await callApi({ url: "/products" });

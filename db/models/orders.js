@@ -1,5 +1,6 @@
 const client = require("../client");
 const { attachProductsToOrders } = require("./products");
+const { getUserById } = require("./users");
 
 const createOrders = async ({ status, userId, datePlaced }) => {
   try {
@@ -76,7 +77,7 @@ async function getCartByUser({ id }) {
     FROM orders
     JOIN users ON orders."userId" = users.id 
     WHERE "userId" = $1
-    AND status = "created"
+    AND status = 'created'
     `,
       [user.id]
     );
