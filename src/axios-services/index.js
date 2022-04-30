@@ -34,7 +34,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
    
   export async function getUsers() {
      try {
-       const { data: users } = await axios.get('/api/users')
+       const users = await callApi({url: '/users'})
        return users;
     } catch(err) {
       console.error(err)

@@ -82,6 +82,16 @@ router.get('/me', requireUser, async (req, res, next) => {
   }
 })
 
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const { userId } = req.params
+    const user = await getUserById(userId)
+  res.send(user)
+  }catch (error) {
+    next(error);
+  }
+})
+
 router.get("/", async (req, res, next) => {
   try {
     const users = await getAllUsers();

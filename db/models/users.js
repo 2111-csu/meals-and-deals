@@ -71,12 +71,11 @@ async function getUserById(id) {
 
 async function getAllUsers() {
     try {
-      const { rows: [user] } = await client.query(`
-          SELECT * FROM users;
+      const { rows } = await client.query(`
+          SELECT id, firstName, lastName, email, username, "imageURL" 
+          FROM users;
         `);
-
-      delete user.password;
-      return user;
+      return rows;
     } catch (error) {
       throw error;
     }
