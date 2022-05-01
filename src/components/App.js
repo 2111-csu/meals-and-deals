@@ -18,8 +18,7 @@ import {
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
-  const [users, setUsers] = useState()
-  const [user, setUser] = useState()
+  const [user, setUser] = useState({})
   const [token, setToken] = useState('');
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState(Number);
@@ -50,6 +49,8 @@ const App = () => {
     const matchedToken = localStorage.getItem('token');
     const matchedUsername = localStorage.getItem('username');
     const matchedUserId = localStorage.getItem('userId');
+    const matchedUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(matchedUser)
     if (matchedToken) {
       setToken(matchedToken);
     };
@@ -59,7 +60,10 @@ const App = () => {
     if (matchedUserId) {
       setUserId(matchedUserId);
     }
-  })
+    if (parsedUser) {
+      setUser(parsedUser);
+    }
+  }, [])
 
   const props = { 
     products, 
@@ -91,6 +95,7 @@ const App = () => {
               localStorage.removeItem('token');
               localStorage.removeItem('username');
               localStorage.removeItem('userId');
+              localStorage.removeItem('user');
               setUserName('');
               setToken('');
               history.push('/');
