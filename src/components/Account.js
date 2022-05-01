@@ -1,7 +1,6 @@
 import React from "react";
 const Account = ({user}) => {
-   console.log(user)
-    return <>
+   return <>
         <div>
         <h1>Account Info</h1>
         <h1>{user.username}</h1>

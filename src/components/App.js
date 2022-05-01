@@ -51,9 +51,6 @@ const App = () => {
     const matchedUserId = localStorage.getItem('userId');
     const matchedUser = localStorage.getItem('user');
     const parsedUser = JSON.parse(matchedUser)
-    console.log(parsedUser)
-    console.log(matchedUser)
-    console.log(localStorage)
     if (matchedToken) {
       setToken(matchedToken);
     };
