@@ -130,13 +130,13 @@ async function updateOrder({id, ...fields}) {
 
   async function completeOrder({id}){
     try{
-        const {rows} = await client.query(`
+        const {rows : [order]} = await client.query(`
         UPDATE orders
         SET orders.status = 'completed'
-        WHERE id = $1
+        WHERE id = ${id}
         RETURNING *;
-        `, [id])
-        return rows
+        `);
+        return order
      }catch (error) {
          throw error;
      };
@@ -146,10 +146,10 @@ async function cancelOrder(id){
   try{
       const {rows: [order]} = await client.query(`
       UPDATE orders
-      SET name = $2, description = $3
-      WHERE id = $1
+      SET status = 'cancelled'
+      WHERE id = ${id}
       RETURNING *;
-      `, [id])
+      `);
       return order
    }catch (error) {
        throw error;
