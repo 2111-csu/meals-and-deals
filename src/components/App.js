@@ -119,9 +119,9 @@ const App = () => {
       <Route exact path='/cart'>
         <Cart {...props} />  
       </Route>
-      {/* <Route exact path='/cart'>
+      <Route exact path='/users'>
         <Users {...props} />
-      </Route> */}
+      </Route>
     </main>
   </>;
 };
