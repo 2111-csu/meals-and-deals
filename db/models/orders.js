@@ -109,6 +109,25 @@ const createOrder = async ({ status, userId }) => {
   }
 };
 
+async function updateOrder({id, ...fields}) {   
+  const setString = Object.keys(fields).map(
+      (key, index) => `"${ key }" =$${index + 1}`
+  ).join(', ');
+
+  try {
+    const { rows: [order] } = await client.query(`
+    UPDATE orders
+    SET ${ setString }
+    WHERE id=${ id }
+    RETURNING *;
+    `, Object.values(fields));
+    
+    return order;
+  } catch (error) {
+    throw error;
+  };
+  };
+
 module.exports = {
   createOrders,
   createOrder,
@@ -116,5 +135,6 @@ module.exports = {
   getAllOrders,
   getOrdersByUser,
   getOrdersByProduct,
-  getCartByUser
+  getCartByUser,
+  updateOrder
 };
