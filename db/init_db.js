@@ -1,5 +1,5 @@
 const client = require("./client");
-const { createProduct, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser } = require("./models");
+const { createProduct, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser, getOrderProductById } = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -224,6 +224,10 @@ async function testDB() {
     console.log("Calling getUserById with 2");
     const simone = await getUserById(2);
     console.log("Result:", simone);
+
+    console.log("Calling getOrderProductById with 2");
+    const getOrderProductSimone = await getOrderProductById(2);
+    console.log("Result:", getOrderProductSimone);
 
     console.log("Calling getUserByUsername with 1");
     const simone1 = await getUserByUsername(1);
