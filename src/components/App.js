@@ -9,7 +9,8 @@ import {
   RegisterLogin,
   Home,
   Account, 
-  Cart
+  Cart,
+  Users
 } from './';
 
 const App = () => {

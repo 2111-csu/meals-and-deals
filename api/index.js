@@ -4,11 +4,6 @@ const { getUserById } = require('../db');
 const client = require('../db/client');
 const { JWT_SECRET = 'soSecret' } = process.env;
 
-// apiRouter.get("/", (req, res, next) => {
-//   res.send({
-//     message: "API is under construction!",
-//   });
-// });
 
 apiRouter.get("/health", (req, res, next) => {
   res.send({
@@ -52,6 +47,11 @@ apiRouter.use((req, res, next) => {
   next();
 });
 
+apiRouter.get("/", (req, res, next) => {
+  res.send({
+    message: "API is under construction!",
+  });
+});
 
 // const orderProductsRouter = require('./orderProducts');
  //apiRouter.use('/order_products', orderProductsRouter);
