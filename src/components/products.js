@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { callApi } from '../axios-services';
 
 const Products = ({ products, getProducts, setProducts}) => {
+    useEffect (() => {
+        const getProducts = async () => {
+            const products= await callApi({url: '/products'})
+            setProducts(products);
+        };
+        getProducts();
+    }, [])
+  
     return <>
-        <h1>Meals-And-Deals Product Listings</h1>
+        {/* <h1>Meals-And-Deals Product Listings</h1> */}
         {products.map((product) => {
             return (
                 <div className="singleProduct" key={product.id}>

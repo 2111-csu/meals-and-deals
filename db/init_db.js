@@ -1,5 +1,5 @@
 const client = require("./client");
-const { createProduct, createOrders, createUser, getUser, createOrderProduct } = require("./models");
+const { createProduct, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser } = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -201,8 +201,47 @@ async function populateInitialData() {
   }
 }
 
+async function testDB() {
+  try{
+    console.log("Starting to test database...");
+
+    console.log("Calling getAllUsers");
+    const users1 = await getAllUsers();
+    console.log("Result:", users1);
+
+    console.log("Calling getAllProducts");
+    const products1 = await getAllProducts();
+    console.log("Result:", products1);
+
+    console.log("Calling getAllOrders");
+    const orders1 = await getAllOrders();
+    console.log("Result:", orders1);
+
+    console.log("Calling getProductById with 1");
+    const productsId = await getProductById(1);
+    console.log("Result:", productsId);
+
+    console.log("Calling getUserById with 2");
+    const simone = await getUserById(2);
+    console.log("Result:", simone);
+
+    console.log("Calling getUserByUsername with 1");
+    const simone1 = await getUserByUsername(1);
+    console.log("Result:", simone1);
+
+    console.log("Calling getCartByUser with 1");
+    const simone2 = await getCartByUser(1);
+    console.log("Result:", simone2);
+
+    console.log("Finished database tests");
+  } catch (error) {
+    console.log("Error during testDB");
+  }  
+}
+
 buildTables()
   .then(populateInitialData)
+  .then(testDB)
   .catch(console.error)
   .finally(() => client.end());
 

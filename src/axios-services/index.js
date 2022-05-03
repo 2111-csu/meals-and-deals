@@ -31,14 +31,14 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
 }
 };
    
-  export async function getUsers() {
-     try {
-       const users = await callApi({url: '/users'})
-       return users;
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  // export async function getUsers() {
+  //    try {
+  //      const users = await callApi({url: '/users'})
+  //      return users;
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 
 /*export async function getProducts() {
   try {
@@ -49,14 +49,14 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
   }
 }*/
 
-export async function getProducts() {
-  try {
-    const products = await callApi({url: '/products'})
-    return products;
-  } catch(err) {
-    console.error(err)
-  }
-}
+// export async function getProducts() {
+//   try {
+//     const products = await callApi({url: '/products'})
+//     return products;
+//   } catch(err) {
+//     console.error(err)
+//   }
+// }
 
 export async function getAPIHealth() {
   try {
