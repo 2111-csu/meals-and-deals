@@ -62,7 +62,9 @@ async function getOrdersByUser({ id }) {
     `,
       [user.id]
     );
-    return attachProductsToOrders(orders);
+    if (user.id === id) {
+      return attachProductsToOrders(orders);
+    }
   } catch (error) {
     throw error;
   }

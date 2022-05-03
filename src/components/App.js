@@ -23,7 +23,7 @@ const App = () => {
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(Number);
-  const [orders, setOrders] = useState([]);
+  // const [orders, setOrders] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -79,8 +79,8 @@ const App = () => {
     setUserId,
     user,
     setUser,
-    orders,
-    setOrders,
+    // orders,
+    // setOrders,
     getOrdersByUser,
   };
 
@@ -147,11 +147,11 @@ const App = () => {
         </Route>
         <Route path="/orders">
           <Orders
-            orders={orders}
+            // orders={orders}
             getOrdersByUser={getOrdersByUser}
-            setOrders={setOrders}
+            // setOrders={setOrders}
             userName={userName}
-            token={token}
+            // token={token}
             userId={userId}
           />
         </Route>

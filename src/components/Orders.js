@@ -1,14 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-const Orders = ({
-  orders,
-  setOrders,
-  userId,
-  getOrdersByUser,
-  userName,
-  token,
-}) => {
-  console.log(orders, "HERE ARE ORDERS");
+const Orders = ({ userId, getOrdersByUser, userName }) => {
+  const [orders, setOrders] = useState([]);
   console.log("I AM USER", userName);
   console.log("USERs ID", userId);
   useEffect(() => {
@@ -17,12 +10,13 @@ const Orders = ({
       setOrders(fetchedOrders);
     };
 
-    fetchOrdersByUser(userId);
+    fetchOrdersByUser({ userId });
   }, []);
-
+  console.log(orders, "fetched");
   return (
     <>
       <h1>{userName}'s Orders</h1>
+
       {orders.map((order) => {
         return (
           <div className="orderLog" key={order.id}>
