@@ -1,12 +1,17 @@
 import React from "react";
-const Account = ({userId}) => {
-   
-    return <>
-        <div>
+const Account = ({ user }) => {
+  return (
+    <>
+      <div>
         <h1>Account Info</h1>
-        <h1>{userId}</h1>
-        </div>
-    </>;
+        <h1>{user.username}</h1>
+        <h2>
+          {user.firstname} {user.lastname}
+        </h2>
+        <h2>{user.email}</h2>
+      </div>
+    </>
+  );
 };
 
-export default Account
+export default Account;

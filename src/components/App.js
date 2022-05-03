@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 // getAPIHealth is defined in our axios-services directory index.js
 // you can think of that directory as a collection of api adapters
 // where each adapter fetches specific info from our express server's /api route
-import { getAPIHealth, getProducts } from "../axios-services";
+import { getAPIHealth, getProducts, getOrdersByUser } from "../axios-services";
 import "../style/App.css";
 import {
   Products,
@@ -13,16 +13,17 @@ import {
   Home,
   Account,
   Cart,
+  Orders,
 } from "./";
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState({});
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(Number);
-
+  const [orders, setOrders] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
@@ -40,6 +41,9 @@ const App = () => {
 
     // second, after you've defined your getter above
     // invoke it immediately after its declaration, inside the useEffect callback
+
+    // second, after you've defined your getter above
+    // invoke it immediately after its declaration, inside the useEffect callback
     getAPIStatus();
     fetchProducts();
   }, []);
@@ -48,6 +52,8 @@ const App = () => {
     const matchedToken = localStorage.getItem("token");
     const matchedUsername = localStorage.getItem("username");
     const matchedUserId = localStorage.getItem("userId");
+    const matchedUser = localStorage.getItem("user");
+    const parsedUser = JSON.parse(matchedUser);
     if (matchedToken) {
       setToken(matchedToken);
     }
@@ -56,6 +62,9 @@ const App = () => {
     }
     if (matchedUserId) {
       setUserId(matchedUserId);
+    }
+    if (parsedUser) {
+      setUser(parsedUser);
     }
   }, []);
 
@@ -70,6 +79,9 @@ const App = () => {
     setUserId,
     user,
     setUser,
+    orders,
+    setOrders,
+    getOrdersByUser,
   };
 
   return (
@@ -99,6 +111,7 @@ const App = () => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
                 localStorage.removeItem("userId");
+                localStorage.removeItem("user");
                 setUserName("");
                 setToken("");
                 history.push("/");
@@ -131,6 +144,16 @@ const App = () => {
         </Route>
         <Route exact path="/cart">
           <Cart {...props} />
+        </Route>
+        <Route path="/orders">
+          <Orders
+            orders={orders}
+            getOrdersByUser={getOrdersByUser}
+            setOrders={setOrders}
+            userName={userName}
+            token={token}
+            userId={userId}
+          />
         </Route>
       </main>
     </>

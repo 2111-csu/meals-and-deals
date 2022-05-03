@@ -125,6 +125,16 @@ async function populateInitialData() {
       },
       {
         status: "created",
+        userId: 1,
+        datePlaced: "04 / 21 / 2022",
+      },
+      {
+        status: "created",
+        userId: 1,
+        datePlaced: "04 / 21 / 2022",
+      },
+      {
+        status: "created",
         userId: 2,
         datePlaced: "04 / 22 / 2022",
       },
@@ -194,8 +204,8 @@ async function populateInitialData() {
       { orderId: 2, productId: 2, price: 30, quantity: 3 },
       { orderId: 1, productId: 3, price: 10, quantity: 3 },
       { orderId: 2, productId: 4, price: 10, quantity: 1 },
-      { orderId: 3, productId: 1, price: 30, quantity: 2 },
-      { orderId: 3, productId: 1, price: 30, quantity: 1 },
+      { orderId: 3, productId: 4, price: 10, quantity: 2 },
+      { orderId: 3, productId: 2, price: 30, quantity: 1 },
     ];
     const orderProducts = await Promise.all(
       orderProductsToCreate.map((orderProduct) =>

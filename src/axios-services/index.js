@@ -10,7 +10,6 @@ import axios from "axios";
 const { REACT_API_URL = "http://localhost:4000/api" } = process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
-  console.log("url", url)
   try {
     const options = {
       method: method.toUpperCase(),
@@ -19,7 +18,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
       },
       data: body,
     };
-    console.log('options', options)
+
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -34,25 +33,26 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
 
 export async function getUsers() {
   try {
-    const { data: users } = await axios.get("/api/users");
+    const users = await callApi({ url: "/users" });
     return users;
   } catch (err) {
     console.error(err);
   }
 }
 
-export async function getOrders() {
+export async function getProducts() {
   try {
-    const { data: orders } = await axios.get("/api/orders");
-    return orders;
+    const { data: products } = await axios.get("/api/products");
+    return products;
   } catch (err) {
     console.error(err);
   }
 }
-export async function getProducts() {
+
+export async function getOrdersByUser() {
   try {
-    const products = await callApi({ url: "/products" });
-    return products;
+    const { data: orders } = await await axios.get("/api/orders");
+    return orders;
   } catch (err) {
     console.error(err);
   }

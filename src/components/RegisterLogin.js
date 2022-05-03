@@ -44,6 +44,8 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser }) => {
                 setToken(token);
                 setUser(user);
                 localStorage.setItem("token", token);
+                console.log(user);
+                localStorage.setItem("user", JSON.stringify(user));
                 //const user = await callApi({ url: '/users/me', token })
                 if (user) {
                   setUserName(user.username);

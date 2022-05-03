@@ -19,7 +19,7 @@ const createUser = async ({
     } = await client.query(
       `
       INSERT INTO users (firstName, lastName , email, username, password, "isAdmin")
-      VALUES ($1, $2, $3, $4, $5 $6)
+      VALUES ($1, $2, $3, $4, $5, $6)
       ON CONFLICT (username) DO NOTHING
       RETURNING *
     `,
@@ -75,14 +75,11 @@ async function getUserById(id) {
 
 async function getAllUsers() {
   try {
-    const {
-      rows: [user],
-    } = await client.query(`
-          SELECT * FROM users;
+    const { rows } = await client.query(`
+          SELECT id, firstName, lastName, email, username, "imageURL" 
+          FROM users;
         `);
-
-    delete user.password;
-    return user;
+    return rows;
   } catch (error) {
     throw error;
   }
