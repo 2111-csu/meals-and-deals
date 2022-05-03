@@ -128,6 +128,35 @@ async function updateOrder({id, ...fields}) {
   };
   };
 
+  async function completeOrder({id}){
+    try{
+        const {rows} = await client.query(`
+        UPDATE orders
+        SET orders.status = 'completed'
+        WHERE id = $1
+        RETURNING *;
+        `, [id])
+        return rows
+     }catch (error) {
+         throw error;
+     };
+};
+
+async function cancelOrder(id){
+  try{
+      const {rows: [order]} = await client.query(`
+      UPDATE orders
+      SET name = $2, description = $3
+      WHERE id = $1
+      RETURNING *;
+      `, [id])
+      return order
+   }catch (error) {
+       throw error;
+   };
+};
+
+
 module.exports = {
   createOrders,
   createOrder,
@@ -136,5 +165,7 @@ module.exports = {
   getOrdersByUser,
   getOrdersByProduct,
   getCartByUser,
-  updateOrder
+  updateOrder,
+  completeOrder,
+  cancelOrder
 };
