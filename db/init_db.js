@@ -1,5 +1,5 @@
 const client = require("./client");
-const { createProduct, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser } = require("./models");
+const { createProduct, completeOrder, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser, getOrderProductById } = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -225,13 +225,21 @@ async function testDB() {
     const simone = await getUserById(2);
     console.log("Result:", simone);
 
+    console.log("Calling getOrderProductById with 2");
+    const getOrderProductSimone = await getOrderProductById(2);
+    console.log("Result:", getOrderProductSimone);
+
     console.log("Calling getUserByUsername with 1");
-    const simone1 = await getUserByUsername(1);
+    const simone1 = await getUserByUsername("77LLQueen");
     console.log("Result:", simone1);
 
     console.log("Calling getCartByUser with 1");
     const simone2 = await getCartByUser(1);
     console.log("Result:", simone2);
+
+    console.log("Calling completeOrder with 2");
+    const simoneOrder = await completeOrder(2);
+    console.log("Result:", simoneOrder);
 
     console.log("Finished database tests");
   } catch (error) {

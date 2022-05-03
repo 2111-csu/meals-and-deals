@@ -82,19 +82,14 @@ async function getAllUsers() {
   }
 
 async function getUserByUsername(username) {
-  
   try {
     const {rows} = await client.query(`
       SELECT *
       FROM users
       WHERE username = $1;
     `, [username]);
-    
-    if (!rows || !rows.length) return null;
-   
-    const [user] = rows;
-  
-    return user;
+
+    return rows;
   } catch (error) {
     console.error(error)
   }
