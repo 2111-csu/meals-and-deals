@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Products = ({ products, getProducts, setProducts}) => {
     return <>
-        {/* <h1>Meals-And-Deals Product Listings</h1> */}
+        <h1>Meals-And-Deals Product Listings</h1>
         {products.map((product) => {
             return (
                 <div className="singleProduct" key={product.id}>
