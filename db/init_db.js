@@ -225,12 +225,12 @@ async function testDB() {
     const simone = await getUserById(2);
     console.log("Result:", simone);
 
-    console.log("Calling getUserByUsername with 2");
-    const simone1 = await getUserByUsermane(2);
+    console.log("Calling getUserByUsername with 1");
+    const simone1 = await getUserByUsername(1);
     console.log("Result:", simone1);
 
     console.log("Calling getCartByUser with 1");
-    const simone2 = await getUserByUsermane(1);
+    const simone2 = await getCartByUser(1);
     console.log("Result:", simone2);
 
     console.log("Finished database tests");

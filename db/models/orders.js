@@ -59,20 +59,22 @@ async function getOrdersByUser({id}) {
   }
 }
 
+
 async function getCartByUser(userId) {
   try {
     const { rows: orders } = await client.query(`
     SELECT orders.*, users.username AS "creatorName"
     FROM orders
-    JOIN users ON orders."userId" = users.id 
+    JOIN users ON orders."userId" = users.id
     WHERE "userId" = $1
-    AND status = "created"
+    AND orders.status = 'created'
     `, [userId]);
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error
   }
 }
+
 
 async function getOrdersByProduct({id}) {
   try {
