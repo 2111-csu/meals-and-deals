@@ -1,6 +1,6 @@
 const client = require("../client");
 const { attachProductsToOrders } = require("./products");
-const { getUserById } = require("./users");
+const { getUserById, getUserByUsername } = require("./users");
 
 const createOrders = async ({ status, userId, datePlaced }) => {
   try {
@@ -50,25 +50,43 @@ async function getAllOrders() {
   }
 }
 
-async function getOrdersByUser({ id }) {
+async function getOrdersByUser(id) {
   try {
     const user = await getUserById(id);
     const { rows: orders } = await client.query(
       `
     SELECT orders.*, users.username AS "creatorName"
     FROM orders
-    JOIN users ON orders."userId" = users.id 
+    JOIN users ON orders."userId" = users.id
     WHERE "userId" = $1
     `,
       [user.id]
     );
-    if (user.id === id) {
-      return attachProductsToOrders(orders);
-    }
+    //removed attchProd. and changed to orders so that orders would only show for that userID, have not checked on products
+    // return attachProductsToOrders(orders);
+    return orders;
   } catch (error) {
     throw error;
   }
 }
+
+// async function getOrdersByUser({ username }) {
+//   try {
+//     const user = await getUserByUsername(username);
+//     const { rows: orders } = await client.query(
+//       `
+//     SELECT orders.*, users.username AS "creatorName"
+//     FROM orders
+//     JOIN users ON orders."userId" = users.id
+//     WHERE "userId" = $1
+//     `,
+//       [user.id]
+//     );
+//     // return attachProductsToOrders(orders);
+//   } catch (error) {
+//     throw error;
+//   }
+// }
 
 async function getCartByUser(userId) {
   try {
@@ -124,6 +142,66 @@ const createOrder = async ({ status, userId }) => {
   }
 };
 
+async function updateOrder({ id, ...fields }) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}" =$${index + 1}`)
+    .join(", ");
+
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+    UPDATE orders
+    SET ${setString}
+    WHERE id=${id}
+    RETURNING *;
+    `,
+      Object.values(fields)
+    );
+
+    return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function completeOrder({ id }) {
+  try {
+    const { rows } = await client.query(
+      `
+        UPDATE orders
+        SET orders.status = 'completed'
+        WHERE id = $1
+        RETURNING *;
+        `,
+      [id]
+    );
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function cancelOrder(id) {
+  try {
+    const {
+      rows: [order],
+    } = await client.query(
+      `
+      UPDATE orders
+      SET name = $2, description = $3
+      WHERE id = $1
+      RETURNING *;
+      `,
+      [id]
+    );
+    return order;
+  } catch (error) {
+    throw error;
+  }
+}
+
 module.exports = {
   createOrders,
   createOrder,
@@ -132,4 +210,7 @@ module.exports = {
   getOrdersByUser,
   getOrdersByProduct,
   getCartByUser,
+  updateOrder,
+  completeOrder,
+  cancelOrder,
 };

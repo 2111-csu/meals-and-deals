@@ -31,6 +31,15 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
   }
 };
 
+// export async function getUsers() {
+//    try {
+//      const users = await callApi({url: '/users'})
+//      return users;
+//   } catch(err) {
+//     console.error(err)
+//   }
+// }
+
 export async function getUsers() {
   try {
     const users = await callApi({ url: "/users" });
@@ -48,6 +57,15 @@ export async function getProducts() {
     console.error(err);
   }
 }
+
+// export async function getOrderProductById() {
+//   try {
+//     const { data: orders } = await await axios.get("/api/orders");
+//     return orders;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 export async function getOrdersByUser() {
   try {

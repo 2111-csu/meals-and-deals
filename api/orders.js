@@ -1,5 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
+const { requireUser } = require("./utils");
+const client = require("../db/client");
+const { JWT_SECRET = "soSecret" } = process.env;
+
 const {
   getAllOrders,
   createOrders,
@@ -10,24 +15,16 @@ const {
   getCartByUser,
 } = require("../db");
 
-const { requireUser } = require("./utils");
-
-//  GET /orders (*admin)
-// Return a list of orders, include the products with them
-
-// GET /api/orders
+// GET /orders (*admin)
 router.get("/", async (req, res, next) => {
   try {
     const orders = await getAllOrders();
-    ////need to add isAdmin from user
+    //need to add isAdmin for user
     res.send(orders);
   } catch (error) {
     next(error);
   }
 });
-
-//  GET /orders/cart (*)
-// Return the current user's order with status='created' (synonymous to a 'cart'). Use database adapter getCartByUser
 
 // /api/orders
 router.get("/cart", async (req, res, next) => {
@@ -47,7 +44,6 @@ router.get("/cart", async (req, res, next) => {
 
 //  POST /orders (*)
 // Create a new order. Should initially be status = created.
-
 router.post("/", async (req, res, next) => {
   try {
     const { status, userId, dateplaced, creatorName, products } = req.body;
@@ -64,10 +60,9 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-//  GET /users/:userId/orders (**)
-
 router.get("/:userId/orders", async (req, res, next) => {
   try {
+    const { userId } = req.params;
     const user = await getUserByUsername(userId);
     // the other db function to try would be getUserById(userId)
     const order = await getCartByUser(user);
@@ -76,6 +71,5 @@ router.get("/:userId/orders", async (req, res, next) => {
     next(error);
   }
 });
-// Get a list of orders for a particular user.
 
 module.exports = router;
