@@ -88,9 +88,13 @@ async function getUserByUsername(username) {
       FROM users
       WHERE username = $1;
     `, [username]);
+
     
     const [user] = rows;
+ 
+
     return user;
+
   } catch (error) {
     console.error(error)
   }

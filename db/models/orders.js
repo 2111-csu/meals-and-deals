@@ -59,6 +59,7 @@ async function getOrdersByUser({id}) {
   }
 }
 
+
 async function getCartByUser(userId) {
   try {
     const { rows: orders } = await client.query(`
@@ -72,6 +73,7 @@ async function getCartByUser(userId) {
   } catch (error) {
     throw error
   }};
+
 
 
 async function getOrdersByProduct({id}) {

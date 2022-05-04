@@ -27,6 +27,7 @@ router.get ("/", async (req, res, next) => {
 });
   
 // /api/orders
+
 router.get("/cart", requireUser, async (req, res, next) => {
   const {id} = req.user
   try {
@@ -36,6 +37,7 @@ router.get("/cart", requireUser, async (req, res, next) => {
     next(error);
   }
 });
+
   
   //  POST /orders (*)
   // Create a new order. Should initially be status = created.
