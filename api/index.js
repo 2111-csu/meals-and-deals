@@ -11,7 +11,11 @@ apiRouter.get("/health", (req, res, next) => {
   });
 });
 
+
+
+
 // set `req.user` if possible
+
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');

@@ -72,8 +72,8 @@ async function getCartByUser(userId) {
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error
-  }
-}
+  }};
+
 
 
 async function getOrdersByProduct({id}) {

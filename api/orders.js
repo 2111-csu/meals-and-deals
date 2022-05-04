@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { requireUser } = require("./utils");
@@ -27,20 +27,17 @@ router.get ("/", async (req, res, next) => {
 });
   
 // /api/orders
-router.get("/cart", async (req, res, next) => {
-    try {
-      // const userId = await requireUser();
-      // const user = await getUserById(users);
-      console.log("USER?", user);
-      // const user = await getOrdersByUser(id);
-      console.log("IS THIS AN ID?", user);
-      const cart = await getCartByUser(user);
-      console.log("IS THIS A CART?", cart);
-      res.send(cart);
-    } catch (error) {
-      next(error);
-    }
-  });
+
+router.get("/cart", requireUser, async (req, res, next) => {
+  const {id} = req.user
+  try {
+    const cart = await getCartByUser(id);
+    res.send(cart);
+  } catch (error) {
+    next(error);
+  }
+});
+
   
   //  POST /orders (*)
   // Create a new order. Should initially be status = created.

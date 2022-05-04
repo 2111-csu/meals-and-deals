@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-import { getAPIHealth, getProducts } from '../axios-services';
+
+
+import { getAPIHealth, getProducts, getCartByUser } from '../axios-services';
+
 import '../style/App.css';
 import {
   Products,
@@ -13,14 +16,38 @@ import {
   Users
 } from './';
 
+
+
 const App = () => {
   const [APIHealth, setAPIHealth] = useState('');
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({})
   const [token, setToken] = useState('');
+  const [cart, setCart] = useState({});
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState(Number);
   const history = useHistory();
+  
+
+  useEffect(() => {
+    const matchedToken = localStorage.getItem('token');
+    const matchedUsername = localStorage.getItem('username');
+    const matchedUserId = localStorage.getItem('userId');
+    const matchedUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(matchedUser)
+    if (matchedToken) {
+       setToken(matchedToken);
+    };
+    if (matchedUsername) {
+       setUserName(matchedUsername);
+    };
+    if (matchedUserId) {
+       setUserId(matchedUserId);
+    }
+    if (parsedUser) {
+       setUser(parsedUser);
+    }
+  }, [])
   
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
@@ -34,33 +61,19 @@ const App = () => {
   //     const fetchedProducts = await getProducts();
   //     setProducts(fetchedProducts);
   //   }
+  //   // const fetchCart = async () => {
+  //   //   const fetchedCart = await getCartByUser(user);
+  //   //   setCart(fetchedCart);
+  //   // }
+    
 
    
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
+  //   // second, after you've defined your getter above
+  //   // invoke it immediately after its declaration, inside the useEffect callback
   //   getAPIStatus();
   //   fetchProducts();
+  //   // fetchCart();
   // }, []);
-
-  useEffect(() => {
-    const matchedToken = localStorage.getItem('token');
-    const matchedUsername = localStorage.getItem('username');
-    const matchedUserId = localStorage.getItem('userId');
-    const matchedUser = localStorage.getItem('user');
-    const parsedUser = JSON.parse(matchedUser)
-    if (matchedToken) {
-      setToken(matchedToken);
-    };
-    if (matchedUsername) {
-      setUserName(matchedUsername);
-    };
-    if (matchedUserId) {
-      setUserId(matchedUserId);
-    }
-    if (parsedUser) {
-      setUser(parsedUser);
-    }
-  }, [])
 
   const props = { 
     products, 
@@ -72,7 +85,9 @@ const App = () => {
     userId, 
     setUserId,
     user,
-    setUser
+    setUser,
+    cart,
+    setCart
   }
 
   return <>
