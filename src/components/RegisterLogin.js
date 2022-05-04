@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom'
 import { useParams, useHistory } from 'react-router';
-import { callApi } from '../axios-services';
+import { callApi, getCartByUser } from '../axios-services';
 
-const RegisterLogin = ({ setToken, setUserName, setUserId, setUser }) => {
+const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, token }) => {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -40,6 +40,10 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser }) => {
                         const { user } = response;
                         setToken(token);
                         setUser(user)
+                        console.log(user)
+                        const cart = await getCartByUser(user, token)
+                        console.log('cart', cart)
+                        if (cart) setCart(cart)
                         localStorage.setItem('token', token);
                         console.log(user)
                         localStorage.setItem('user', JSON.stringify(user));

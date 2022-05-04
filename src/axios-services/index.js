@@ -22,9 +22,9 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
     if (token) {
         options.headers['Authorization'] = `Bearer ${token}`;
     }
+    console.log('options', options)
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
-    
     return resp.data;
 } catch (error) {
     console.error(error)
@@ -39,6 +39,15 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
       console.error(err)
     }
   }
+
+  export async function getCartByUser(user, token) {
+    try {
+      const cart = await callApi({url: '/orders/cart', body: user, token})
+      return cart;
+   } catch(err) {
+     console.error(err)
+   }
+ }
 
 /*export async function getProducts() {
   try {
