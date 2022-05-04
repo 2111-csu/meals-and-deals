@@ -12,7 +12,8 @@ import {
   RegisterLogin,
   Home,
   Account, 
-  Cart
+  Cart,
+  Users
 } from './';
 
 
@@ -25,7 +26,6 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState(Number);
-
   const history = useHistory();
   
   useEffect(() => {
@@ -48,31 +48,31 @@ const App = () => {
     }
   }, [])
   
-  useEffect(() => {
-    // follow this pattern inside your useEffect calls:
-    // first, create an async function that will wrap your axios service adapter
-    // invoke the adapter, await the response, and set the data
-    const getAPIStatus = async () => {
-      const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-    };
-    const fetchProducts = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    }
-    // const fetchCart = async () => {
-    //   const fetchedCart = await getCartByUser(user);
-    //   setCart(fetchedCart);
-    // }
+  // useEffect(() => {
+  //   // follow this pattern inside your useEffect calls:
+  //   // first, create an async function that will wrap your axios service adapter
+  //   // invoke the adapter, await the response, and set the data
+  //   const getAPIStatus = async () => {
+  //     const { healthy } = await getAPIHealth();
+  //     setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
+  //   };
+  //   const fetchProducts = async () => {
+  //     const fetchedProducts = await getProducts();
+  //     setProducts(fetchedProducts);
+  //   }
+  //   // const fetchCart = async () => {
+  //   //   const fetchedCart = await getCartByUser(user);
+  //   //   setCart(fetchedCart);
+  //   // }
     
 
    
-    // second, after you've defined your getter above
-    // invoke it immediately after its declaration, inside the useEffect callback
-    getAPIStatus();
-    fetchProducts();
-    // fetchCart();
-  }, []);
+  //   // second, after you've defined your getter above
+  //   // invoke it immediately after its declaration, inside the useEffect callback
+  //   getAPIStatus();
+  //   fetchProducts();
+  //   // fetchCart();
+  // }, []);
 
   const props = { 
     products, 
@@ -131,7 +131,10 @@ const App = () => {
         <Account {...props} />
       </Route>
       <Route exact path='/cart'>
-        <Cart {...props} />
+        <Cart {...props} />  
+      </Route>
+      <Route exact path='/users'>
+        <Users {...props} />
       </Route>
     </main>
   </>;

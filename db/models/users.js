@@ -82,7 +82,6 @@ async function getAllUsers() {
   }
 
 async function getUserByUsername(username) {
-  
   try {
     const {rows} = await client.query(`
       SELECT *
@@ -90,10 +89,7 @@ async function getUserByUsername(username) {
       WHERE username = $1;
     `, [username]);
     
-    if (!rows || !rows.length) return null;
-   
     const [user] = rows;
-  
     return user;
   } catch (error) {
     console.error(error)

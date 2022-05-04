@@ -22,7 +22,6 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
     if (token) {
         options.headers['Authorization'] = `Bearer ${token}`;
     }
-    console.log('options', options)
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
     return resp.data;
@@ -31,14 +30,14 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
 }
 };
    
-  export async function getUsers() {
-     try {
-       const users = await callApi({url: '/users'})
-       return users;
-    } catch(err) {
-      console.error(err)
-    }
-  }
+  // export async function getUsers() {
+  //    try {
+  //      const users = await callApi({url: '/users'})
+  //      return users;
+  //   } catch(err) {
+  //     console.error(err)
+  //   }
+  // }
 
   export async function getCartByUser(user, token) {
     try {
@@ -58,14 +57,14 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
   }
 }*/
 
-export async function getProducts() {
-  try {
-    const products = await callApi({url: '/products'})
-    return products;
-  } catch(err) {
-    console.error(err)
-  }
-}
+// export async function getProducts() {
+//   try {
+//     const products = await callApi({url: '/products'})
+//     return products;
+//   } catch(err) {
+//     console.error(err)
+//   }
+// }
 
 export async function getAPIHealth() {
   try {

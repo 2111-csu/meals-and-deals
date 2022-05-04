@@ -40,7 +40,6 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, tok
                         const { user } = response;
                         setToken(token);
                         setUser(user)
-                        console.log(user)
                         const cart = await getCartByUser(user, token)
                         console.log('cart', cart)
                         if (cart) setCart(cart)
