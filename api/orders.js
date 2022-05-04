@@ -74,4 +74,32 @@ try{
 }
 });
 
+router.post('/:orderId/products', requiredNotSent({requiredParams: ['activityId', 'count', 'duration']}), async (req, res, next) => {
+  try {
+    const {activityId, count, duration} = req.body;
+    const {routineId} = req.params;
+    const foundRoutineActivities = await getRoutineActivitiesByRoutine({id: routineId});
+    const existingRoutineActivities = foundRoutineActivities && foundRoutineActivities.filter(routineActivity => routineActivity.activityId === activityId);
+    if(existingRoutineActivities && existingRoutineActivities.length) {
+      next({
+        name: 'RoutineActivityExistsError',
+        message: `A routine_activity by that routineId ${routineId}, activityId ${activityId} combination already exists`
+      });
+    } else {
+      const createdRoutineActivity = await addActivityToRoutine({ routineId, activityId, count, duration });
+      if(createdRoutineActivity) {
+        res.send(createdRoutineActivity);
+      } else {
+        next({
+          name: 'FailedToCreate',
+          message: `There was an error adding activity ${activityId} to routine ${routineId}`
+        })
+      }
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
+
   module.exports = router;
