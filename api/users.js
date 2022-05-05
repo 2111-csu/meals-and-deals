@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getUser, getAllUsers, getUserById, getUserByUsername, createUser } = require("../db");
+const { getUser, getAllUsers, getUserById, getUserByUsername, createUser, completeOrder, cancelOrder } = require("../db");
 const { requireUser } = require('./utils');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET = 'soSecret' } = process.env;
@@ -101,5 +101,24 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await completeOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
+
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await cancelOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
 
 module.exports = router;
