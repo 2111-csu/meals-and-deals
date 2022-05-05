@@ -57,8 +57,8 @@ apiRouter.get("/", (req, res, next) => {
   });
 });
 
-// const orderProductsRouter = require('./orderProducts');
- //apiRouter.use('/order_products', orderProductsRouter);
+const orderProductsRouter = require('./orderProducts');
+ apiRouter.use('/order_products', orderProductsRouter);
 
 const productsRouter = require('./products');
 apiRouter.use('/products', productsRouter);
