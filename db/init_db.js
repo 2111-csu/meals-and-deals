@@ -229,7 +229,6 @@ async function testDB() {
     const simone4 = await getOrderById(1);
     console.log("Result:", simone4);
 
-
     console.log("Calling getOrderProductById with 2");
     const getOrderProductSimone = await getOrderProductById(2);
     console.log("Result:", getOrderProductSimone);

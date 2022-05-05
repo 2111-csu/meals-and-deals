@@ -3,7 +3,7 @@ const router = express.Router();
 const jwt = require('jsonwebtoken');
 const { requireUser } = require("./utils");
 const client = require('../db/client');
-const { updateOrderProduct, getOrderById, destroyOrderProduct} = require("../db");
+const { updateOrderProduct, getOrderById, destroyOrderProduct, getOrderProductById} = require("../db");
 const { JWT_SECRET = 'soSecret' } = process.env;
 
 
