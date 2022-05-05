@@ -1,11 +1,11 @@
-const router = require("express").Router();
+const apiRouter = require("express").Router();
 const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db');
 const client = require('../db/client');
 const { JWT_SECRET = 'soSecret' } = process.env;
 
 
-router.get("/health", (req, res, next) => {
+apiRouter.get("/health", (req, res, next) => {
   res.send({
     healthy: true,
   });
@@ -16,7 +16,7 @@ router.get("/health", (req, res, next) => {
 
 // set `req.user` if possible
 
-router.use(async (req, res, next) => {
+apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
   
@@ -45,29 +45,29 @@ router.use(async (req, res, next) => {
   }
 });
 
-router.use((req, res, next) => {
+apiRouter.use((req, res, next) => {
   if (req.user) {
     console.log("User is set:", req.user);
   }
   next();
 });
 
-router.get("/", (req, res, next) => {
+apiRouter.get("/", (req, res, next) => {
   res.send({
     message: "API is under construction!",
   });
 });
 
 const orderProductsRouter = require('./order_products');
- router.use('/order_products', orderProductsRouter);
+ apiRouter.use('/order_products', orderProductsRouter);
 
 const productsRouter = require('./products');
-router.use('/products', productsRouter);
+apiRouter.use('/products', productsRouter);
 
 const ordersRouter = require('./orders');
-router.use('/orders', ordersRouter);
+apiRouter.use('/orders', ordersRouter);
 
 const usersRouter = require('./users');
-router.use('/users', usersRouter);
+apiRouter.use('/users', usersRouter);
 
-module.exports = router;
+module.exports = apiRouter;

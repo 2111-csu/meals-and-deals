@@ -11,7 +11,7 @@ router.patch('/:orderProductId', requireUser, async (req, res, next) =>{
     
     const {quantity, price} = req.body;
     const {orderProductId} = req.params;
-    const {id} = req.user;
+    // const {id} = req.user;
     const fields = {};
     
     if(quantity) {
@@ -43,7 +43,7 @@ router.delete('/:orderProductId', requireUser, async (req, res, next) => {
         const opId = await getOrderProductById(orderProductId);
         const userInfo = await getOrderById(opId.orderId);
         
-        if (opId && userInfo.creatorId === req.user.id) {
+        if (opId && userInfo.userId === req.user.id) {
             const product = await destroyOrderProduct(orderProductId);
             res.send(product);
         } else {
