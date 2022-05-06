@@ -22,7 +22,8 @@ const createOrders = async ({ status, userId, datePlaced }) => {
 const getOrderById = async (id) => {
   try{
     const {rows: [order]} = await client.query(`
-    SELECT * FROM orders
+    SELECT * 
+    FROM orders
     WHERE id = $1
     `, [id]);
     return attachProductsToOrders(order);

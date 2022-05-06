@@ -13,6 +13,9 @@ const {
     getOrdersByUser,
     getUserByUsername,
     getCartByUser,
+    getOrderById,
+    addProductToOrder,
+    updateOrderProduct,
   } = require("../db");
   
 // GET /orders (*admin)  
@@ -69,6 +72,27 @@ try{
 }catch(error){
     next(error);
 }
+});
+
+router.post('/:orderId/products', async (req, res, next) => {
+  const orderId = req.params.orderId;
+  const {productId, price, quantity} = req.body;
+  try{
+    const allOrderProducts =  await getOrderById(orderId);
+    const filteredOP = allOrderProducts.filter(product => product.productId == productId);
+    
+    if(filteredOP){
+      const newQuantity = filteredOP.quantity + quantity;
+      const updateQuantity = await updateOrderProduct({id : filteredOP.id , quantity : newQuantity})
+      res.send(updateQuantity)
+      
+    }else{
+      const product = await addProductToOrder({orderId, productId, price, quantity});
+      res.send(product);
+    }
+  } catch (error) {
+    throw error;
+  }
 });
 
   module.exports = router;
