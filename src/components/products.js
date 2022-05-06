@@ -19,6 +19,7 @@ const Products = ({ products, getProducts, setProducts}) => {
                     <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
                     <p>{product.description}</p>
                     <img className="productImage" src={product.imageURL} alt='Product'/>
+                    <button>Add to Cart</button>
                 </div>
             );
         })}

@@ -34,6 +34,8 @@ const App = () => {
     const matchedUserId = localStorage.getItem('userId');
     const matchedUser = localStorage.getItem('user');
     const parsedUser = JSON.parse(matchedUser)
+    const matchedCart = localStorage.getItem('cart');
+    const parsedCart = JSON.parse(matchedCart)
     if (matchedToken) {
        setToken(matchedToken);
     };
@@ -45,6 +47,9 @@ const App = () => {
     }
     if (parsedUser) {
        setUser(parsedUser);
+    }
+    if (parsedCart) {
+      setCart(parsedCart);
     }
   }, [])
   
@@ -107,8 +112,12 @@ const App = () => {
               localStorage.removeItem('username');
               localStorage.removeItem('userId');
               localStorage.removeItem('user');
+              localStorage.removeItem('cart');
               setUserName('');
+              setUserId('');
               setToken('');
+              setUser({});
+              setCart({});
               history.push('/');
             }}>Logout</button> </>
             : <Link to='/account/login' className='nav-link'>Sign In</Link>
