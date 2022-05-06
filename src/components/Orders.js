@@ -15,7 +15,24 @@ const Orders = ({ user, orders }) => {
             <div className="adminOrderLog" key={order.id}>
               {user.isAdmin === true ? (
                 <h2>
-                  {order.status} by {order.creatorName} on {order.datePlaced}
+                  {order.id} {order.status} <br /> by {order.creatorName} <br />
+                  on {order.datePlaced}
+                  {order.products.map((product) => {
+                    return (
+                      <>
+                        <div className="productsOrders">
+                          {product.name} {product.price}
+                          {product.description}
+                          <br />
+                          <img
+                            className="orderImage"
+                            src={product.imageURL}
+                            alt="Product"
+                          />
+                        </div>
+                      </>
+                    );
+                  })}
                   <Link to={`/orders/${order.id}`}>See Details</Link>
                 </h2>
               ) : null}
