@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-// getAPIHealth is defined in our axios-services directory index.js
-// you can think of that directory as a collection of api adapters
-// where each adapter fetches specific info from our express server's /api route
+
+
 import { getAPIHealth, getProducts, getCartByUser } from '../axios-services';
+
 import '../style/App.css';
 import {
   Products,
@@ -28,6 +28,7 @@ const App = () => {
   const [userId, setUserId] = useState(Number);
   const history = useHistory();
   
+
   useEffect(() => {
     const matchedToken = localStorage.getItem('token');
     const matchedUsername = localStorage.getItem('username');

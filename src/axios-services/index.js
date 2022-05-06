@@ -39,6 +39,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
   //   }
   // }
 
+
   export async function getCartByUser(user, token) {
     try {
       const cart = await callApi({url: '/orders/cart', body: user, token})
@@ -47,6 +48,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
      console.error(err)
    }
  }
+
 
 /*export async function getProducts() {
   try {
