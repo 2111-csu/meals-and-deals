@@ -212,6 +212,9 @@ async function populateInitialData() {
       { orderId: 2, productId: 4, price: 10, quantity: 1 },
       { orderId: 3, productId: 1, price: 30, quantity: 2 },
       { orderId: 3, productId: 1, price: 30, quantity: 1 },
+      { orderId: 4, productId: 1, price: 30, quantity: 1 },
+      { orderId: 5, productId: 1, price: 30, quantity: 1 },
+      { orderId: 6, productId: 1, price: 30, quantity: 1 },
     ];
     const orderProducts = await Promise.all(
       orderProductsToCreate.map((orderProduct) =>

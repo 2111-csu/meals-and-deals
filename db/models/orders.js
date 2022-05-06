@@ -53,7 +53,9 @@ async function getAllOrders() {
 async function getOrdersByUser(id) {
   try {
     const user = await getUserById(id);
-    const { rows: orders } = await client.query(
+    const {
+      rows: [orders],
+    } = await client.query(
       `
     SELECT orders.*, users.username AS "creatorName"
     FROM orders
@@ -64,7 +66,7 @@ async function getOrdersByUser(id) {
     );
     //removed attchProd. and changed to orders so that orders would only show for that userID, have not checked on products
     // return attachProductsToOrders(orders);
-    return orders;
+    return [orders];
   } catch (error) {
     throw error;
   }
@@ -106,7 +108,7 @@ async function getCartByUser(userId) {
   }
 }
 
-async function getOrdersByProduct({ id }) {
+async function getOrdersByProduct(id) {
   try {
     const { rows: orders } = await client.query(
       `

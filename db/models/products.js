@@ -12,9 +12,7 @@ async function getAllProducts() {
 }
 async function getProductById(id) {
   try {
-    const {
-      rows: [product],
-    } = await client.query(
+    const { rows: product } = await client.query(
       `
         SELECT * FROM products
         WHERE id = $1
@@ -36,9 +34,7 @@ async function createProduct({
   category,
 }) {
   try {
-    const {
-      rows: [product],
-    } = await client.query(
+    const { rows: product } = await client.query(
       `
         INSERT INTO products (name, description, price, "imageURL", "inStock", category) 
         VALUES ($1, $2, $3, $4, $5, $6)

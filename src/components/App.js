@@ -17,6 +17,7 @@ import {
   Cart,
   Users,
   Orders,
+  SingleOrder,
 } from "./";
 
 const App = () => {
@@ -40,6 +41,20 @@ const App = () => {
 
     getAPIStatus();
     fetchProducts();
+  }, []);
+
+  const [orders, setOrders] = useState([]);
+  console.log("I AM USER", userName);
+  console.log("USERs ID", userId);
+  console.log("heres some user data ", user);
+
+  useEffect(() => {
+    const fetchOrdersByUser = async () => {
+      const fetchedOrders = await getOrdersByUser();
+      setOrders(fetchedOrders);
+    };
+
+    fetchOrdersByUser(user.id);
   }, []);
 
   useEffect(() => {
@@ -73,10 +88,8 @@ const App = () => {
     setUserId,
     user,
     setUser,
-    // orders,
-    // setOrders,
     getOrdersByUser,
-    // getOrderProductById,
+    orders,
   };
 
   return (
@@ -143,14 +156,11 @@ const App = () => {
         <Route exact path="/users">
           <Users {...props} />
         </Route>
-        <Route path="/orders">
-          <Orders
-            user={user}
-            getOrdersByUser={getOrdersByUser}
-            userName={userName}
-            // token={token}
-            userId={userId}
-          />
+        <Route exact path="/orders">
+          <Orders {...props} />
+        </Route>
+        <Route exact path="/orders/:orderId">
+          <SingleOrder orders={orders} />
         </Route>
       </main>
     </>

@@ -1,42 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Orders = ({ user, userId, getOrdersByUser, userName }) => {
-  // getOrdersByUser tried before getOrderProductsById
-
-  /// Does not render "Users" orders from getOrdersByUser to display  GET /users/:userId/orders (**owner).
-  //Needs is user.isAdmin === true to display all.
-
-  const [orders, setOrders] = useState([]);
-  console.log("I AM USER", userName);
-  console.log("USERs ID", userId);
-  console.log("heres some user data ", user);
-
-  useEffect(() => {
-    const fetchOrdersByUser = async () => {
-      const fetchedOrders = await getOrdersByUser();
-      setOrders(fetchedOrders);
-    };
-
-    fetchOrdersByUser(user.id);
-  }, [user]);
-
-  //needs single order data to match params :orderId of logged in user.
-
+const Orders = ({ user, orders }) => {
   console.log(orders, "fetched");
+
   return (
     <>
-      <h1>{userName}'s Orders</h1>
+      <h1>Admin Log of Orders</h1>
+
       {orders.map((order) => {
+        console.log("need order", order.products);
         return (
-          <div className="orderLog" key={order.id}>
-            <h2>
-              {/* {order.product.name} */}
-              {order.status} by {order.creatorName}
-              {/* <p>{orders.userId.products}</p> */}
-            </h2>
-          </div>
+          <>
+            <div className="adminOrderLog" key={order.id}>
+              {user.isAdmin === true ? (
+                <h2>
+                  {order.status} by {order.creatorName} on {order.datePlaced}
+                  <Link to={`/orders/${order.id}`}>See Details</Link>
+                </h2>
+              ) : null}
+            </div>
+          </>
         );
       })}
+      <> SEE ORDERS </>
     </>
   );
 };
