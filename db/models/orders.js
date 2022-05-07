@@ -66,7 +66,7 @@ async function getOrdersByUser(id) {
     );
     //removed attchProd. and changed to orders so that orders would only show for that userID, have not checked on products
     // return attachProductsToOrders(orders);
-    return [orders];
+    return orders;
   } catch (error) {
     throw error;
   }

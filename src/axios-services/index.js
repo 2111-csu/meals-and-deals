@@ -24,7 +24,6 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
     }
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
-
     return resp.data;
   } catch (error) {
     console.error(error);
@@ -40,32 +39,14 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
 //   }
 // }
 
-export async function getUsers() {
+export async function getCartByUser(user, token) {
   try {
-    const users = await callApi({ url: "/users" });
-    return users;
+    const cart = await callApi({ url: "/orders/cart", body: user, token });
+    return cart;
   } catch (err) {
     console.error(err);
   }
 }
-
-export async function getProducts() {
-  try {
-    const { data: products } = await axios.get("/api/products");
-    return products;
-  } catch (err) {
-    console.error(err);
-  }
-}
-
-// export async function getOrderProductById() {
-//   try {
-//     const { data: orders } = await await axios.get("/api/orders");
-//     return orders;
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
 
 export async function getOrdersByUser() {
   try {
@@ -75,6 +56,23 @@ export async function getOrdersByUser() {
     console.error(err);
   }
 }
+export async function getUsers() {
+  try {
+    const users = await callApi({ url: "/users" });
+    return users;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+// export async function getProducts() {
+//   try {
+//     const products = await callApi({url: '/products'})
+//     return products;
+//   } catch(err) {
+//     console.error(err)
+//   }
+// }
 
 export async function getAPIHealth() {
   try {

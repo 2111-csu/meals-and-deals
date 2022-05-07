@@ -27,6 +27,7 @@ async function buildTables() {
     // have to make sure to drop in correct order
 
     await client.query(`
+      DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS products;
@@ -74,6 +75,16 @@ async function buildTables() {
         "orderId" INTEGER REFERENCES orders(id),
         price VARCHAR(255) NOT NULL,
         quantity VARCHAR(255) NOT NULL DEFAULT '0'
+        );
+      `);
+    await client.query(`
+      CREATE TABLE reviews(
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR(255) CHECK ( content > 4 :: VARCHAR),
+        stars INTEGER NOT NULL CHECK( stars >= 0 AND stars <=5),
+        "userId" INTEGER REFERENCES users(id),
+        "productId" INTEGER REFERENCES products(id)
         );
       `);
   } catch (error) {

@@ -3,7 +3,7 @@ import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import {
   getAPIHealth,
-  getProducts,
+  // getProducts,
   getOrdersByUser,
   // getOrderProductById,
 } from "../axios-services";
@@ -22,7 +22,7 @@ import {
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
-  const [products, setProducts] = useState([]);
+  // const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
@@ -34,13 +34,13 @@ const App = () => {
       const { healthy } = await getAPIHealth();
       setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
     };
-    const fetchProducts = async () => {
-      const fetchedProducts = await getProducts();
-      setProducts(fetchedProducts);
-    };
+    // const fetchProducts = async () => {
+    //   const fetchedProducts = await getProducts();
+    //   setProducts(fetchedProducts);
+    // };
 
     getAPIStatus();
-    fetchProducts();
+    // fetchProducts();
   }, []);
 
   const [orders, setOrders] = useState([]);
@@ -78,8 +78,8 @@ const App = () => {
   }, []);
 
   const props = {
-    products,
-    setProducts,
+    // products,
+    // setProducts,
     token,
     setToken,
     userName,

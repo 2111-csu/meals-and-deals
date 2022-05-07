@@ -11,6 +11,7 @@ apiRouter.get("/health", (req, res, next) => {
 });
 
 // set `req.user` if possible
+
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -26,6 +27,7 @@ apiRouter.use(async (req, res, next) => {
 
       const id = parsedToken && parsedToken.id;
       if (id) {
+        console.log("req USER!!!", req.user);
         req.user = await getUserById(id);
         next();
       }
@@ -53,16 +55,20 @@ apiRouter.get("/", (req, res, next) => {
   });
 });
 
-// const orderProductsRouter = require('./orderProducts');
-//apiRouter.use('/order_products', orderProductsRouter);
+const orderProductsRouter = require("./order_products");
+apiRouter.use("/order_products", orderProductsRouter);
 
-const productsRouter = require("./products");
-apiRouter.use("/products", productsRouter);
+apiRouter.use((req, res, next) => {
+  if (req.user) {
+    console.log("User is set:", req.user);
+  }
+  next();
+});
 
 const ordersRouter = require("./orders");
 apiRouter.use("/orders", ordersRouter);
 
-const usersRouter = require("./users");
-apiRouter.use("/users", usersRouter);
+const productsRouter = require("./products");
+apiRouter.use("/products", productsRouter);
 
 module.exports = apiRouter;
