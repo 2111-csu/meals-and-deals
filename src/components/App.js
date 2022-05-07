@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router";
+
 import {
   getAPIHealth,
-  // getProducts,
+  getProducts,
+  getCartByUser,
   getOrdersByUser,
-  // getOrderProductById,
 } from "../axios-services";
+
 import "../style/App.css";
 import {
   Products,
@@ -22,40 +24,14 @@ import {
 
 const App = () => {
   const [APIHealth, setAPIHealth] = useState("");
-  // const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
   const [token, setToken] = useState("");
+  const [cart, setCart] = useState({});
   const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(Number);
-  const history = useHistory();
-
-  useEffect(() => {
-    const getAPIStatus = async () => {
-      const { healthy } = await getAPIHealth();
-      setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
-    };
-    // const fetchProducts = async () => {
-    //   const fetchedProducts = await getProducts();
-    //   setProducts(fetchedProducts);
-    // };
-
-    getAPIStatus();
-    // fetchProducts();
-  }, []);
-
   const [orders, setOrders] = useState([]);
-  console.log("I AM USER", userName);
-  console.log("USERs ID", userId);
-  console.log("heres some user data ", user);
-
-  useEffect(() => {
-    const fetchOrdersByUser = async () => {
-      const fetchedOrders = await getOrdersByUser();
-      setOrders(fetchedOrders);
-    };
-
-    fetchOrdersByUser(user.id);
-  }, []);
+  const history = useHistory();
 
   useEffect(() => {
     const matchedToken = localStorage.getItem("token");
@@ -77,9 +53,21 @@ const App = () => {
     }
   }, []);
 
+  console.log("I AM USER", userName);
+  console.log("USERs ID", userId);
+  console.log("heres some user data ", user);
+
+  useEffect(() => {
+    const fetchOrdersByUser = async () => {
+      const fetchedOrders = await getOrdersByUser();
+      setOrders(fetchedOrders);
+    };
+
+    fetchOrdersByUser(user.id);
+  }, []);
   const props = {
-    // products,
-    // setProducts,
+    products,
+    setProducts,
     token,
     setToken,
     userName,

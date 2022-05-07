@@ -1,22 +1,17 @@
 const express = require("express");
 const router = express.Router();
-<<<<<<< HEAD
 const {
   getUser,
   getAllUsers,
   getUserById,
   getUserByUsername,
   createUser,
+  completeOrder,
+  cancelOrder,
 } = require("../db");
 const { requireUser } = require("./utils");
 const jwt = require("jsonwebtoken");
 const { JWT_SECRET = "soSecret" } = process.env;
-=======
-const { getUser, getAllUsers, getUserById, getUserByUsername, createUser, completeOrder, cancelOrder } = require("../db");
-const { requireUser } = require('./utils');
-const jwt = require('jsonwebtoken');
-const { JWT_SECRET = 'soSecret' } = process.env;
->>>>>>> 33608343613aac189590ab1685d0ca1d13210d0e
 
 router.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
@@ -123,15 +118,15 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
-router.get('/:userId', async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
   try {
-    const { userId } = req.params
-    const user = await getUserById(userId)
-  res.send(user)
-  }catch (error) {
+    const { userId } = req.params;
+    const user = await getUserById(userId);
+    res.send(user);
+  } catch (error) {
     next(error);
   }
-})
+});
 
 router.get("/", async (req, res, next) => {
   try {
@@ -142,28 +137,24 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-<<<<<<< HEAD
-module.exports = router;
-=======
-router.get('/:orderId', async (req, res, next) => {
+router.get("/:orderId", async (req, res, next) => {
   try {
-    const { orderId } = req.params
-    const order = await completeOrder(orderId)
-  res.send(order)
-  }catch (error) {
+    const { orderId } = req.params;
+    const order = await completeOrder(orderId);
+    res.send(order);
+  } catch (error) {
     next(error);
   }
-})
+});
 
-router.get('/:orderId', async (req, res, next) => {
+router.get("/:orderId", async (req, res, next) => {
   try {
-    const { orderId } = req.params
-    const order = await cancelOrder(orderId)
-  res.send(order)
-  }catch (error) {
+    const { orderId } = req.params;
+    const order = await cancelOrder(orderId);
+    res.send(order);
+  } catch (error) {
     next(error);
   }
-})
+});
 
 module.exports = router;
->>>>>>> 33608343613aac189590ab1685d0ca1d13210d0e
