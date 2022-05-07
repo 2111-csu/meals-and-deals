@@ -95,8 +95,6 @@ async function getUserByUsername(username) {
       [username]
     );
 
-    if (!rows || !rows.length) return null;
-
     const [user] = rows;
 
     return user;

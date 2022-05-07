@@ -13,6 +13,9 @@ const {
   getOrdersByUser,
   getUserByUsername,
   getCartByUser,
+  getOrderById,
+  addProductToOrder,
+  updateOrderProduct,
 } = require("../db");
 
 // GET /orders (*admin)
@@ -27,15 +30,11 @@ router.get("/", async (req, res, next) => {
 });
 
 // /api/orders
-router.get("/cart", async (req, res, next) => {
+
+router.get("/cart", requireUser, async (req, res, next) => {
+  const { id } = req.user;
   try {
-    // const userId = await requireUser();
-    // const user = await getUserById(users);
-    console.log("USER?", user);
-    // const user = await getOrdersByUser(id);
-    console.log("IS THIS AN ID?", user);
-    const cart = await getCartByUser(user);
-    console.log("IS THIS A CART?", cart);
+    const cart = await getCartByUser(id);
     res.send(cart);
   } catch (error) {
     next(error);
@@ -69,6 +68,36 @@ router.get("/:userId/orders", async (req, res, next) => {
     res.send(order);
   } catch (error) {
     next(error);
+  }
+});
+
+router.post("/:orderId/products", async (req, res, next) => {
+  const orderId = req.params.orderId;
+  const { productId, price, quantity } = req.body;
+  try {
+    const allOrderProducts = await getOrderById(orderId);
+    const filteredOP = allOrderProducts.filter(
+      (product) => product.productId == productId
+    );
+
+    if (filteredOP) {
+      const newQuantity = filteredOP.quantity + quantity;
+      const updateQuantity = await updateOrderProduct({
+        id: filteredOP.id,
+        quantity: newQuantity,
+      });
+      res.send(updateQuantity);
+    } else {
+      const product = await addProductToOrder({
+        orderId,
+        productId,
+        price,
+        quantity,
+      });
+      res.send(product);
+    }
+  } catch (error) {
+    throw error;
   }
 });
 

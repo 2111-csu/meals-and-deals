@@ -6,6 +6,8 @@ const {
   getUserById,
   getUserByUsername,
   createUser,
+  completeOrder,
+  cancelOrder,
 } = require("../db");
 const { requireUser } = require("./utils");
 const jwt = require("jsonwebtoken");
@@ -116,10 +118,40 @@ router.get("/:userId", async (req, res, next) => {
   }
 });
 
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const user = await getUserById(userId);
+    res.send(user);
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/", async (req, res, next) => {
   try {
     const users = await getAllUsers();
     res.send(users);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:orderId", async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const order = await completeOrder(orderId);
+    res.send(order);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/:orderId", async (req, res, next) => {
+  try {
+    const { orderId } = req.params;
+    const order = await cancelOrder(orderId);
+    res.send(order);
   } catch (error) {
     next(error);
   }

@@ -15,8 +15,8 @@ const {
   getCartByUser,
   getOrderProductById,
   getOrdersByUser,
+  getOrderById,
 } = require("./models");
-console.log(client, "CLIENT");
 
 async function buildTables() {
   try {
@@ -256,6 +256,10 @@ async function testDB() {
     console.log("Calling getUserById with 2");
     const simone = await getUserById(2);
     console.log("Result:", simone);
+
+    console.log("Calling getOrderById with 1");
+    const simone4 = await getOrderById(1);
+    console.log("Result:", simone4);
 
     console.log("Calling getOrderProductById with 2");
     const getOrderProductSimone = await getOrderProductById(2);
