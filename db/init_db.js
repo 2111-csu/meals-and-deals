@@ -1,5 +1,21 @@
 const client = require("./client");
-const { createProduct, completeOrder, getAllProducts, createOrders, createUser, getUser, createOrderProduct, getAllOrders, getAllUsers, getProductById, getUserById, getUserByUsername, getCartByUser, getOrderProductById, getOrderById } = require("./models");
+const {
+  createProduct,
+  completeOrder,
+  getAllProducts,
+  createOrders,
+  createUser,
+  getUser,
+  createOrderProduct,
+  getAllOrders,
+  getAllUsers,
+  getProductById,
+  getUserById,
+  getUserByUsername,
+  getCartByUser,
+  getOrderProductById,
+  getOrderById,
+} = require("./models");
 console.log(client, "CLIENT");
 
 async function buildTables() {
@@ -11,6 +27,7 @@ async function buildTables() {
     // have to make sure to drop in correct order
 
     await client.query(`
+      DROP TABLE IF EXISTS reviews;
       DROP TABLE IF EXISTS order_products;
       DROP TABLE IF EXISTS orders;
       DROP TABLE IF EXISTS products;
@@ -49,6 +66,16 @@ async function buildTables() {
           status VARCHAR(255) DEFAULT 'created',
           "userId" INTEGER REFERENCES users(id),
           "datePlaced" DATE NOT NULL DEFAULT CURRENT_DATE
+        );
+      `);
+    await client.query(`
+      CREATE TABLE reviews(
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(255) NOT NULL,
+        content VARCHAR(255) CHECK ( content > 4 :: VARCHAR),
+        stars INTEGER NOT NULL CHECK( stars >= 0 AND stars <=5),
+        "userId" INTEGER REFERENCES users(id),
+        "productId" INTEGER REFERENCES products(id)
         );
       `);
 
@@ -91,7 +118,7 @@ async function populateInitialData() {
         imageURL: "image.url",
         username: "SimonSays",
         password: "ifNotn0wNever!!",
-        isAdmin: false,
+        isAdmin: true,
       },
       {
         id: 3,
@@ -183,26 +210,29 @@ async function populateInitialData() {
     console.log("Products Created: ", products);
     console.log("Finished creating products");
 
-    const orderProductsToCreate =[
-      {orderId: 1, productId: 1, price: 30, quantity: 2},
-      {orderId: 2, productId: 2, price: 30, quantity: 3},
-      {orderId: 1, productId: 3, price: 10, quantity: 3},
-      {orderId: 2, productId: 4, price: 10, quantity: 1},
-      {orderId: 3, productId: 1, price: 30, quantity: 2},
-      {orderId: 3, productId: 1, price: 30, quantity: 1},
-    ]
-      const orderProducts = await Promise.all(
-        orderProductsToCreate.map((orderProduct) => createOrderProduct(orderProduct)));
-      
-      console.log("orderProducts Created: ", orderProducts);
-      console.log("Finished creating orderProducts");
+    const orderProductsToCreate = [
+      { orderId: 1, productId: 1, price: 30, quantity: 2 },
+      { orderId: 2, productId: 2, price: 30, quantity: 3 },
+      { orderId: 1, productId: 3, price: 10, quantity: 3 },
+      { orderId: 2, productId: 4, price: 10, quantity: 1 },
+      { orderId: 3, productId: 1, price: 30, quantity: 2 },
+      { orderId: 3, productId: 1, price: 30, quantity: 1 },
+    ];
+    const orderProducts = await Promise.all(
+      orderProductsToCreate.map((orderProduct) =>
+        createOrderProduct(orderProduct)
+      )
+    );
+
+    console.log("orderProducts Created: ", orderProducts);
+    console.log("Finished creating orderProducts");
   } catch (error) {
     throw error;
   }
 }
 
 async function testDB() {
-  try{
+  try {
     console.log("Starting to test database...");
 
     console.log("Calling getAllUsers");
@@ -248,7 +278,7 @@ async function testDB() {
     console.log("Finished database tests");
   } catch (error) {
     console.log("Error during testDB");
-  }  
+  }
 }
 
 buildTables()
