@@ -53,16 +53,7 @@ const App = () => {
     }
   }, []);
 
-  console.log("heres some user data ", user);
 
-  useEffect(() => {
-    const fetchOrdersByUser = async () => {
-      const fetchedOrders = await getOrdersByUser();
-      setOrders(fetchedOrders);
-    };
-
-    fetchOrdersByUser(user.id);
-  }, []);
 
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
