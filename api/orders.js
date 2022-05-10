@@ -16,6 +16,8 @@ const {
     getOrderById,
     addProductToOrder,
     updateOrderProduct,
+    completeOrder,
+    cancelOrder
   } = require("../db");
   
 // GET /orders (*admin)  
@@ -79,9 +81,10 @@ router.post('/:orderId/products', async (req, res, next) => {
   const {productId, price, quantity} = req.body;
   try{
     const allOrderProducts =  await getOrderById(orderId);
-    const filteredOP = allOrderProducts.filter(product => product.productId == productId);
+    const orderProducts = allOrderProducts[0].products
+    const filteredOP = orderProducts.filter(product => product.productId == productId);
     
-    if(filteredOP){
+    if(filteredOP.length > 0){
       const newQuantity = filteredOP.quantity + quantity;
       const updateQuantity = await updateOrderProduct({id : filteredOP.id , quantity : newQuantity})
       res.send(updateQuantity)
@@ -95,4 +98,24 @@ router.post('/:orderId/products', async (req, res, next) => {
   }
 });
 
-  module.exports = router;
+router.post('/:orderId', requireUser, async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await completeOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
+
+router.delete('/:orderId', requireUser, async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await cancelOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
+
+module.exports = router;

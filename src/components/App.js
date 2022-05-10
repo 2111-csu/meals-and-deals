@@ -13,13 +13,15 @@ import {
   Home,
   Account, 
   Cart,
-  Users
+  Users,
+  Checkout,
+  SingleOrder
 } from './';
 
 
 
 const App = () => {
-  const [APIHealth, setAPIHealth] = useState('');
+  const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({})
   const [token, setToken] = useState('');
@@ -28,8 +30,8 @@ const App = () => {
   const [userId, setUserId] = useState(Number);
   const history = useHistory();
   
-
   useEffect(() => {
+    
     const matchedToken = localStorage.getItem('token');
     const matchedUsername = localStorage.getItem('username');
     const matchedUserId = localStorage.getItem('userId');
@@ -92,14 +94,15 @@ const App = () => {
     user,
     setUser,
     cart,
-    setCart
+    setCart,
+    setMessage,
+    message
   }
 
   return <>
     <header>
       <div className="app-container">
-        <h1>Hello, World!</h1>
-        <p>API Status: {APIHealth}</p>
+        
       </div>
       <Link to='/products' className='nav-link'>Meals</Link>
       <Link to='/' className='nav-link'>Home</Link>
@@ -145,6 +148,9 @@ const App = () => {
       </Route>
       <Route exact path='/users'>
         <Users {...props} />
+      </Route>
+      <Route exact path='/cart/checkout'>
+        <Checkout {...props} />
       </Route>
     </main>
   </>;

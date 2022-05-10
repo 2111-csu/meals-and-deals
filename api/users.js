@@ -101,24 +101,4 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get('/:orderId', async (req, res, next) => {
-  try {
-    const { orderId } = req.params
-    const order = await completeOrder(orderId)
-  res.send(order)
-  }catch (error) {
-    next(error);
-  }
-})
-
-router.get('/:orderId', async (req, res, next) => {
-  try {
-    const { orderId } = req.params
-    const order = await cancelOrder(orderId)
-  res.send(order)
-  }catch (error) {
-    next(error);
-  }
-})
-
 module.exports = router;
