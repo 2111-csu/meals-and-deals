@@ -1,14 +1,16 @@
 //  grab our db client connection to use with our adapters
 const client = require("../client");
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
 
+// added isAdmin
 const createUser = async ({
   firstName,
   lastName,
   email,
   username,
   password,
+  isAdmin,
 }) => {
   const hashPassword = await bcrypt.hash(password, SALT_COUNT);
 
@@ -17,12 +19,12 @@ const createUser = async ({
       rows: [user],
     } = await client.query(
       `
-      INSERT INTO users (firstName, lastName , email, username, password)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO users (firstName, lastName , email, username, password, "isAdmin")
+      VALUES ($1, $2, $3, $4, $5, $6)
       ON CONFLICT (username) DO NOTHING
       RETURNING *
     `,
-      [firstName, lastName, email, username, hashPassword]
+      [firstName, lastName, email, username, hashPassword, isAdmin]
     );
     console.log("user", user);
     return user;
@@ -32,17 +34,17 @@ const createUser = async ({
 };
 /* this adapter should fetch a list of users from your db */
 
-async function getUser({username, password}) {
+async function getUser({ username, password }) {
   if (!username || !password) {
     return;
   }
 
   try {
     const user = await getUserByUsername(username);
-    if(!user) return;
+    if (!user) return;
     const hashPassword = user.password;
     const passwordsMatch = await bcrypt.compare(password, hashPassword);
-    if(!passwordsMatch) return;
+    if (!passwordsMatch) return;
     delete user.password;
     return user;
   } catch (error) {
@@ -50,53 +52,56 @@ async function getUser({username, password}) {
   }
 }
 
-
 async function getUserById(id) {
-  
   try {
-    const {rows: [user]} = await client.query(`
+    const {
+      rows: [user],
+    } = await client.query(
+      `
       SELECT *
       FROM users
       WHERE id = $1;
-    `, [id]);
-    
+    `,
+      [id]
+    );
+
     if (!user) return null;
-    
-    delete user.password; 
-    return user;  
+
+    delete user.password;
+    return user;
   } catch (error) {
     throw error;
   }
 }
 
 async function getAllUsers() {
-    try {
-      const { rows } = await client.query(`
+  try {
+    const { rows } = await client.query(`
           SELECT id, firstName, lastName, email, username, "imageURL" 
           FROM users;
         `);
-      return rows;
-    } catch (error) {
-      throw error;
-    }
+    return rows;
+  } catch (error) {
+    throw error;
   }
+}
 
 async function getUserByUsername(username) {
   try {
-    const {rows} = await client.query(`
+    const { rows } = await client.query(
+      `
       SELECT *
       FROM users
       WHERE username = $1;
-    `, [username]);
+    `,
+      [username]
+    );
 
-    
     const [user] = rows;
- 
 
     return user;
-
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
 }
 

@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { getUser, getAllUsers, getUserById, getUserByUsername, createUser, completeOrder, cancelOrder } = require("../db");
+const { getUser, getAllUsers, getUserById, getUserByUsername, createUser, completeOrder, cancelOrder, updateUser } = require("../db");
 const { requireUser } = require('./utils');
 const jwt = require('jsonwebtoken');
 const { JWT_SECRET = 'soSecret' } = process.env;
@@ -100,5 +100,37 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await completeOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
+
+router.get('/:orderId', async (req, res, next) => {
+  try {
+    const { orderId } = req.params
+    const order = await cancelOrder(orderId)
+  res.send(order)
+  }catch (error) {
+    next(error);
+  }
+})
+
+
+router.patch('/:userId', requireUser, async (req, res, next) => {
+  const {userId} = req.params;
+  const {firstName, lastName, email, username, password, isAdmin } = req.body;
+  try{
+      const userToUpdate = await updateUser({id: userId, firstName, lastName, email, username, password, isAdmin });
+      res.send(userToUpdate)
+  } catch (error){
+  throw error;
+  }
+})
 
 module.exports = router;

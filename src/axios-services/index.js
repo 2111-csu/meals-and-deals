@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 // this file holds your frontend network request adapters
 // think about each function as a service that provides data
@@ -7,59 +7,65 @@ import axios from 'axios';
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
 
-const { REACT_API_URL = 'http://localhost:4000/api' } = process.env;
+const { REACT_API_URL = "http://localhost:4000/api" } = process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
   try {
     const options = {
-        method: method.toUpperCase(),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        data: body,
+      method: method.toUpperCase(),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: body,
     };
-    
+
     if (token) {
-        options.headers['Authorization'] = `Bearer ${token}`;
+      options.headers["Authorization"] = `Bearer ${token}`;
     }
     console.log(url)
     console.log(options)
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
     return resp.data;
-} catch (error) {
-    console.error(error)
-}
-};
-   
-  // export async function getUsers() {
-  //    try {
-  //      const users = await callApi({url: '/users'})
-  //      return users;
-  //   } catch(err) {
-  //     console.error(err)
-  //   }
-  // }
-
-
-  export async function getCartByUser(user, token) {
-    try {
-      const cart = await callApi({url: '/orders/cart', body: user, token})
-      return cart;
-   } catch(err) {
-     console.error(err)
-   }
- }
-
-
-/*export async function getProducts() {
-  try {
-    const { data: products } = await axios.get('/api/products')
-    return products;
-  } catch(err) {
-    console.error(err)
+  } catch (error) {
+    console.error(error);
   }
-}*/
+};
+
+// export async function getUsers() {
+//    try {
+//      const users = await callApi({url: '/users'})
+//      return users;
+//   } catch(err) {
+//     console.error(err)
+//   }
+// }
+
+export async function getCartByUser(user, token) {
+  try {
+    const cart = await callApi({ url: "/orders/cart", body: user, token });
+    return cart;
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+export async function getOrdersByUser() {
+  try {
+    const { data: orders } = await axios.get("/api/orders");
+    return orders;
+  } catch (err) {
+    console.error(err);
+  }
+}
+export async function getUsers() {
+  try {
+    const users = await callApi({ url: "/users" });
+    return users;
+  } catch (err) {
+    console.error(err);
+  }
+}
 
 // export async function getProducts() {
 //   try {
@@ -72,7 +78,7 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
 
 export async function getAPIHealth() {
   try {
-    const { data } = await axios.get('/api/health');
+    const { data } = await axios.get("/api/health");
     return data;
   } catch (err) {
     console.error(err);

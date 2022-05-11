@@ -74,6 +74,6 @@ const Products = ({ products, getProducts, setProducts, token, cart, user, setCa
         })}
         
     </>
-}
+};
 
 export default Products;

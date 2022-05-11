@@ -20,7 +20,7 @@ const SingleOrder = ({ orders }) => {
   } else {
     return (
       <>
-        <div>Order Not Found</div>
+        <div>Order Loading...</div>
       </>
     );
   }

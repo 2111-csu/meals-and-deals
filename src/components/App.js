@@ -1,30 +1,37 @@
-import React, { useState, useEffect } from 'react';
-import { Route, Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
+import React, { useState, useEffect } from "react";
+import { Route, Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
-import { getAPIHealth, getProducts, getCartByUser } from '../axios-services';
+import {
+  getAPIHealth,
+  getProducts,
+  getCartByUser,
+  getOrdersByUser,
+} from "../axios-services";
 
-import '../style/App.css';
+import "../style/App.css";
 import {
   Products,
   SingleProduct,
   RegisterLogin,
   Home,
-  Account, 
+  Account,
   Cart,
   Users,
   Checkout,
-  SingleOrder
+  SingleOrder,
+  Orders
 } from './';
 
 const App = () => {
   const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
-  const [user, setUser] = useState({})
-  const [token, setToken] = useState('');
+  const [user, setUser] = useState({});
+  const [token, setToken] = useState("");
+  const [userName, setUserName] = useState("");
   const [cart, setCart] = useState({});
-  const [userName, setUserName] = useState('');
   const [userId, setUserId] = useState(Number);
+  const [orders, setOrders] = useState([]);
   const history = useHistory();
   
   useEffect(() => {
@@ -37,16 +44,16 @@ const App = () => {
     const matchedCart = localStorage.getItem('cart');
     const parsedCart = JSON.parse(matchedCart)
     if (matchedToken) {
-       setToken(matchedToken);
-    };
+      setToken(matchedToken);
+    }
     if (matchedUsername) {
-       setUserName(matchedUsername);
-    };
+      setUserName(matchedUsername);
+    }
     if (matchedUserId) {
-       setUserId(matchedUserId);
+      setUserId(matchedUserId);
     }
     if (parsedUser) {
-       setUser(parsedUser);
+      setUser(parsedUser);
     }
     if (parsedCart) {
       setCart(parsedCart);
@@ -71,29 +78,27 @@ const App = () => {
   //   // }
     
 
-   
-  //   // second, after you've defined your getter above
-  //   // invoke it immediately after its declaration, inside the useEffect callback
-  //   getAPIStatus();
-  //   fetchProducts();
-  //   // fetchCart();
-  // }, []);
+    //   // second, after you've defined your getter above
+    //   // invoke it immediately after its declaration, inside the useEffect callback
+  
 
-  const props = { 
-    products, 
-    setProducts, 
-    token, 
+  const props = {
+    products,
+    setProducts,
+    token,
     setToken,
-    userName, 
+    userName,
     setUserName,
-    userId, 
+    userId,
     setUserId,
     user,
     setUser,
     cart,
     setCart,
     setMessage,
-    message
+    message,
+    getOrdersByUser,
+    orders,
   }
 
   return <>
@@ -149,6 +154,12 @@ const App = () => {
       <Route exact path='/cart/checkout'>
         <Checkout {...props} />
       </Route>
+      <Route exact path="/orders">
+          <Orders {...props} />
+        </Route>
+        <Route exact path="/orders/:orderId">
+          <SingleOrder orders={orders} />
+        </Route>
     </main>
   </>;
 };
