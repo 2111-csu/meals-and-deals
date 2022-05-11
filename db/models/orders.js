@@ -70,17 +70,14 @@ async function getOrdersByUser({ id }) {
 
 async function getCartByUser(userId) {
   try {
-    const { rows: orders } = await client.query(
-      `
+    const { rows: [order] } = await client.query(`
     SELECT orders.*, users.username AS "creatorName"
     FROM orders
     JOIN users ON orders."userId" = users.id
     WHERE "userId" = $1
     AND orders.status = 'created'
-    `,
-      [userId]
-    );
-    return attachProductsToOrders(orders);
+    `, [userId]);
+    return attachProductsToOrders([order]);
   } catch (error) {
     throw error;
   }
@@ -146,22 +143,19 @@ async function updateOrder({ id, ...fields }) {
   }
 }
 
-async function completeOrder({ id }) {
-  try {
-    const { rows } = await client.query(
-      `
+  async function completeOrder(id){
+    try{
+        const {rows: [order]} = await client.query(`
         UPDATE orders
-        SET orders.status = 'completed'
+        SET status = 'completed'
         WHERE id = $1
         RETURNING *;
-        `,
-      [id]
-    );
-    return rows;
-  } catch (error) {
-    throw error;
-  }
-}
+        `, [id])
+        return order
+     }catch (error) {
+         throw error;
+     };
+};
 
 async function cancelOrder(id) {
   try {
@@ -170,7 +164,7 @@ async function cancelOrder(id) {
     } = await client.query(
       `
       UPDATE orders
-      SET name = $2, description = $3
+      SET status = 'canceled'
       WHERE id = $1
       RETURNING *;
       `,

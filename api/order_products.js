@@ -40,18 +40,8 @@ router.delete('/:orderProductId', requireUser, async (req, res, next) => {
     const { orderProductId } = req.params;
 
     try {
-        const opId = await getOrderProductById(orderProductId);
-        const userInfo = await getOrderById(opId.orderId);
-        
-        if (opId && userInfo.userId === req.user.id) {
-            const product = await destroyOrderProduct(orderProductId);
-            res.send(product);
-        } else {
-            next({
-                name: 'OrderIDNotFoundError',
-                message: 'That order ID does not exist'
-            });
-        }
+        const product = await destroyOrderProduct(orderProductId);
+        res.send(product);
     } catch (error) {
         next (error);
     }
