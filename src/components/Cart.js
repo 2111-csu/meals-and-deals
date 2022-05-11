@@ -7,7 +7,6 @@ const parsedCart = JSON.parse(matchedCart)
 
 const Cart = ({ token, user, setCart, cart }) => {
     let cartItems = []
-
     const regetCart = async () => {
         const cart = await callApi({url: '/orders/cart', body: user, token})
         setCart(cart);
@@ -22,8 +21,9 @@ const Cart = ({ token, user, setCart, cart }) => {
             }
             if(cart) setCart(cart);
         };
-        getCart();
+        if (user.id) getCart();
     }, [])
+    
    const history = useHistory()
    
    
@@ -44,7 +44,7 @@ const Cart = ({ token, user, setCart, cart }) => {
             {cartItems.map((product) => {
             return (
                 <div className="cartProduct" key={product.orderProductsId}>
-                    <h2>{product.name}(${product.price})x{product.quantity}<button key={product.orderProductsId} onClick={() => deleteProduct(product.orderProductsId)}>Remove Item</button></h2>
+                    <h2>{product.name}({product.price})x{product.quantity}<button key={product.orderProductsId} onClick={() => deleteProduct(product.orderProductsId)}>Remove Item</button></h2>
                 </div>
                 
             );

@@ -48,11 +48,11 @@ router.get("/cart", requireUser, async (req, res, next) => {
   // Create a new order. Should initially be status = created.
 router.post("/", async (req, res, next) => {
     try {
-      const { status, userId, dateplaced, creatorName, products } = req.body;
+      const { status, userId, datePlaced, creatorName, products } = req.body;
       const order = await createOrders({
         status,
         userId,
-        dateplaced,
+        datePlaced,
         creatorName,
         products,
       });

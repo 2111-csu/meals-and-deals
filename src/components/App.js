@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Route, Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 
-
 import { getAPIHealth, getProducts, getCartByUser } from '../axios-services';
 
 import '../style/App.css';
@@ -17,8 +16,6 @@ import {
   Checkout,
   SingleOrder
 } from './';
-
-
 
 const App = () => {
   const [message, setMessage] = useState('');

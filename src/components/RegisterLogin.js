@@ -40,14 +40,19 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, tok
                         const { user } = response;
                         setToken(token);
                         setUser(user)
-                        const cart = await getCartByUser(user, token)
-                        console.log('cart', cart)
-                        if (cart) setCart(cart)
+                        // try {
+                        //     const cart = await getCartByUser(user, token)
+                        //     if (cart) { 
+                        //         setCart(cart)
+                        //         console.log('cart', cart)
+                        //         localStorage.setItem('cart', JSON.stringify(cart));
+                        //     }  
+                        // }catch(error){
+                        //     console.error(error)
+                        // }   
                         localStorage.setItem('token', token);
                         console.log(user)
                         localStorage.setItem('user', JSON.stringify(user));
-                        localStorage.setItem('cart', JSON.stringify(cart));
-                        //const user = await callApi({ url: '/users/me', token })
                     if (user) {
                             setUserName(user.username);
                             localStorage.setItem('username', user.username);
@@ -56,7 +61,7 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, tok
                             setUsername('');
                             setPassword('');
                             history.push('/');
-                        }
+                    }
                     }
                 } catch(error) {
                     console.error(error);
