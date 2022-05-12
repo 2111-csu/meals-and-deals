@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { callApi } from '../axios-services';
 
@@ -27,7 +27,7 @@ const AddProduct = ({ token, setProducts }) => {
 
     const reRenderProducts = async () => {
     const allProducts = await callApi({url:`/products`, method: "GET"});
-    setProducts(productsResponse);
+    setProducts(allProducts);
     reRenderProducts();
 };
 

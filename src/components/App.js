@@ -20,7 +20,8 @@ import {
   Users,
   Checkout,
   SingleOrder,
-  Orders
+  Orders,
+  AddProduct
 } from './';
 
 const App = () => {
@@ -108,6 +109,7 @@ const App = () => {
       </div>
       <Link to='/products' className='nav-link'>Meals</Link>
       <Link to='/' className='nav-link'>Home</Link>
+      <Link to='/admin' className='nav-link'>Admin</Link>
       <Link to='/cart' className='nav-link'>Your Cart</Link>
       {
           token
@@ -155,11 +157,15 @@ const App = () => {
         <Checkout {...props} />
       </Route>
       <Route exact path="/orders">
-          <Orders {...props} />
+         <Orders {...props} />
         </Route>
-        <Route exact path="/orders/:orderId">
-          <SingleOrder orders={orders} />
-        </Route>
+      <Route exact path="/orders/:orderId">
+        <SingleOrder orders={orders} />
+      </Route>
+      <Route exact path="/admin">
+        <AddProduct {...props} />
+      </Route>
+
     </main>
   </>;
 };
