@@ -56,14 +56,22 @@ export async function getOrdersByUser() {
     console.error(err);
   }
 }
-export async function getUsers() {
+export async function getAllUsers() {
   try {
-    const users = await callApi({ url: "/users" });
+    const { data: users } = await axios.get("/api/users");
     return users;
   } catch (err) {
     console.error(err);
   }
 }
+// export async function getUsers() {
+//   try {
+//     const users = await callApi({ url: "/users" });
+//     return users;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 // export async function getProducts() {
 //   try {

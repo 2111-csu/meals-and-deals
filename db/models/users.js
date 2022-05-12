@@ -77,7 +77,7 @@ async function getUserById(id) {
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
-          SELECT id, firstName, lastName, email, username, "imageURL" 
+          SELECT id, firstName, lastName, email, username, "imageURL" , "isAdmin"
           FROM users;
         `);
     return rows;

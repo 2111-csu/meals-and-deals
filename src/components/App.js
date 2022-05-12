@@ -4,8 +4,8 @@ import { useHistory } from "react-router";
 
 import {
   getAPIHealth,
-  getProducts,
-  getCartByUser,
+  // getProducts,
+  // getCartByUser,
   getOrdersByUser,
 } from "../axios-services";
 
@@ -20,6 +20,7 @@ import {
   Users,
   Orders,
   SingleOrder,
+  AdminSingleUser,
 } from "./";
 
 const App = () => {
@@ -53,18 +54,15 @@ const App = () => {
     }
   }, []);
 
-  console.log("I AM USER", userName);
-  console.log("USERs ID", userId);
-  console.log("heres some user data ", user);
-
   useEffect(() => {
     const fetchOrdersByUser = async () => {
       const fetchedOrders = await getOrdersByUser();
       setOrders(fetchedOrders);
     };
 
-    fetchOrdersByUser(user.id);
+    fetchOrdersByUser();
   }, []);
+
   useEffect(() => {
     //   // follow this pattern inside your useEffect calls:
     //   // first, create an async function that will wrap your axios service adapter
@@ -169,6 +167,7 @@ const App = () => {
         </Route>
         <Route exact path="/users">
           <Users {...props} />
+          {/* <AdminSingleUser {...props} /> */}
         </Route>
         <Route exact path="/orders">
           <Orders {...props} />
