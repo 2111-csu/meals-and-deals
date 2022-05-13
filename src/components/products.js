@@ -4,12 +4,26 @@ import { callApi, getCartByUser } from '../axios-services';
 let OrderId = ''
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 console.log('order id', OrderId)
-const Products = ({ products, getProducts, setProducts, token, cart, user, setCart}) => {
+const newObj = {products: []}
+
+const Products = ({ products, getProducts, setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
   OrderId = ''
   const [quantity, setQuantity] = useState('1'); 
   console.log('cart', cart)
   const addProducttoCart = async (product) =>  {
-        if (cart[0]) {
+    
+   if (!user.id) {
+      product.orderProductsId = product.id
+      product.quantity = quantity
+      //const newObj = {products: []}
+      newObj.products.push(product)
+      console.log('newobj', newObj)
+      setLocalCart([newObj])
+      localStorage.setItem('cart', JSON.stringify(newObj));
+      console.log('local cart', localCart)
+    } 
+    if (user.id) {
+      if (cart[0]) {
           const [cartObj] = cart
           if (cartObj) OrderId = cartObj.id
         }
@@ -36,14 +50,16 @@ const Products = ({ products, getProducts, setProducts, token, cart, user, setCa
           });
           const newCart = await getCartByUser(user, token)
           if (newCart) {
+            console.log('new', newCart)
             setCart(newCart);
-            localStorage.setItem('cart', JSON.stringify(newCart));
+            setQuantity(1)
           }
           return response;
         } catch (error) {
           alert(error);
         }
-      };
+     }
+   };
     
     useEffect (() => {
         const getProducts = async () => {

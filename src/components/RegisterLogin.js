@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useParams, useHistory } from 'react-router';
 import { callApi, getCartByUser } from '../axios-services';
 
-const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, token }) => {
+const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCartItems, token }) => {
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -60,6 +60,7 @@ const RegisterLogin = ({ setToken, setUserName, setUserId, setUser, setCart, tok
                             localStorage.setItem('userId', user.id);
                             setUsername('');
                             setPassword('');
+                            setCartItems([]);
                             history.push('/');
                     }
                     }

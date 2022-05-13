@@ -30,8 +30,10 @@ const App = () => {
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [cart, setCart] = useState({});
+  const [localCart, setLocalCart] = useState({});
   const [userId, setUserId] = useState(Number);
   const [orders, setOrders] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
   
   useEffect(() => {
@@ -99,6 +101,10 @@ const App = () => {
     message,
     getOrdersByUser,
     orders,
+    localCart,
+    setLocalCart,
+    setCartItems,
+    cartItems
   }
 
   return <>
@@ -124,6 +130,7 @@ const App = () => {
               setToken('');
               setUser({});
               setCart({});
+              setCartItems([]);
               history.push('/');
             }}>Logout</button> </>
             : <Link to='/account/login' className='nav-link'>Sign In</Link>
