@@ -22,7 +22,8 @@ import {
   SingleOrder,
   AdminSingleUser,
   Orders,
-} from "./";
+  AddProduct,
+} from ".";
 
 const App = () => {
   const [message, setMessage] = useState("");
@@ -210,6 +211,9 @@ const App = () => {
         </Route>
         <Route exact path="/orders/:orderId">
           <SingleOrder orders={orders} />
+        </Route>
+        <Route exact path="/admin">
+          <AddProduct {...props} />
         </Route>
       </main>
     </>
