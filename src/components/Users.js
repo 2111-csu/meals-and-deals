@@ -14,38 +14,31 @@ const Users = ({ user, setUser, userName }) => {
     };
     getUsers();
   }, []);
-  console.log("USERS 16", user);
+  console.log("USERS 17", allUsers);
   return (
     <>
       {console.log("USER in Users", user)}
-      {/* <div className="adminUsers" key={usersid}> */}
       {!user.isAdmin === true ? (
-        <h2>
+        <>
           return (
-          <>
-            <div className="adminUsersList">{user.name}</div>
-          </>
-          );
           <AdminSingleUser />
-        </h2>
+        </>
       ) : null}
 
-      {/* </div> */}
       <>
         <h1> Hello, {userName}</h1>
-        {/* {user.isAdmin === true ? <AdminSingleUser /> : null} */}
       </>
 
       {allUsers.length &&
         allUsers.map((user) => {
           return (
             <div className="singleUser" key={user.id}>
+              <h2>
+                {user.firstname} {user.lastname}
+              </h2>
               <Link to={`/users/${user.id}`}>
-                <h2>
-                  {user.firstname}({user.lastname})
-                </h2>
+                <p>{user.username}</p>
               </Link>
-              <p>{user.username}</p>
             </div>
           );
         })}

@@ -23,8 +23,10 @@ const AdminSingleUser = (user) => {
   if (singleUser) {
     return (
       <>
-        {singleUser.firstname} {singleUser.email}
-        <h2>User is {singleUser.id}</h2>
+        <h2>
+          User is {singleUser.id} {singleUser.firstname} {singleUser.lastname}
+          <br /> email: {singleUser.email}
+        </h2>
         <p>{/* {doneOrder.status} on {doneOrder.datePlaced} */}</p>
       </>
     );

@@ -123,6 +123,13 @@ const App = () => {
     <>
       <header>
         <div className="app-container"></div>
+        {user.isAdmin === true ? (
+          <>
+            <Link to="/users" className="nav-link">
+              Users
+            </Link>
+          </>
+        ) : null}
         <Link to="/products" className="nav-link">
           Meals
         </Link>
@@ -132,11 +139,19 @@ const App = () => {
         <Link to="/cart" className="nav-link">
           Your Cart
         </Link>
+        {user.isAdmin === true ? (
+          <>
+            <Link to="/users" className="nav-link">
+              Users
+            </Link>
+          </>
+        ) : null}
         {token ? (
           <>
             <Link to="/account" className="nav-link">
               Account
             </Link>
+
             <button
               className="logout"
               onClick={() => {
@@ -154,7 +169,7 @@ const App = () => {
               }}
             >
               Logout
-            </button>{" "}
+            </button>
           </>
         ) : (
           <Link to="/account/login" className="nav-link">
