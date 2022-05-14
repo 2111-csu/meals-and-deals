@@ -32,6 +32,7 @@ const App = () => {
   const [cart, setCart] = useState({});
   const [localCart, setLocalCart] = useState({});
   const [userId, setUserId] = useState(Number);
+  const [orderId, setOrderId] = useState('');
   const [orders, setOrders] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
@@ -104,7 +105,9 @@ const App = () => {
     localCart,
     setLocalCart,
     setCartItems,
-    cartItems
+    cartItems,
+    orderId,
+    setOrderId
   }
 
   return <>
