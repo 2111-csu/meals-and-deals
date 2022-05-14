@@ -6,9 +6,15 @@ const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 console.log('order id', OrderId)
 const newObj = {products: []}
 
-const ProductList = ({ products, getProducts, setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
+const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
   OrderId = ''
-  const [quantity, setQuantity] = useState('1'); 
+  const [quantity, setQuantity] = useState('1');
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [price, setPrice] = useState('')
+  const [imageURL, setImageURL] = useState('')
+  const [inStock, setInStock] = useState('')
+  const [category, setCategory] = useState('') 
   console.log('cart', cart)
   const addProducttoCart = async (product) =>  {
     
@@ -60,34 +66,79 @@ const ProductList = ({ products, getProducts, setProducts, token, cart, user, se
         }
      }
    };
+   
+   const getProducts = async () => {
+    const products= await callApi({url: '/products'})
+    setProducts(products);
+  };
     
-    useEffect (() => {
-        const getProducts = async () => {
-            const products= await callApi({url: '/products'})
-            setProducts(products);
-        };
+   useEffect (() => {
         getProducts();
     }, [])
+
+    const handleSubmit = async(event, product) =>{
+      event.preventDefault()
+      console.log('button hit')
+      await callApi({url: `/products/${product.id}`, method: 'PATCH', token, body: { name, description, price, imageURL, inStock, category} });
+      //const productsResponse = await callApi({url: `/products`, method: "GET"})
+
+      //setProducts(productsResponse);
+      setName('');
+      setDescription('');
+      setPrice('');
+      setImageURL('');
+      setInStock('');
+      setCategory('');
+      getProducts()
+  };
+
+  const deleteProduct = async (product) =>  {
+    await callApi({url: `/products/${product.id}`, method: 'DELETE', token})
+    getProducts()
+  }
   
     return <>
         {/* <h1>Meals-And-Deals Product Listings</h1> */}
-        {products.map((product) => {
-            return (
-                <div className="singleProduct" key={product.id}>
-                    <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
-                    <p>{product.description}</p>
-                    <img className="productImage" src={product.imageURL} alt='Product'/>
-                    <select onChange={(event) => setQuantity(event.target.value)}>
-                      {quantityArray.map((quantity) => (
-                      <option key={quantity} value={quantity}>
-                        {quantity}
-                      </option>
-                      ))}
-                    </select>
-                    <button key={product.id} onClick={() => addProducttoCart(product)}>Add to Cart</button>
-                </div>
-            );
-        })}
+        { (user.isAdmin) ? products.map((product) => {
+          return (
+              <div className="singleProduct" key={product.id}>
+                  <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
+                  <p>{product.description}</p>
+                  <img className="productImage" src={product.imageURL} alt='Product'/>
+                  <form onSubmit={(event) => handleSubmit(event, product)} >
+                    <input type='text' placeholder='New Product Name' value={name} onChange={(event) => setName(event.target.value)} />
+                    <input type='text' placeholder='New Product Description' value={description} onChange={(event) => setDescription(event.target.value)} />
+                    <input type='text' placeholder='New Product Price' value={price} onChange={(event) => setPrice(event.target.value)} />
+                    <input type='text' placeholder='New Product ImageURL' value={imageURL} onChange={(event) => setImageURL(event.target.value)} />
+                    <input type='text' placeholder='New Product InStock' value={inStock} onChange={(event) => setInStock(event.target.value)} />
+                    <input type='text' placeholder='New Product Category' value={category} onChange={(event) => setCategory(event.target.value)} />
+                    <button type="submit">Edit Product</button>
+                  </form>
+                  <button key={product.id} onClick={() => deleteProduct(product)}>Delete Product</button>
+              </div>
+          );
+      })
+        : 
+        products.map((product) => {
+        return (
+            <div className="singleProduct" key={product.id}>
+                <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
+                <p>{product.description}</p>
+                <img className="productImage" src={product.imageURL} alt='Product'/>
+                <select onChange={(event) => setQuantity(event.target.value)}>
+                  {quantityArray.map((quantity) => (
+                  <option key={quantity} value={quantity}>
+                    {quantity}
+                  </option>
+                  ))}
+                </select>
+                <button key={product.id} onClick={() => addProducttoCart(product)}>Add to Cart</button>
+            </div>
+        );
+    })
+      
+      }
+      
         
     </>
 };

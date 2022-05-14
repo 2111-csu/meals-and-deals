@@ -4,15 +4,16 @@ async function destroyProduct(id) {
     try {
       await client.query(`
           DELETE FROM order_products 
-          WHERE "orderId" = $1 && status = "created"
+          WHERE "productId" = $1
       `, [id]);
-      const {rows: [order]} = await client.query(`
-          DELETE FROM orders 
+      const {rows: [product]} = await client.query(`
+          DELETE FROM products 
           WHERE id = $1
           RETURNING *
       `, [id]);
-      return order;
+      return product;
     } catch (error) {
+      console.log('destroy produt error', error)
       throw error;
     }
   }
@@ -32,6 +33,7 @@ try {
     
     return product;
 } catch (error) {
+    console.log('update product error', error)
     throw error;
 };
 };

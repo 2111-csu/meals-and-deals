@@ -120,6 +120,10 @@ const App = () => {
       <Link to='/products' className='nav-link'>Meals</Link>
       <Link to='/' className='nav-link'>Home</Link>
       <Link to='/cart' className='nav-link'>Your Cart</Link>
+      { user.isAdmin ?
+        <Link to='/admin' className='nav-link'>Admin</Link>
+        : null
+      }
       {
           token
             ? <>
@@ -171,6 +175,9 @@ const App = () => {
         </Route>
         <Route exact path="/orders/:orderId">
           <SingleOrder orders={orders} />
+        </Route>
+        <Route exact path="/admin">
+          <AddProduct {...props} />
         </Route>
     </main>
   </>;
