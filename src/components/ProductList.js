@@ -4,7 +4,7 @@ import { callApi, getCartByUser } from "../axios-services";
 let OrderId = "";
 const quantityArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log("order id", OrderId);
-const Products = ({
+const ProductList = ({
   products,
   getProducts,
   setProducts,
@@ -104,4 +104,4 @@ const Products = ({
   );
 };
 
-export default Products;
+export default ProductList;
