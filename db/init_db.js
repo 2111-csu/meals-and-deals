@@ -210,19 +210,22 @@ async function populateInitialData() {
     console.log("Products Created: ", products);
     console.log("Finished creating products");
 
-    const orderProductsToCreate =[
-      {orderId: 1, productId: 1, price: '$30', quantity: 2},
-      {orderId: 2, productId: 2, price: '$30', quantity: 3},
-      {orderId: 1, productId: 3, price: '$10', quantity: 3},
-      {orderId: 2, productId: 4, price: '$10', quantity: 1},
-      {orderId: 3, productId: 1, price: '$30', quantity: 2},
-      {orderId: 3, productId: 1, price: '$30', quantity: 1},
-    ]
-      const orderProducts = await Promise.all(
-        orderProductsToCreate.map((orderProduct) => createOrderProduct(orderProduct)));
-      
-      console.log("orderProducts Created: ", orderProducts);
-      console.log("Finished creating orderProducts");
+    const orderProductsToCreate = [
+      { orderId: 1, productId: 1, price: "$30", quantity: 2 },
+      { orderId: 2, productId: 2, price: "$30", quantity: 3 },
+      { orderId: 1, productId: 3, price: "$10", quantity: 3 },
+      { orderId: 2, productId: 4, price: "$10", quantity: 1 },
+      { orderId: 3, productId: 1, price: "$30", quantity: 2 },
+      { orderId: 3, productId: 1, price: "$30", quantity: 1 },
+    ];
+    const orderProducts = await Promise.all(
+      orderProductsToCreate.map((orderProduct) =>
+        createOrderProduct(orderProduct)
+      )
+    );
+
+    console.log("orderProducts Created: ", orderProducts);
+    console.log("Finished creating orderProducts");
   } catch (error) {
     throw error;
   }

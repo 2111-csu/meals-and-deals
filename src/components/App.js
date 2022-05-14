@@ -119,42 +119,42 @@ const App = () => {
     getOrdersByUser,
     orders,
   };
-
+  console.log(user.isAdmin, "IS USER");
   return (
     <>
       <header>
-        <div className="app-container"></div>
+        <div className='app-container'></div>
         {user.isAdmin === true ? (
           <>
-            <Link to="/users" className="nav-link">
-              Users
+            <Link to='/admin' className='nav-link'>
+              Admin
             </Link>
           </>
         ) : null}
-        <Link to="/products" className="nav-link">
+        <Link to='/products' className='nav-link'>
           Meals
         </Link>
-        <Link to="/" className="nav-link">
+        <Link to='/' className='nav-link'>
           Home
         </Link>
-        <Link to="/cart" className="nav-link">
+        <Link to='/cart' className='nav-link'>
           Your Cart
         </Link>
         {user.isAdmin === true ? (
           <>
-            <Link to="/users" className="nav-link">
+            <Link to='/users' className='nav-link'>
               Users
             </Link>
           </>
         ) : null}
         {token ? (
           <>
-            <Link to="/account" className="nav-link">
+            <Link to='/account' className='nav-link'>
               Account
             </Link>
 
             <button
-              className="logout"
+              className='logout'
               onClick={() => {
                 localStorage.removeItem("token");
                 localStorage.removeItem("username");
@@ -173,46 +173,46 @@ const App = () => {
             </button>
           </>
         ) : (
-          <Link to="/account/login" className="nav-link">
+          <Link to='/account/login' className='nav-link'>
             Sign In
           </Link>
         )}
       </header>
       <main>
-        <Route exact path="/">
+        <Route exact path='/'>
           <Home {...props} />
         </Route>
-        <Route exact path="/products">
+        <Route exact path='/products'>
           <Products {...props} />
         </Route>
-        <Route exact path="/products/:productId">
+        <Route exact path='/products/:productId'>
           <SingleProduct {...props} />
         </Route>
-        <Route exact path="/account/:method">
+        <Route exact path='/account/:method'>
           <RegisterLogin {...props} />
         </Route>
-        <Route exact path="/account">
+        <Route exact path='/account'>
           <Account {...props} />
         </Route>
-        <Route exact path="/cart">
+        <Route exact path='/cart'>
           <Cart {...props} />
         </Route>
-        <Route exact path="/users">
+        <Route exact path='/users'>
           <Users {...props} />
         </Route>
-        <Route exact path="/users/:userId">
+        <Route exact path='/users/:userId'>
           <AdminSingleUser {...props} />
         </Route>
-        <Route exact path="/cart/checkout">
+        <Route exact path='/cart/checkout'>
           <Checkout {...props} />
         </Route>
-        <Route exact path="/orders">
+        <Route exact path='/orders'>
           <Orders {...props} />
         </Route>
-        <Route exact path="/orders/:orderId">
+        <Route exact path='/orders/:orderId'>
           <SingleOrder orders={orders} />
         </Route>
-        <Route exact path="/admin">
+        <Route exact path='/admin'>
           <AddProduct {...props} />
         </Route>
       </main>

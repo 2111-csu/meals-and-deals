@@ -19,7 +19,7 @@ const AdminSingleUser = (user) => {
     getUserById();
   }, []);
   console.log("SINGLE USER", singleUser);
-
+  console.log(singleUser);
   if (singleUser) {
     return (
       <>
@@ -27,15 +27,12 @@ const AdminSingleUser = (user) => {
           User is {singleUser.id} {singleUser.firstname} {singleUser.lastname}
           <br /> email: {singleUser.email}
         </h2>
-        <p>{/* {doneOrder.status} on {doneOrder.datePlaced} */}</p>
       </>
     );
   } else {
     return (
       <>
-        {/* {console.log("All users from Admin page", allUsers)} */}
-
-        <div>Users Loading...</div>
+        <div></div>
       </>
     );
   }

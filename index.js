@@ -1,6 +1,6 @@
 // This is the Web Server
 const express = require("express");
-require("dotenv");
+require("dotenv").config();
 const server = express();
 
 // enable cross-origin resource sharing to proxy api requests

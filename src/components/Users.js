@@ -17,22 +17,20 @@ const Users = ({ user, setUser, userName }) => {
   console.log("USERS 17", allUsers);
   return (
     <>
+      <h1> Hello, {userName}</h1>
+
       {console.log("USER in Users", user)}
-      {!user.isAdmin === true ? (
+      {user.isAdmin === true ? (
         <>
-          return (
           <AdminSingleUser />
         </>
       ) : null}
 
-      <>
-        <h1> Hello, {userName}</h1>
-      </>
-
-      {allUsers.length &&
+      {user.isAdmin === true ? (
+        allUsers.length &&
         allUsers.map((user) => {
           return (
-            <div className="singleUser" key={user.id}>
+            <div className='singleUser' key={user.id}>
               <h2>
                 {user.firstname} {user.lastname}
               </h2>
@@ -41,9 +39,97 @@ const Users = ({ user, setUser, userName }) => {
               </Link>
             </div>
           );
-        })}
+        })
+      ) : (
+        <p>Hope you're hungry</p>
+      )}
     </>
   );
 };
 
-export default Users;
+const AddUser = ({ token, setUser }) => {
+  const [firstName, setFirstname] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setusername] = useState("");
+  const [password, setPassword] = useState("");
+  const [isAdmin, setIsAdmin] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    await callApi({
+      url: "/products",
+      method: "POST",
+      token,
+      body: { firstName, lastName, email, username, password, isAdmin },
+    });
+    const usersResp = await callApi({ url: `/users`, method: "GET" });
+
+    setUsers(usersResp);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setusername("");
+    setPassword("");
+    setEmail("");
+    setIsAdmin("");
+  };
+
+  const reRenderProducts = async () => {
+    const allProducts = await callApi({ url: `/products`, method: "GET" });
+    setProducts(allProducts);
+    reRenderProducts();
+  };
+
+  return (
+    <>
+      <br />
+      <h2>Create a new Product for Meals and Deals</h2>
+      <br />
+      <form onSubmit={handleSubmit}>
+        <input
+          type='text'
+          placeholder='New Product Name'
+          value={name}
+          onChange={(event) => setName(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='New Product Description'
+          value={description}
+          onChange={(event) => setDescription(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='New Product Price'
+          value={price}
+          onChange={(event) => setPrice(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='New Product ImageURL'
+          value={imageURL}
+          onChange={(event) => setImageURL(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='New Product InStock'
+          value={inStock}
+          onChange={(event) => setInStock(event.target.value)}
+        />
+        <input
+          type='text'
+          placeholder='New Product Category'
+          value={category}
+          onChange={(event) => setCategory(event.target.value)}
+        />
+        <button type='submit'>Submit</button>
+      </form>
+    </>
+  );
+};
+
+// export default AddProduct;
+
+export default { Users, AddProduct };
