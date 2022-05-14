@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { callApi, getCartByUser } from '../axios-services';
+
 let OrderId = ''
+
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 console.log('order id', OrderId)
 const Products = ({ products, getProducts, setProducts, token, cart, user, setCart}) => {
@@ -54,8 +56,9 @@ const Products = ({ products, getProducts, setProducts, token, cart, user, setCa
     }, [])
   
     return <>
-        {/* <h1>Meals-And-Deals Product Listings</h1> */}
-        {products.map((product) => {
+  
+        <img src="images/background.jpg" className="background" alt=""/>
+               {products.map((product) => {
             return (
                 <div className="singleProduct" key={product.id}>
                     <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
