@@ -52,7 +52,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
             {cartItems.map((product) => {
             return (
                 <div className="cartProduct" key={product.orderProductsId}>
-                    <h2>{product.name}(${product.price})x{product.quantity}</h2>
+                    <h2>{product.name}({product.price})x{product.quantity}</h2>
                 </div>
             );
             })} 
