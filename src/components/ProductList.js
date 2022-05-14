@@ -6,7 +6,7 @@ const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 console.log('order id', OrderId)
 const newObj = {products: []}
 
-const Products = ({ products, getProducts, setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
+const ProductList = ({ products, getProducts, setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
   OrderId = ''
   const [quantity, setQuantity] = useState('1'); 
   console.log('cart', cart)
@@ -92,4 +92,4 @@ const Products = ({ products, getProducts, setProducts, token, cart, user, setCa
     </>
 };
 
-export default Products;
+export default ProductList;

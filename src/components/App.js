@@ -11,7 +11,6 @@ import {
 
 import "../style/App.css";
 import {
-  Products,
   SingleProduct,
   RegisterLogin,
   Home,
@@ -20,8 +19,11 @@ import {
   Users,
   Checkout,
   SingleOrder,
-  Orders
-} from './';
+  AdminSingleUser,
+  Orders,
+  AddProduct,
+  ProductList,
+} from ".";
 
 const App = () => {
   const [message, setMessage] = useState('');
@@ -144,7 +146,7 @@ const App = () => {
         <Home {...props} />
       </Route>
       <Route exact path='/products'>
-        <Products {...props} />
+        <ProductList {...props} />
       </Route>
       <Route exact path='/products/:productId'>
         <SingleProduct {...props} />
