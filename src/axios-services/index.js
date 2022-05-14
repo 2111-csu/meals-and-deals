@@ -7,7 +7,8 @@ import axios from "axios";
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
 
-const { REACT_API_URL = "http://localhost:4000/api" } = process.env;
+const { REACT_API_URL = "http://localhost:4000/api" } =
+  process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
   try {
@@ -22,8 +23,8 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
-    console.log(url)
-    console.log(options)
+    console.log(url);
+    console.log(options);
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
     return resp.data;
@@ -58,14 +59,22 @@ export async function getOrdersByUser() {
     console.error(err);
   }
 }
-export async function getUsers() {
+export async function getAllUsers() {
   try {
-    const users = await callApi({ url: "/users" });
+    const { data: users } = await axios.get("/api/users");
     return users;
   } catch (err) {
     console.error(err);
   }
 }
+// export async function getUsers() {
+//   try {
+//     const users = await callApi({ url: "/users" });
+//     return users;
+//   } catch (err) {
+//     console.error(err);
+//   }
+// }
 
 // export async function getProducts() {
 //   try {

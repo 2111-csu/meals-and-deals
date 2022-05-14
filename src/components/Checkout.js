@@ -1,6 +1,6 @@
-import React, {useEffect} from 'react';
-import { callApi } from '../axios-services';
-import { useHistory } from 'react-router';
+import React, { useEffect } from "react";
+import { callApi } from "../axios-services";
+import { useHistory } from "react-router";
 
 const Checkout = ({ token, user, setCart, cart, setMessage }) => {
 //     let cartItems = []
@@ -42,9 +42,11 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
             <>
         <div>
             <h1>{user.username}</h1>
-            <h2>{user.firstname} {user.lastname}</h2>
+            <h2>
+              {user.firstname} {user.lastname}
+            </h2>
             <h2>{user.email}</h2>
-        </div>
+          </div>
         </>
             Your Cart:
             {cartItems.map((product) => {
