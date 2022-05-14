@@ -7,7 +7,7 @@ import axios from "axios";
 // for example, if we need to display a list of users
 // we'd probably want to define a getUsers service like this:
 
-const { REACT_API_URL = "https://meal-and-deals.herokuapp.com/api" } =
+const { REACT_API_URL = "https://sleepy-citadel-97219.herokuapp.com/api" } =
   process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
