@@ -48,7 +48,7 @@ const Users = ({ user, setUser, userName }) => {
 };
 
 const AddUser = ({ token, setUser }) => {
-  const [firstName, setFirstname] = useState("");
+  const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setusername] = useState("");
@@ -59,7 +59,7 @@ const AddUser = ({ token, setUser }) => {
     event.preventDefault();
 
     await callApi({
-      url: "/products",
+      url: "/users",
       method: "POST",
       token,
       body: { firstName, lastName, email, username, password, isAdmin },
@@ -76,41 +76,41 @@ const AddUser = ({ token, setUser }) => {
     setIsAdmin("");
   };
 
-  const reRenderProducts = async () => {
-    const allProducts = await callApi({ url: `/products`, method: "GET" });
-    setProducts(allProducts);
-    reRenderProducts();
+  const reRenderUsers = async () => {
+    const updatedUsers = await callApi({ url: `/users`, method: "GET" });
+    setUsers(updatedUsers);
+    reRenderUsers();
   };
 
   return (
     <>
       <br />
-      <h2>Create a new Product for Meals and Deals</h2>
+      <h2>New User Setup</h2>
       <br />
       <form onSubmit={handleSubmit}>
         <input
           type='text'
-          placeholder='New Product Name'
-          value={name}
-          onChange={(event) => setName(event.target.value)}
+          placeholder='First Name'
+          value={firstName}
+          onChange={(event) => setFirstName(event.target.value)}
         />
         <input
           type='text'
-          placeholder='New Product Description'
-          value={description}
-          onChange={(event) => setDescription(event.target.value)}
+          placeholder='Last Name'
+          value={lastName}
+          onChange={(event) => setLastName(event.target.value)}
+        />
+        <input
+          type='email'
+          placeholder='Email'
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
         />
         <input
           type='text'
-          placeholder='New Product Price'
-          value={price}
-          onChange={(event) => setPrice(event.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='New Product ImageURL'
-          value={imageURL}
-          onChange={(event) => setImageURL(event.target.value)}
+          placeholder='Username'
+          value={username}
+          onChange={(event) => setusername(event.target.value)}
         />
         <input
           type='text'
@@ -119,10 +119,16 @@ const AddUser = ({ token, setUser }) => {
           onChange={(event) => setInStock(event.target.value)}
         />
         <input
+          type='password'
+          placeholder='Password (8 charater min)'
+          value={password}
+          onChange={(event) => setPassword(event.target.value)}
+        />
+        <input
           type='text'
-          placeholder='New Product Category'
-          value={category}
-          onChange={(event) => setCategory(event.target.value)}
+          placeholder='Make an Admin'
+          value={isAdmin}
+          onChange={(event) => setPassword(event.target.value)}
         />
         <button type='submit'>Submit</button>
       </form>

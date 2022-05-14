@@ -37,4 +37,6 @@ const AdminSingleUser = (user) => {
     );
   }
 };
+
+
 export default AdminSingleUser;
