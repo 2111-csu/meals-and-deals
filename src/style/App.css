@@ -63,7 +63,23 @@ img {
   width: 40%
 }
 
-.welcome {
+.welcome{
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15px 15px;
+  border-left: 10px solid #5a7D35;
+  border-top: 10px solid #5a7D35;
+  border-right: 10px solid #5a7D35; 
+  border-bottom: 10px solid #5a7D35;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 72%;
+}
+
+.home {
   background-position: center;
   position: relative;
   background-repeat: no-repeat;
@@ -78,6 +94,7 @@ img {
   margin-right: auto;
   width: 80%
 }
+
 
 button {
   background-color: #5a7D35;
@@ -110,11 +127,37 @@ button {
   transition: all 200ms;
   outline: none;
 }
-
+.checkout-button {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: darkgreen;
+  border-radius: 0px;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  color: white;
+  margin: 0px;
+  width: 100%;
+  border: none;
+  font-size: 1em;
+  transition: all 200ms;
+  outline: none;
+}
 .singleProduct {
   text-align: center;
   border: 3px solid white;
   padding: 2%;
+  width: 100%;
+}
+
+.cartProduct {
+  display: flex;
+  text-align: center;
+  border: 1px solid green;
+  padding: 1%;
+  justify-content: center;
 }
 
 .logout {
@@ -123,7 +166,7 @@ button {
   border-width: 0;
   cursor: pointer;
   display: inline-block;
-  height: 40px;
+  height: 42px;
   color: white;
   margin: 25px;
   color: white;
