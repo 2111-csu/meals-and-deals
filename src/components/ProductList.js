@@ -72,21 +72,26 @@ const ProductList = ({
 
   return (
     <>
-     <img src="images/welcome.png" className="welcome" alt="welcome to meals-and-deals"/>
+     <img src="images/welcome.png" className="welcome" alt="welcome to meals-and-deals"/> 
       {products.map((product) => {
         return (
           <div className="singleProduct" key={product.id}>
+            <img
+              className="productImage"
+              src={product.imageURL}
+              alt="Product"
+            />
             <Link to={`/products/${product.id}`}>
               <h2>
                 {product.name}({product.price})
               </h2>
             </Link>
             <p>{product.description}</p>
-            <img
+            {/* <img
               className="productImage"
               src={product.imageURL}
               alt="Product"
-            />
+            /> */}
             <select onChange={(event) => setQuantity(event.target.value)}>
               {quantityArray.map((quantity) => (
                 <option key={quantity} value={quantity}>

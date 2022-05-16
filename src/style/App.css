@@ -4,6 +4,7 @@
   background-color: white;
   color: #5a7D35;
   align-items: center
+  
 }
 
 .app-container {
@@ -19,11 +20,6 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
-
-/* .app-container h1 {
-  color: var(--green);
-  padding: 1rem;
-} */
 
 .nav-link {
   color:#5a7D35 ;
@@ -61,7 +57,26 @@ img {
   border-top: 10px solid #5a7D35;
   border-right: 10px solid #5a7D35; 
   border-bottom: 10px solid #5a7D35;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%
+}
 
+.welcome {
+  background-position: center;
+  position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 15px 15px;
+  border-left: 10px solid #5a7D35;
+  border-top: 10px solid #5a7D35;
+  border-right: 10px solid #5a7D35; 
+  border-bottom: 10px solid #5a7D35;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%
 }
 
 button {
@@ -82,16 +97,38 @@ button {
 
 .login-button {
   background-color: #5a7D35;
-  border-radius: 45px;
+  border-radius: 5px;
   border-width: 0;
   cursor: pointer;
   display: inline-block;
   height: 40px;
   color: white;
-  padding: 0 20px;
+  margin: 5px;
   color: white;
   border: none;
   font-size: 1em;
   transition: all 200ms;
-  outline: none;;
+  outline: none;
+}
+
+.singleProduct {
+  text-align: center;
+  border: 3px solid white;
+  padding: 2%;
+}
+
+.logout {
+  background-color: #5a7D35;
+  border-radius: 5px;
+  border-width: 0;
+  cursor: pointer;
+  display: inline-block;
+  height: 40px;
+  color: white;
+  margin: 25px;
+  color: white;
+  border: none;
+  font-size: 1em;
+  transition: all 200ms;
+  outline: none;
 }

@@ -44,7 +44,7 @@ const Cart = ({ token, user, setCart, cart }) => {
   return (
     <>
       <div>
-        Your Cart:
+        
         {cartItems.map((product) => {
           return (
             <div className="cartProduct" key={product.orderProductsId}>
