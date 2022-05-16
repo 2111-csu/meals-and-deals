@@ -76,7 +76,7 @@ img {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 72%;
+  width: 73%;
 }
 
 .home {
@@ -136,12 +136,12 @@ button {
   border-width: 0;
   cursor: pointer;
   display: inline-block;
-  height: 40px;
+  height: 70px;
   color: white;
   margin: 0px;
   width: 100%;
   border: none;
-  font-size: 1em;
+  font-size: 1.72em;
   transition: all 200ms;
   outline: none;
 }
@@ -158,6 +158,13 @@ button {
   border: 1px solid green;
   padding: 1%;
   justify-content: center;
+}
+
+.account {
+  text-align:left;
+  border: 35px solid #5a7D35 ;
+  padding: 10%;
+  width: 100%;
 }
 
 .logout {

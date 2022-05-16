@@ -57,7 +57,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
   return (
     <>
       <div>
-        Checkout
+        
         <>
           <div>
             <h1>{user.username}</h1>
@@ -67,7 +67,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
             <h2>{user.email}</h2>
           </div>
         </>
-        Your Cart:
+        
         {cartItems.map((product) => {
           return (
             <div className="cartProduct" key={product.orderProductsId}>
