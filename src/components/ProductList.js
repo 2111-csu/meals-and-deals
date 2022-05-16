@@ -95,7 +95,7 @@ const ProductList = ({
               ))}
             </select>
             <button key={product.id} onClick={() => addProducttoCart(product)}>
-              Add to Cart
+              Add To Cart
             </button>
           </div>
         );
