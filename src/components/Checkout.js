@@ -21,7 +21,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
       token,
     });
     console.log(response);
-    setMessage("Your Order has beeen Canceled");
+    setMessage("Your Order Has Been Canceled");
     return response;
   };
 
@@ -32,6 +32,8 @@ const Checkout = ({ token, user, setCart, cart, setMessage }) => {
       token,
     });
     console.log(response);
+    history.push("/");
+    setMessage("Your Order Has Been Completed")
     return response;
   };
   const cancelOrder = async (orderId) => {

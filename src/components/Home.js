@@ -6,6 +6,8 @@ const Home = ({userName, message}) => {
         <div>
             <br/>
             <br/>
+            <h2>{message}</h2>
+            <br/>
         <img src="images/home.png" className="welcome" alt="welcome to meals-and-deals"/>
         <br/>
         <img src="images/works.png" className="works" alt="meals-and-deals details"/>
