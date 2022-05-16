@@ -72,7 +72,7 @@ const ProductList = ({
 
   return (
     <>
-      {/* <h1>Meals-And-Deals Product Listings</h1> */}
+     <img src="images/welcome.png" className="welcome" alt="welcome to meals-and-deals"/>
       {products.map((product) => {
         return (
           <div className="singleProduct" key={product.id}>
