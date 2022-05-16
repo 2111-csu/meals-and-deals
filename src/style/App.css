@@ -16,18 +16,20 @@
   background-image: url(./banner.png);
   background-position: center;
   position: relative;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.app-container h1 {
+/* .app-container h1 {
   color: var(--green);
   padding: 1rem;
-}
+} */
 
 .nav-link {
   color: #ffffff;
   background-color: #5a7D35;
+  display: inline-flex;
   padding: 10px, 0;
-  display: inline-block;
   flex: 41;
   list-style: none;
   margin-left: auto;
@@ -43,13 +45,13 @@
 
 button {
   background-color: #5a7D35;
-  border-radius: 50px;
+  border-radius: 45px;
   border-width: 0;
   cursor: pointer;
   display: inline-block;
-  height: 50px;
+  height: 40px;
   color: white;
-  padding: 0 25px;
+  padding: 0 20px;
   color: white;
   border: none;
   font-size: 1em;
