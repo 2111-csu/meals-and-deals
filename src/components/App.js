@@ -131,14 +131,14 @@ const App = () => {
             </Link>
           </>
         ) : null}
-        <Link to="/products" className="nav-link">
-          Meals
-        </Link>
         <Link to="/" className="nav-link">
           Home
         </Link>
+        <Link to="/products" className="nav-link">
+          Meals
+        </Link>
         <Link to="/cart" className="nav-link">
-          Your Cart
+           Cart
         </Link>
         {user.isAdmin === true ? (
           <>
