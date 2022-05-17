@@ -4,7 +4,16 @@ const Home = ({userName, message}) => {
    console.log(message)
     return <>
         <div>
-        <h1>Welcome to Meals and Deals!</h1>
+            <br/>
+            <br/>
+            <h2>{message}</h2>
+            <br/>
+        <img src="images/home.png" className="welcome" alt="welcome to meals-and-deals"/>
+        <br/>
+        <img src="images/works.png" className="works" alt="meals-and-deals details"/>
+        <br/>
+        <img src="images/homepage2.png" className="welcome" alt="image of pasta"/>
+        <br/>
         {(userName ==='') ? <h2>You are not Signed in</h2> : <h2>You are Signed in as {userName}</h2>}
         </div>
         <h2>{message}</h2>

@@ -1,11 +1,12 @@
 import React from "react";
 const Account = ({user}) => {
    return <>
-        <div>
-        <h1>Account Info</h1>
-        <h1>{user.username}</h1>
-        <h2>{user.firstname} {user.lastname}</h2>
-        <h2>{user.email}</h2>
+        <div className="account">
+        <h1>Your Meals-And-Deals Account Information:</h1>
+        <br/>
+        <h2>Username: {user.username}</h2>
+        <h2>First Name: {user.firstname} <br/> Last Name: {user.lastname}</h2>
+        <h2>Email: {user.email}</h2>
         </div>
     </>;
 };

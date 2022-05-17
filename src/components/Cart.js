@@ -44,7 +44,7 @@ const Cart = ({ token, user, setCart, cart }) => {
   return (
     <>
       <div>
-        Your Cart:
+      <img src="images/homepage.png" className="home" alt="come to meals-and-deals"/>
         {cartItems.map((product) => {
           return (
             <div className="cartProduct" key={product.orderProductsId}>
@@ -60,7 +60,7 @@ const Cart = ({ token, user, setCart, cart }) => {
             </div>
           );
         })}
-        <button onClick={() => history.push("/cart/checkout")}>
+        <button className="checkout-button" onClick={() => history.push("/cart/checkout")}>
           Go To Checkout
         </button>
       </div>

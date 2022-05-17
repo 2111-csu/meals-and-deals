@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { callApi, getCartByUser } from "../axios-services";
+
 let OrderId = "";
 const quantityArray = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 console.log("order id", OrderId);
@@ -72,21 +73,27 @@ const ProductList = ({
 
   return (
     <>
-      {/* <h1>Meals-And-Deals Product Listings</h1> */}
+    <img src="images/modern.jpg" className="welcome" alt="welcome to meals-and-deals"/>
       {products.map((product) => {
         return (
+        
           <div className="singleProduct" key={product.id}>
+            <img
+              className="productImage"
+              src={product.imageURL}
+              alt="Product"
+            />
             <Link to={`/products/${product.id}`}>
               <h2>
                 {product.name}({product.price})
               </h2>
             </Link>
             <p>{product.description}</p>
-            <img
+            {/* <img
               className="productImage"
               src={product.imageURL}
               alt="Product"
-            />
+            /> */}
             <select onChange={(event) => setQuantity(event.target.value)}>
               {quantityArray.map((quantity) => (
                 <option key={quantity} value={quantity}>
@@ -95,8 +102,8 @@ const ProductList = ({
               ))}
             </select>
             <button key={product.id} onClick={() => addProducttoCart(product)}>
-              Add to Cart
-            </button>
+              Add To Cart
+            </button> 
           </div>
         );
       })}
