@@ -24,16 +24,8 @@
 .nav-link {
   color:#5a7D35 ;
   background-color: white; 
-  /* list-style: none; */
-  /* margin-left: auto;
-  margin-right: auto;  */
   font-size: 35px;
   text-decoration: none; 
-  /* border-left: 2px solid #5a7D35;
-  border-top: 2px solid #5a7D35;
-  border-right: 2px solid #5a7D35;  */
-  /* padding-left: 4px;
-  padding-right: 4px; */
   list-style-type: none;
   margin: 25px;
   padding: 0; 
@@ -42,10 +34,6 @@
   text-align:center;
   display: block;
   padding: 5px 5px;
-  
-  
-  
- 
 }
 img {
   background-position: center;
