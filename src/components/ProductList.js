@@ -1,39 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { callApi, getCartByUser } from '../axios-services';
-let OrderId = ''
+
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
-console.log('order id', OrderId)
 const newObj = {products: []}
 
-const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart}) => {
-  OrderId = ''
+const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart, orderId, setOrderId}) => {
   const [quantity, setQuantity] = useState('1');
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
   const [imageURL, setImageURL] = useState('')
   const [inStock, setInStock] = useState('')
-  const [category, setCategory] = useState('') 
-  console.log('cart', cart)
+  const [category, setCategory] = useState('')
+  const [productMessage, setProductMessage] = useState('')
+  const [added, setAdded] = useState('')
+
   const addProducttoCart = async (product) =>  {
-    
-   if (!user.id) {
+    if (!user.id) {
       product.orderProductsId = product.id
       product.quantity = quantity
-      //const newObj = {products: []}
       newObj.products.push(product)
-      console.log('newobj', newObj)
       setLocalCart([newObj])
       localStorage.setItem('cart', JSON.stringify(newObj));
-      console.log('local cart', localCart)
     } 
     if (user.id) {
       if (cart[0]) {
           const [cartObj] = cart
-          if (cartObj) OrderId = cartObj.id
+          if (cartObj) {
+            orderId = cartObj.id
+            setOrderId(cartObj.id)
+          }
         }
-        if (OrderId === '') {
+        if (orderId === '') {
           try {
               const newOrder = await callApi({
               url: '/orders',
@@ -42,22 +41,24 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               token,
             });
             if (newOrder) {
-              OrderId = newOrder.id
+              orderId = newOrder.id
+              setOrderId(newOrder.id)
             }
           }catch (error) {
           alert(error);
         }}
         try {
           const response = await callApi({
-            url: `/orders/${OrderId}/products`,
+            url: `/orders/${orderId}/products`,
             method: "POST",
             body: { productId: product.id, price: product.price, quantity: quantity },
             token,
           });
           const newCart = await getCartByUser(user, token)
           if (newCart) {
-            console.log('new', newCart)
             setCart(newCart);
+            setAdded(product.name)
+            setProductMessage(`Added x${quantity} ${product.name} To Cart `)
             setQuantity(1)
           }
           return response;
@@ -66,23 +67,19 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
         }
      }
    };
-   
+
    const getProducts = async () => {
     const products= await callApi({url: '/products'})
     setProducts(products);
   };
-    
+
    useEffect (() => {
         getProducts();
     }, [])
 
     const handleSubmit = async(event, product) =>{
       event.preventDefault()
-      console.log('button hit')
       await callApi({url: `/products/${product.id}`, method: 'PATCH', token, body: { name, description, price, imageURL, inStock, category} });
-      //const productsResponse = await callApi({url: `/products`, method: "GET"})
-
-      //setProducts(productsResponse);
       setName('');
       setDescription('');
       setPrice('');
@@ -96,10 +93,11 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
     await callApi({url: `/products/${product.id}`, method: 'DELETE', token})
     getProducts()
   }
-  
-    return <>
-        {/* <h1>Meals-And-Deals Product Listings</h1> */}
-        { (user.isAdmin) ? products.map((product) => {
+
+  return (
+    <>
+    <img src="images/modern.jpg" className="welcome" alt="welcome to meals-and-deals"/>
+    { (user.isAdmin) ? products.map((product) => {
           return (
               <div className="singleProduct" key={product.id}>
                   <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
@@ -119,28 +117,39 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
           );
       })
         : 
-        products.map((product) => {
+      products.map((product) => {
         return (
-            <div className="singleProduct" key={product.id}>
-                <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
-                <p>{product.description}</p>
-                <img className="productImage" src={product.imageURL} alt='Product'/>
-                <select onChange={(event) => setQuantity(event.target.value)}>
-                  {quantityArray.map((quantity) => (
-                  <option key={quantity} value={quantity}>
-                    {quantity}
-                  </option>
-                  ))}
-                </select>
-                <button key={product.id} onClick={() => addProducttoCart(product)}>Add to Cart</button>
-            </div>
+          
+          <div className="singleProduct" key={product.id}>
+            <img
+              className="productImage"
+              src={product.imageURL}
+              alt="Product"
+            />
+            <Link to={`/products/${product.id}`}>
+              <h2>
+                {product.name}({product.price})
+              </h2>
+            </Link>
+            <p>{product.description}</p>
+            <select onChange={(event) => setQuantity(event.target.value)}>
+              {quantityArray.map((quantity) => (
+                <option key={quantity} value={quantity}>
+                  {quantity}
+                </option>
+              ))}
+            </select>
+            <button key={product.id} onClick={() => addProducttoCart(product)}>
+              Add To Cart
+            </button>
+            {product.name === added ? <h2>{productMessage}</h2> : null}
+          </div>
         );
-    })
+      })}
+      </>
       
-      }
-      
-        
-    </>
+    
+  );
 };
 
 export default ProductList;

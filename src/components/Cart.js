@@ -1,18 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect } from 'react';
 import { callApi } from '../axios-services';
 import { useHistory } from 'react-router';
 
-// const matchedCart = localStorage.getItem('cart');
-// const parsedCart = JSON.parse(matchedCart)
-
 const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
-    //const [ cartItems, setCartItems] = useState([]);
+    
     const regetCart = async () => {
         const cart = await callApi({url: '/orders/cart', body: user, token})
         const cartProducts = cart&&cart[0]
         setCart(cart);
         if (cartProducts) {
-            console.log("yeee")
             setCartItems(cartProducts.products)
         }
     };
@@ -25,7 +21,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
                 setCart(parsedCart);
             }
             if(cart) setCart(cart);
-            const cartProducts = cart&&cart[0]
+              const cartProducts = cart&&cart[0]
             if (cartProducts) {
                 setCartItems(cartProducts.products)
             }
@@ -34,10 +30,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         
         const matchedCart = localStorage.getItem('cart');
         const parsedCart = JSON.parse(matchedCart)
-        // if (cartProducts) {
-        //     console.log("yeee")
-        //     setCartItems(cartProducts.products)
-        // }
+        
         if (!user.id && parsedCart) {
             setCartItems(parsedCart.products)
         }
@@ -56,30 +49,46 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         setCartItems([])  
        }
     }    
-//    const cartProducts = cart&&cart[0]
-   
-//    if (cartProducts) {
-//        setCartItems(cartProducts.products)
-//     }
-//     if (!user.id && parsedCart) {
-//         setCartItems(parsedCart.products)
-//     }
-    console.log('cartitems', cartItems)
-   
-   return <>
-        <div>
-            Your Cart:
+
+    return (
+        <>
+          <div>
+          <img src="images/homepage.png" className="home" alt="come to meals-and-deals"/>
+            <div>{!cartItems[0] ?
+              <h1>Your Cart is Empty</h1> : null
+            }</div>
             {cartItems.map((product) => {
-            return (
+              return (
                 <div className="cartProduct" key={product.orderProductsId}>
-                    <h2>{product.name}({product.price})x{product.quantity}<button key={product.orderProductsId} onClick={() => deleteProduct(product.orderProductsId)}>Remove Item</button></h2>
+                  <h2>
+                    {product.name}({product.price})x{product.quantity}
+                    <button
+                      key={product.orderProductsId}
+                      onClick={() => deleteProduct(product.orderProductsId)}
+                    >
+                      Remove Item
+                    </button>
+                  </h2>
                 </div>
-                
-            );
-            })} 
-            <button onClick={()=>history.push('/cart/checkout')}>Go To Checkout</button>
-        </div>
-    </>;
+              );
+            })}
+            {!cartItems[0] ?
+              <button className="checkout-button" onClick={() => history.push("/products")}>
+                View Meals
+              </button>
+              :
+              !user.id ?
+              <button className="checkout-button" onClick={() => history.push("/account/login")}>
+                Sign In To Checkout
+              </button> 
+              :
+              <button className="checkout-button" onClick={() => history.push("/cart/checkout")}>
+                Go To Checkout
+              </button> 
+            }
+          </div>
+        </>
+      )
 };
 
 export default Cart;

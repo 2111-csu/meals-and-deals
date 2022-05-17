@@ -5,7 +5,6 @@ const SingleOrder = ({ orders }) => {
   const params = useParams();
   const id = params.orderId;
   const singleOrder = orders.filter((order) => +order.id === +id);
-  console.log(singleOrder);
   const doneOrder = singleOrder[0];
   if (doneOrder) {
     return (

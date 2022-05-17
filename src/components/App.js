@@ -112,65 +112,98 @@ const App = () => {
     setOrderId
   }
 
-  return <>
-    <header>
-      <div className="app-container">
-        
-      </div>
-      <Link to='/products' className='nav-link'>Meals</Link>
-      <Link to='/' className='nav-link'>Home</Link>
-      <Link to='/cart' className='nav-link'>Your Cart</Link>
-      { user.isAdmin ?
-        <Link to='/admin' className='nav-link'>Admin</Link>
-        : null
-      }
-      {
-          token
-            ? <>
-              <Link to='/account' className='nav-link'>Account</Link>
-              <button className='logout' onClick={() => {
-              localStorage.removeItem('token');
-              localStorage.removeItem('username');
-              localStorage.removeItem('userId');
-              localStorage.removeItem('user');
-              localStorage.removeItem('cart');
-              setUserName('');
-              setUserId('');
-              setToken('');
-              setUser({});
-              setCart({});
-              setCartItems([]);
-              history.push('/');
-            }}>Logout</button> </>
-            : <Link to='/account/login' className='nav-link'>Sign In</Link>
-        }
-    </header>
-    <main>
-      <Route exact path='/'>
-        <Home {...props} />
-      </Route>
-      <Route exact path='/products'>
-        <ProductList {...props} />
-      </Route>
-      <Route exact path='/products/:productId'>
-        <SingleProduct {...props} />
-      </Route>
-      <Route exact path='/account/:method'>
-        <RegisterLogin {...props} />
-      </Route>
-      <Route exact path='/account'>
-        <Account {...props} />
-      </Route>
-      <Route exact path='/cart'>
-        <Cart {...props} />  
-      </Route>
-      <Route exact path='/users'>
-        <Users {...props} />
-      </Route>
-      <Route exact path='/cart/checkout'>
-        <Checkout {...props} />
-      </Route>
-      <Route exact path="/orders">
+  return (
+    <>
+      <header>
+        <div className="app-container"></div>
+        {user.isAdmin === true ? (
+          <>
+            <Link to="/users" className="nav-link">
+              Users
+            </Link>
+          </>
+        ) : null}
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
+        <Link to="/products" className="nav-link">
+          Meals
+        </Link>
+        <Link to="/cart" className="nav-link">
+           Cart
+        </Link>
+        <Link to="/orderHistory" className="nav-link">
+           Order History
+        </Link>
+        {user.isAdmin === true ? (
+          <>
+            <Link to="/users" className="nav-link">
+              Users
+            </Link>
+          </>
+        ) : null}
+        {token ? (
+          <>
+            <Link to="/account" className="nav-link">
+              Account
+            </Link>
+
+            <button
+              className="logout"
+              onClick={() => {
+                localStorage.removeItem("token");
+                localStorage.removeItem("username");
+                localStorage.removeItem("userId");
+                localStorage.removeItem("user");
+                localStorage.removeItem("cart");
+                setUserName("");
+                setUserId("");
+                setMessage("");
+                setToken("");
+                setOrderId("")
+                setUser({});
+                setCart({});
+                history.push("/");
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link to="/account/login" className="nav-link">
+            Sign In
+          </Link>
+        )}
+      </header>
+      <main>
+        <Route exact path="/">
+          <Home {...props} />
+        </Route>
+        <Route exact path="/products">
+          <ProductList {...props} />
+        </Route>
+        <Route exact path="/products/:productId">
+          <SingleProduct {...props} />
+        </Route>
+        <Route exact path="/account/:method">
+          <RegisterLogin {...props} />
+        </Route>
+        <Route exact path="/account">
+          <Account {...props} />
+        </Route>
+        <Route exact path="/cart">
+          <Cart {...props} />
+        </Route>
+        <Route exact path="/users">
+          <Users {...props} />
+        </Route>
+        <Route exact path="/users/:userId">
+          <AdminSingleUser {...props} />
+        </Route>
+        <Route exact path="/cart/checkout">
+          <Checkout {...props} />
+        </Route>
+        <Route exact path="/orders">
           <Orders {...props} />
         </Route>
         <Route exact path="/orders/:orderId">
@@ -180,7 +213,7 @@ const App = () => {
           <AddProduct {...props} />
         </Route>
     </main>
-  </>;
-};
+  </>
+)};
 
 export default App;

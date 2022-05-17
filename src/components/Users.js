@@ -32,7 +32,7 @@ const Users = ({ user, setUser, userName }) => {
       {allUsers.length &&
         allUsers.map((user) => {
           return (
-            <div className="singleUser" key={user.id}>
+            <div className="users" key={user.id}>
               <h2>
                 {user.firstname} {user.lastname}
               </h2>
