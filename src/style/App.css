@@ -21,7 +21,7 @@
   background-size: cover;
 }
 
-/* .nav-link {
+.nav-link {
   color:#5a7D35 ;
   background-color: white; 
   font-size: 35px;
@@ -35,7 +35,7 @@
   display: block;
   padding: 5px 5px;
   
-} */
+}
 img {
   background-position: center;
   position: relative;
