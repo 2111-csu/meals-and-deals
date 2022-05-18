@@ -43,7 +43,7 @@ router.patch('/:productId', requireUser, async (req, res, next) => {
   const {productId} = req.params;
   const {name, description, price, imageURL, inStock, category} = req.body;
   try{
-      const productToUpdate = await updateProduct({id: productId, name, description, price, imageURL, inStock, category  });
+      const productToUpdate = await updateProduct({id: Number(productId), name, description, price, imageURL, inStock: Boolean(inStock), category  });
       res.send(productToUpdate)
   } catch (error){
   throw error;
@@ -53,7 +53,7 @@ router.patch('/:productId', requireUser, async (req, res, next) => {
 router.delete('/:productId', requireUser, async (req, res, next) => {
   try{
     const { productId } = req.params;
-    const product = await destroyProduct(productId);
+    const product = await destroyProduct((productId));
 
     res.send(product);
 

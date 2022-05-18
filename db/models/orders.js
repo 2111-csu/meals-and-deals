@@ -83,6 +83,22 @@ async function getCartByUser(userId) {
   }
 }
 
+async function getOrderHistory(userId) {
+  try {
+    const { rows: orders } = await client.query(`
+    SELECT orders.*, users.username AS "creatorName"
+    FROM orders
+    JOIN users ON orders."userId" = users.id
+    WHERE "userId" = $1
+    AND orders.status = 'completed'
+    `, [userId]);
+    console.log('orderhistoyr', orders)
+    return attachProductsToOrders(orders);
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getOrdersByProduct({ id }) {
   try {
     const { rows: orders } = await client.query(
@@ -187,4 +203,5 @@ module.exports = {
   updateOrder,
   completeOrder,
   cancelOrder,
+  getOrderHistory,
 };

@@ -10,6 +10,7 @@ const RegisterLogin = ({
   setUser,
   setCart,
   token,
+  setOrderId
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -41,7 +42,6 @@ const RegisterLogin = ({
                 method: "POST",
                 body: { firstName, lastName, email, username, password },
               });
-              console.log(response);
               if (response.error) {
                 setError(response.error);
               }
@@ -50,18 +50,7 @@ const RegisterLogin = ({
                 const { user } = response;
                 setToken(token);
                 setUser(user);
-                // try {
-                //     const cart = await getCartByUser(user, token)
-                //     if (cart) {
-                //         setCart(cart)
-                //         console.log('cart', cart)
-                //         localStorage.setItem('cart', JSON.stringify(cart));
-                //     }
-                // }catch(error){
-                //     console.error(error)
-                // }
                 localStorage.setItem("token", token);
-                console.log(user);
                 localStorage.setItem("user", JSON.stringify(user));
                 if (user) {
                   setUserName(user.username);
@@ -70,6 +59,7 @@ const RegisterLogin = ({
                   localStorage.setItem("userId", user.id);
                   setUsername("");
                   setPassword("");
+                  setOrderId('')
                   history.push("/");
                 }
               }

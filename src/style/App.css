@@ -21,7 +21,7 @@
   background-size: cover;
 }
 
-.nav-link {
+/* .nav-link {
   color:#5a7D35 ;
   background-color: white; 
   font-size: 35px;
@@ -34,7 +34,8 @@
   text-align:center;
   display: block;
   padding: 5px 5px;
-}
+  
+} */
 img {
   background-position: center;
   position: relative;
@@ -185,4 +186,38 @@ button {
   font-size: 1em;
   transition: all 200ms;
   outline: none;
+}
+
+.users {
+  text-align:left;
+  border: 5px solid #5a7D35 ;
+  padding: 1%;
+  width: 100%;
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  background-color: darkgreen;
+  border-radius: 0px;
+  border-width: 0;
+  display: inline-block;
+  height: 30px;
+  color: white;
+  margin: 0px;
+  width: 100%;
+  border: none;
+  font-size: 1.72em;
+  transition: all 200ms;
+  outline: none;
+}
+
+.adduser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 2;
+  margin: 1em 0;
+  font-size: 1em;
 }

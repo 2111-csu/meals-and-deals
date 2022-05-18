@@ -19,10 +19,11 @@ apiRouter.get("/health", (req, res, next) => {
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
   const auth = req.header('Authorization');
-  
   if (!auth) { // nothing to see here
+    console.log('!auth')
     next();
   } else if (auth.startsWith(prefix)) {
+    console.log('auth')
     const token = auth.slice(prefix.length);
     
     try {

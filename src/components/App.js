@@ -3,9 +3,9 @@ import { Route, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import {
-  // getAPIHealth,
-  // getProducts,
-  // getCartByUser,
+  getAPIHealth,
+  getProducts,
+  getCartByUser,
   getOrdersByUser,
 } from "../axios-services";
 
@@ -23,28 +23,32 @@ import {
   Orders,
   AddProduct,
   ProductList,
+  AddUser
 } from ".";
 
 const App = () => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
   const [token, setToken] = useState("");
   const [userName, setUserName] = useState("");
   const [cart, setCart] = useState({});
+  const [localCart, setLocalCart] = useState({});
   const [userId, setUserId] = useState(Number);
+  const [orderId, setOrderId] = useState('');
   const [orders, setOrders] = useState([]);
+  const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
-
+  
   useEffect(() => {
-    const matchedToken = localStorage.getItem("token");
-    const matchedUsername = localStorage.getItem("username");
-    const matchedUserId = localStorage.getItem("userId");
-    const matchedUser = localStorage.getItem("user");
-    const parsedUser = JSON.parse(matchedUser);
-    const matchedCart = localStorage.getItem("cart");
-    const parsedCart = JSON.parse(matchedCart);
-
+    
+    const matchedToken = localStorage.getItem('token');
+    const matchedUsername = localStorage.getItem('username');
+    const matchedUserId = localStorage.getItem('userId');
+    const matchedUser = localStorage.getItem('user');
+    const parsedUser = JSON.parse(matchedUser)
+    const matchedCart = localStorage.getItem('cart');
+    const parsedCart = JSON.parse(matchedCart)
     if (matchedToken) {
       setToken(matchedToken);
     }
@@ -60,27 +64,8 @@ const App = () => {
     if (parsedCart) {
       setCart(parsedCart);
     }
-  }, []);
-
-  useEffect(() => {
-    const fetchOrdersByUser = async () => {
-      const fetchedOrders = await getOrdersByUser();
-      setOrders(fetchedOrders);
-    };
-
-    fetchOrdersByUser();
-  }, []);
-
-  // useEffect(() => {
-  //   //   // follow this pattern inside your useEffect calls:
-  //   //   // first, create an async function that will wrap your axios service adapter
-  //   //   // invoke the adapter, await the response, and set the data
-  //   const getAPIStatus = async () => {
-  //     const { healthy } = await getAPIHealth();
-  //     setAPIHealth(healthy ? "api is up! :D" : "api is down :/");
-  //   };
-  // }, []);
-
+  }, [])
+  
   // useEffect(() => {
   //   // follow this pattern inside your useEffect calls:
   //   // first, create an async function that will wrap your axios service adapter
@@ -97,9 +82,11 @@ const App = () => {
   //   //   const fetchedCart = await getCartByUser(user);
   //   //   setCart(fetchedCart);
   //   // }
+    
 
-  //   // second, after you've defined your getter above
-  //   // invoke it immediately after its declaration, inside the useEffect callback
+    //   // second, after you've defined your getter above
+    //   // invoke it immediately after its declaration, inside the useEffect callback
+  
 
   const props = {
     products,
@@ -118,19 +105,18 @@ const App = () => {
     message,
     getOrdersByUser,
     orders,
-  };
+    localCart,
+    setLocalCart,
+    setCartItems,
+    cartItems,
+    orderId,
+    setOrderId
+  }
 
   return (
     <>
       <header>
         <div className="app-container"></div>
-        {user.isAdmin === true ? (
-          <>
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-          </>
-        ) : null}
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -140,10 +126,14 @@ const App = () => {
         <Link to="/cart" className="nav-link">
            Cart
         </Link>
+        
         {user.isAdmin === true ? (
           <>
             <Link to="/users" className="nav-link">
               Users
+            </Link>
+            <Link to="/admin" className="nav-link">
+              Admin
             </Link>
           </>
         ) : null}
@@ -163,7 +153,9 @@ const App = () => {
                 localStorage.removeItem("cart");
                 setUserName("");
                 setUserId("");
+                setMessage("");
                 setToken("");
+                setOrderId("")
                 setUser({});
                 setCart({});
                 history.push("/");
@@ -199,6 +191,7 @@ const App = () => {
         </Route>
         <Route exact path="/users">
           <Users {...props} />
+          <AddUser {...props} />
         </Route>
         <Route exact path="/users/:userId">
           <AdminSingleUser {...props} />
@@ -215,9 +208,8 @@ const App = () => {
         <Route exact path="/admin">
           <AddProduct {...props} />
         </Route>
-      </main>
-    </>
-  );
-};
+    </main>
+  </>
+)};
 
 export default App;

@@ -17,22 +17,20 @@ const Users = ({ user, setUser, userName }) => {
   console.log("USERS 17", allUsers);
   return (
     <>
+      <h1> Hello, {userName}</h1>
+
       {console.log("USER in Users", user)}
-      {!user.isAdmin === true ? (
+      {user.isAdmin === true ? (
         <>
-          return (
           <AdminSingleUser />
         </>
       ) : null}
 
-      <>
-        <h1> Hello, {userName}</h1>
-      </>
-
-      {allUsers.length &&
+      {user.isAdmin === true ? (
+        allUsers.length &&
         allUsers.map((user) => {
           return (
-            <div className="singleUser" key={user.id}>
+            <div className='users' key={user.id}>
               <h2>
                 {user.firstname} {user.lastname}
               </h2>
@@ -41,9 +39,12 @@ const Users = ({ user, setUser, userName }) => {
               </Link>
             </div>
           );
-        })}
+        })
+      ) : (
+        <p>Hope you're hungry</p>
+      )}
     </>
   );
 };
 
-export default Users;
+export default Users
