@@ -72,6 +72,7 @@ const RegisterLogin = ({
             <>
               <fieldset className="input-fieldset">
                 <label>First Name </label>
+                <br/>
                 <input
                   className="input-field"
                   type="text"
@@ -81,6 +82,7 @@ const RegisterLogin = ({
               </fieldset>
               <fieldset className="input-fieldset">
                 <label>Last Name </label>
+                <br/>
                 <input
                   className="input-field"
                   type="text"
@@ -90,6 +92,7 @@ const RegisterLogin = ({
               </fieldset>
               <fieldset className="input-fieldset">
                 <label>Email </label>
+                <br/>
                 <input
                   className="input-field"
                   type="text"
@@ -101,6 +104,7 @@ const RegisterLogin = ({
           ) : null}
           <fieldset className="input-fieldset">
             <label>Username </label>
+            <br/>
             <input
               className="input-field"
               type="text"
@@ -111,6 +115,7 @@ const RegisterLogin = ({
 
           <fieldset className="input-fieldset">
             <label>Password </label>
+            <br/>
             <input
               className="input-field"
               type="password"
@@ -122,7 +127,9 @@ const RegisterLogin = ({
 
           {params.method === "register" ? (
             <fieldset className="input-fieldset">
+              <br/>
               <label>Verify Password</label>
+              <br/>
               <input
                 className="input-field"
                 type="password"

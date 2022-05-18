@@ -271,44 +271,173 @@ async function populateInitialData() {
     console.log("Finished creating orders");
 
   
-      const productsToCreate = [
-        {
-          name: "Pasta",
-          description: "Yummy!",
-          price: "$30",
-          imageURL:
-            "https://images.unsplash.com/photo-1587206668283-c21d974993c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
-          inStock: true,
-          category: "Dinner",
-        },
-        {
-          name: "Chicken Teriyaki",
-          description: "Sweet and salty",
-          price: "$30",
-          imageURL:
-            "https://images.unsplash.com/photo-1609183480237-ccbb2d7c5772?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070",
-          inStock: true,
-          category: "Dinner",
-        },
-        {
-          name: "French Onion Soup",
-          description: "Warm and gooey",
-          price: "$10",
-          imageURL:
-            "https://images.unsplash.com/photo-1549203438-a7696aed4dac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZnJlbmNoJTIwb25pb24lMjBzb3VwfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
-          inStock: true,
-          category: "Lunch",
-        },
-        {
-          name: "Spinach Salad",
-          description: "Light and healty",
-          price: "$10",
-          imageURL:
-            "https://images.unsplash.com/photo-1601312539737-ba231b8fee5a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774",
-          inStock: true,
-          category: "Lunch",
-        },
-      ];
+    const productsToCreate = [
+      {
+        name: "Pasta",
+        description: "Yummy!",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1587206668283-c21d974993c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80",
+        inStock: true,
+        category: "Dinner",
+      },
+      {
+        name: "Chicken Teriyaki",
+        description: "Sweet and salty",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1609183480237-ccbb2d7c5772?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070",
+        inStock: true,
+        category: "Dinner",
+      },
+      {
+        name: "French Onion Soup",
+        description: "Warm and gooey",
+        price: "$10",
+        imageURL:
+          "https://images.unsplash.com/photo-1549203438-a7696aed4dac?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8ZnJlbmNoJTIwb25pb24lMjBzb3VwfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=700&q=60",
+        inStock: true,
+        category: "Lunch",
+      },
+      {
+        name: "Spinach Salad",
+        description: "Light and healty",
+        price: "$10",
+        imageURL:
+          "https://images.unsplash.com/photo-1601312539737-ba231b8fee5a?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774",
+        inStock: true,
+        category: "Lunch",
+      },
+      {
+        name: "Budda Bowl",
+        description: "Nutrient Packed!",
+        price: "$20",
+        imageURL:
+          "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Plant Based",
+      },
+      {
+        name: "Blueberry Banana French Toast",
+        description: "Sweet and Healthy",
+        price: "$15",
+        imageURL:
+          "https://images.unsplash.com/photo-1484723091739-30a097e8f929?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTN8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Breakfast",
+      },
+      {
+        name: "Chickpea Tacos",
+        description: "Not just for Tuesdays",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MzR8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Plant Based",
+      },
+      {
+        name: "Chicken Ramen",
+        description: "Warm Comforting",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1540162416395-16f7dfbb68d1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTYzfHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Soups ",
+      },
+
+      {
+        name: "Bowtie Pasta",
+        description: "Tossed with basil pesto with tomatoes",
+        price: "$25",
+        imageURL:
+          "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTh8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Plant Based",
+      },
+      {
+        name: "Chicken Sandwich",
+        description: "Fried chicken with red onions on a sesame seed bun",
+        price: "$25",
+        imageURL:
+          "https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mjl8fHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Sandwich",
+      },
+      {
+        name: "Special Chicken Sandwich",
+        description: "Crunchy chicken with special sauce",
+        price: "$25",
+        imageURL:
+          "https://images.unsplash.com/photo-1606755962773-d324e0a13086?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NzQ3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Sandwich",
+      },
+      {
+        name: "Steak Tacos",
+        description: "Warm Comforting",
+        price: "$20",
+        imageURL:
+          "https://images.unsplash.com/photo-1504544750208-dc0358e63f7f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjE0fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Carnivore",
+      },
+
+      {
+        name: "Cheese Pizza",
+        description: "Tradition personal pan",
+        price: "$25",
+        imageURL:
+          "https://images.unsplash.com/photo-1632428442713-1f13a6c56ec4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTg0fHxwaXp6YXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Vegetarian",
+      },
+      {
+        name: "Cinnamon Rolls",
+        description: "Yummy treat, enough to share",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTM3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Baked Goods",
+      },
+      {
+        name: "Butternut Squash Soup",
+        description: "Warm spices and a cashew cream",
+        price: "$2o",
+        imageURL:
+          "https://images.unsplash.com/photo-1606755962773-d324e0a13086?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8NzQ3fHx8ZW58MHx8fHw%3D&auto=format&fit=crop&w=800&q=60",
+        inStock: true,
+        category: "Plant Based, Soup",
+      },
+      {
+        name: "Pancake Stack",
+        description: "Tall stack with berries",
+        price: "$20",
+        imageURL:
+          "https://images.unsplash.com/photo-1598214886806-c87b84b7078b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8bWVhbHN8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
+        inStock: true,
+        category: "Breakfast",
+      },
+
+      {
+        name: "Chicken Skewers",
+        description: "Grilled with onions and peppers",
+        price: "$25",
+        imageURL:
+          "https://images.unsplash.com/photo-1598514982901-ae62764ae75e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80",
+        inStock: true,
+        category: "Carnivore",
+      },
+      {
+        name: "BBQ Grilled Steak Bites",
+        description: "Topped with cilantro and green onions",
+        price: "$30",
+        imageURL:
+          "https://images.unsplash.com/photo-1593030668930-8130abedd2b0?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=60&raw_url=true&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fG1lYWxzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=900",
+        inStock: true,
+        category: "Carnivore",
+      },
+    ];
     
     const products = await Promise.all(productsToCreate.map(createProduct));
 
