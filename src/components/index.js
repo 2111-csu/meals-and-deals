@@ -11,4 +11,4 @@ export { default as Orders } from "./Orders";
 export { default as SingleOrder } from "./SingleOrder";
 export { default as AdminSingleUser } from "./AdminSingleUser";
 export { default as AddProduct } from "./AddProduct";
-export { default as OrderHistory} from './OrderHistory'
+

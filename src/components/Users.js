@@ -20,7 +20,6 @@ const Users = ({ user, setUser, userName }) => {
       {console.log("USER in Users", user)}
       {!user.isAdmin === true ? (
         <>
-          return (
           <AdminSingleUser />
         </>
       ) : null}

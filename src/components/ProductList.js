@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { callApi, getCartByUser } from '../axios-services';
+import AddProduct from './AddProduct';
 
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const newObj = {products: []}
@@ -37,10 +38,11 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               const newOrder = await callApi({
               url: '/orders',
               method: "POST",
-              body: { status: 'created', userId: user.id, datePlaced: "04 / 22 / 2022"  },
+              body: { status: 'created', userId: user.id, datePlaced: '1' },
               token,
             });
             if (newOrder) {
+              console.log('newORder', newOrder)
               orderId = newOrder.id
               setOrderId(newOrder.id)
             }
@@ -96,10 +98,11 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
 
   return (
     <>
-    <img src="images/modern.jpg" className="welcome" alt="welcome to meals-and-deals"/>
-    { (user.isAdmin) ? products.map((product) => {
-          return (
-              <div className="singleProduct" key={product.id}>
+    { (user.isAdmin) ? <AddProduct/> :null}
+    { (user.isAdmin) ? 
+          products.map((product) => {
+          return ( 
+            <div className="singleProduct" key={product.id}>
                   <Link to={`/products/${product.id}`}><h2>{product.name}({product.price})</h2></Link>
                   <p>{product.description}</p>
                   <img className="productImage" src={product.imageURL} alt='Product'/>

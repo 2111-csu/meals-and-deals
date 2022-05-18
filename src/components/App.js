@@ -116,13 +116,6 @@ const App = () => {
     <>
       <header>
         <div className="app-container"></div>
-        {user.isAdmin === true ? (
-          <>
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-          </>
-        ) : null}
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -132,13 +125,14 @@ const App = () => {
         <Link to="/cart" className="nav-link">
            Cart
         </Link>
-        <Link to="/orderHistory" className="nav-link">
-           Order History
-        </Link>
+        
         {user.isAdmin === true ? (
           <>
             <Link to="/users" className="nav-link">
               Users
+            </Link>
+            <Link to="/admin" className="nav-link">
+              Admin
             </Link>
           </>
         ) : null}

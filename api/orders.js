@@ -17,7 +17,8 @@ const {
     addProductToOrder,
     updateOrderProduct,
     completeOrder,
-    cancelOrder
+    cancelOrder,
+    getOrderHistory
   } = require("../db");
   
 // GET /orders (*admin)  
@@ -63,18 +64,15 @@ router.post("/", async (req, res, next) => {
   });
 
 
-router.get('/:userId/orders',  async (req, res, next) => {
-
-try{
-    const {userId}= req.params;
-    const user = await getUserByUsername(userId);
-    // the other db function to try would be getUserById(userId)
-    const order = await getCartByUser(user);
-    res.send(order);
-}catch(error){
-    next(error);
-}
-});
+router.get('/orderhistory', requireUser,  async (req, res, next) => {
+    try{
+      const userId = req.user.id
+      const order = await getOrderHistory(userId);
+      res.send(order);
+   }catch(error){
+      next(error);
+   }
+   });
 
 router.post('/:orderId/products', async (req, res, next) => {
   const orderId = req.params.orderId;

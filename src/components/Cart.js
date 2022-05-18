@@ -62,8 +62,10 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
                 <div className="cartProduct" key={product.orderProductsId}>
                   <h2>
                     {product.name}({product.price})x{product.quantity}
+                    <br/>
                     <button
                       key={product.orderProductsId}
+                      className='removeItem'
                       onClick={() => deleteProduct(product.orderProductsId)}
                     >
                       Remove Item
