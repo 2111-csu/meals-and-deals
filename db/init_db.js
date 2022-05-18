@@ -130,6 +130,78 @@ async function populateInitialData() {
         password: "D_MD4eva",
         isAdmin: false,
       },
+      {
+        id: 4,
+        firstName: "Sarah",
+        lastName: "Jones",
+        email: "sjones@thismail.com",
+        imageURL: "image.url",
+        username: "SaJo145",
+        password: "PurpleStar34",
+        isAdmin: true,
+      },
+      {
+        id: 5,
+        firstName: "Oliver",
+        lastName: "Fields",
+        email: "ofields@thismail.com",
+        imageURL: "image.url",
+        username: "Oliv88",
+        password: "CampSum45",
+        isAdmin: false,
+      },
+      {
+        id: 6,
+        firstName: "Theodore",
+        lastName: "Ellis",
+        email: "TheoEllis@thismail.com",
+        imageURL: "image.url",
+        username: "Theo90",
+        password: "CaliWaves67",
+        isAdmin: false,
+      },
+      {
+        id: 7,
+        firstName: "Ella",
+        lastName: "Andersen",
+        email: "eAndersen@thismail.com",
+        imageURL: "image.url",
+        username: "EllaAnd90",
+        password: "RivRoc145",
+        isAdmin: false,
+      },
+      {
+        id: 8,
+        firstName: "Luna",
+        lastName: "Davis",
+        email: "lunaDav@thismail.com",
+        imageURL: "image.url",
+        username: "LunaDav8",
+        password: "Sky67234",
+        isAdmin: false,
+      },
+
+      {
+      id: 9,
+      firstName: "Violet",
+      lastName: "Williams",
+      email: "violetw@thismail.com",
+      imageURL: "image.url",
+      username: "Williams78",
+      password: "Violet19!",
+      isAdmin: false,
+    },
+
+    {
+    id: 8,
+    firstName: "Susie",
+    lastName: "Johnson",
+    email: "susieJohnson@thismail.com",
+    imageURL: "image.url",
+    username: "Susie890",
+    password: "Peonies45",
+    isAdmin: false,
+  },
     ];
 
     const users = await Promise.all(
@@ -142,22 +214,53 @@ async function populateInitialData() {
       {
         status: "created",
         userId: 1,
-        datePlaced: "04 / 21 / 2022",
+        datePlaced: "04 / 01 / 2022",
       },
       {
         status: "created",
         userId: 2,
-        datePlaced: "04 / 22 / 2022",
+        datePlaced: "04 / 02 / 2022",
       },
       {
         status: "created",
         userId: 3,
-        datePlaced: "04 / 23 / 2022",
+        datePlaced: "04 / 12 / 2022",
       },
       {
         status: "created",
-        userId: 2,
-        datePlaced: "04 / 24 / 2022",
+        userId: 8,
+        datePlaced: "04 / 14 / 2022",
+      },
+      {
+        status: "created",
+        userId: 5,
+        datePlaced: "04 / 21 / 2022",
+      }, 
+      {
+        status: "created",
+        userId: 7,
+        datePlaced: "04 / 22 / 2022",
+      }, 
+      {
+        status: "created",
+        userId: 7,
+        datePlaced: "04 / 23 / 2022",
+      },
+      
+      {
+        status: "created",
+        userId: 6,
+        datePlaced: "04 / 12 / 2022",
+      }, 
+      {
+        status: "created",
+        userId: 1,
+        datePlaced: "04 / 15 / 2022",
+      },
+      {
+        status: "created",
+        userId: 8,
+        datePlaced: "04 / 15 / 2022",
       },
     ];
 

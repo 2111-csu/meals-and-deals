@@ -98,6 +98,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
 
   return (
     <>
+
     { (user.isAdmin) ? <AddProduct/> :null}
     { (user.isAdmin) ? 
           products.map((product) => {
@@ -121,6 +122,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
       })
         : 
       products.map((product) => {
+   
         return (
           
           <div className="singleProduct" key={product.id}>
