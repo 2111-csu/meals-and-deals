@@ -29,14 +29,16 @@ const Account = ({user, token}) => {
               <>
                 <div className="welcome" key={order}>
                     <h2>
-                      Date Ordered: {order.datePlaced}
+                      Date Ordered: {order.datePlaced.slice(0,10)}
                       <br/>
                       Status: {order.status}
                       {order.products.map((product) => {
                         return (
                           <>
                             <div className="productsOrders">
-                              {product.name} {product.price}
+                              {product.name}
+                              <br/> 
+                              {product.price}x{product.quantity}
                              <br />
                           </div>
                           </>

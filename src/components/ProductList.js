@@ -38,7 +38,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               const newOrder = await callApi({
               url: '/orders',
               method: "POST",
-              body: { status: 'created', userId: user.id, datePlaced: '1' },
+              body: { status: 'created', userId: user.id, datePlaced: new Date() },
               token,
             });
             if (newOrder) {

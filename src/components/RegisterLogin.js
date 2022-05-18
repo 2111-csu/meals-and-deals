@@ -10,6 +10,7 @@ const RegisterLogin = ({
   setUser,
   setCart,
   token,
+  setOrderId
 }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -58,6 +59,7 @@ const RegisterLogin = ({
                   localStorage.setItem("userId", user.id);
                   setUsername("");
                   setPassword("");
+                  setOrderId('')
                   history.push("/");
                 }
               }

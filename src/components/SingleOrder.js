@@ -9,7 +9,6 @@ const SingleOrder = ({ orders }) => {
   if (doneOrder) {
     return (
       <>
-        {/* {singleOrder.status} {singleOrder.creatorName} {singleOrder.datePlaced} */}
         <h2>Order {doneOrder.id}</h2>
         <p>
           {doneOrder.status} on {doneOrder.datePlaced}

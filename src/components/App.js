@@ -23,6 +23,7 @@ import {
   Orders,
   AddProduct,
   ProductList,
+  AddUser
 } from ".";
 
 const App = () => {
@@ -190,6 +191,7 @@ const App = () => {
         </Route>
         <Route exact path="/users">
           <Users {...props} />
+          <AddUser {...props} />
         </Route>
         <Route exact path="/users/:userId">
           <AdminSingleUser {...props} />
