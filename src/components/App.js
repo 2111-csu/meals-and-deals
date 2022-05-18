@@ -11,18 +11,19 @@ import {
 
 import "../style/App.css";
 import {
-  Products,
   SingleProduct,
   RegisterLogin,
   Home,
   Account,
   Cart,
   Users,
+  AddUser,
   Checkout,
   SingleOrder,
   AdminSingleUser,
   Orders,
   AddProduct,
+  ProductList,
 } from ".";
 
 const App = () => {
@@ -183,7 +184,7 @@ const App = () => {
           <Home {...props} />
         </Route>
         <Route exact path='/products'>
-          <Products {...props} />
+          <ProductList {...props} />
         </Route>
         <Route exact path='/products/:productId'>
           <SingleProduct {...props} />
@@ -199,6 +200,7 @@ const App = () => {
         </Route>
         <Route exact path='/users'>
           <Users {...props} />
+          <AddUser {...props} />
         </Route>
         <Route exact path='/users/:userId'>
           <AdminSingleUser {...props} />

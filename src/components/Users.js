@@ -51,7 +51,7 @@ const AddUser = ({ token, setUser }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [username, setusername] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState("");
 
@@ -66,11 +66,11 @@ const AddUser = ({ token, setUser }) => {
     });
     const usersResp = await callApi({ url: `/users`, method: "GET" });
 
-    setUsers(usersResp);
+    setUser(usersResp);
     setFirstName("");
     setLastName("");
     setEmail("");
-    setusername("");
+    setUsername("");
     setPassword("");
     setEmail("");
     setIsAdmin("");
@@ -78,7 +78,7 @@ const AddUser = ({ token, setUser }) => {
 
   const reRenderUsers = async () => {
     const updatedUsers = await callApi({ url: `/users`, method: "GET" });
-    setUsers(updatedUsers);
+    setUser(updatedUsers);
     reRenderUsers();
   };
 
@@ -110,13 +110,7 @@ const AddUser = ({ token, setUser }) => {
           type='text'
           placeholder='Username'
           value={username}
-          onChange={(event) => setusername(event.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='New Product InStock'
-          value={inStock}
-          onChange={(event) => setInStock(event.target.value)}
+          onChange={(event) => setUsername(event.target.value)}
         />
         <input
           type='password'
@@ -128,7 +122,7 @@ const AddUser = ({ token, setUser }) => {
           type='text'
           placeholder='Make an Admin'
           value={isAdmin}
-          onChange={(event) => setPassword(event.target.value)}
+          onChange={(event) => setIsAdmin(event.target.value)}
         />
         <button type='submit'>Submit</button>
       </form>
@@ -136,6 +130,4 @@ const AddUser = ({ token, setUser }) => {
   );
 };
 
-// export default AddProduct;
-
-export default { Users, AddProduct };
+export default { Users, AddUser };

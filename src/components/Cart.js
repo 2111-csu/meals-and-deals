@@ -47,7 +47,7 @@ const Cart = ({ token, user, setCart, cart }) => {
         Your Cart:
         {cartItems.map((product) => {
           return (
-            <div className="cartProduct" key={product.orderProductsId}>
+            <div className='cartProduct' key={product.orderProductsId}>
               <h2>
                 {product.name}({product.price})x{product.quantity}
                 <button

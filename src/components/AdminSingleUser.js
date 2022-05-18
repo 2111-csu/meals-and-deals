@@ -4,12 +4,43 @@ import { useParams } from "react-router-dom";
 
 import { callApi } from "../axios-services";
 
-const AdminSingleUser = (user) => {
+const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
   const [singleUser, setSingleUser] = useState({});
+  const [admin, setAdmin] = useState("");
   const params = useParams();
   const id = params.userId;
   console.log(params);
   console.log("ID", id);
+
+  // const changeToAdmin = async (e) => {
+  //   const resp = await callApi({
+  //     url: `/users`,
+  //     method: "PATCH",
+  //     body: { user: {} },
+  //   });
+  // };
+  const handleChange = async (e) => {
+    const editSingleUser = { isAdmin };
+    try {
+      await callApi({
+        url: `/users/${id}`,
+        method: "PATCH",
+        token,
+        body: {
+          isAdmin,
+        },
+      });
+
+      setSingleUser(editSingleUser);
+      setAdmin("");
+      if (token) {
+        alert("Changed User to Admin");
+      }
+    } catch (error) {
+      alert(error);
+    }
+    console.log("changed user", singleUser);
+  };
   useEffect(() => {
     const getUserById = async () => {
       const singleUserFromAPI = await callApi({ url: `/users/${id}` });
@@ -18,6 +49,7 @@ const AdminSingleUser = (user) => {
 
     getUserById();
   }, []);
+
   console.log("SINGLE USER", singleUser);
   console.log(singleUser);
   if (singleUser) {
@@ -25,7 +57,23 @@ const AdminSingleUser = (user) => {
       <>
         <h2>
           User is {singleUser.id} {singleUser.firstname} {singleUser.lastname}
-          <br /> email: {singleUser.email}
+          <br /> email: {singleUser.email} <br />
+          {singleUser.isAdmin ? (
+            <h4>
+              {singleUser.username} is an admin <br /> set to standard user?
+              <input type='checkbox' label='make admin' value='false'></input>
+            </h4>
+          ) : (
+            <>
+              make admin:
+              <input
+                type='checkbox'
+                label='make admin'
+                value='true'
+                onClick={(e) => handleChange(e.target.value)}
+              ></input>
+            </>
+          )}
         </h2>
       </>
     );
@@ -37,6 +85,5 @@ const AdminSingleUser = (user) => {
     );
   }
 };
-
 
 export default AdminSingleUser;
