@@ -252,3 +252,21 @@ button {
   font-size: 1em;
 }
 
+.ordermessage {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  border-radius: 0px;
+  border-width: 0;
+  display: inline-block;
+  height: 50px;
+  color: black;
+  margin: 0px;
+  width: 100%;
+  border: none;
+  font-size: 1.72em;
+  transition: all 200ms;
+  outline: none;
+  padding: 10px;
+}
+
