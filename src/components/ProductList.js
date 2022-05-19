@@ -119,7 +119,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               </div>
           );
       })
-        : 
+      : 
       products.map((product) => {
         return (
           

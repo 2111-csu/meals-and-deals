@@ -117,6 +117,7 @@ const App = () => {
     <>
       <header>
         <div className="app-container"></div>
+        <div className='nav-bar'>
         <Link to="/" className="nav-link">
           Home
         </Link>
@@ -169,6 +170,8 @@ const App = () => {
             Sign In
           </Link>
         )}
+      </div>
+      <br></br>
       </header>
       <main>
         <Route exact path="/">
