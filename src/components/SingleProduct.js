@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { callApi, getCartByUser } from '../axios-services';
 
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const newObj = {products: []}
 
-const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCart, localCart, setLocalCart }) => {
+const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCart, localCart, setLocalCart, userName }) => {
+    const history = useHistory()
     const [singleQuantity, setSingleQuantity] = useState('1');
     const [singleProductMessage, setSingleProductMessage] = useState('')
     const params = useParams()
@@ -66,7 +67,7 @@ const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCa
 
     if(singleProduct) {
         return (
-          
+          <>{(userName ==='') ? <button className='message' onClick={() => history.push("/account/register")}>Sign In To Order</button> : <h2 className='message'>You are Signed in as {userName}</h2>}
             <div className="singleProduct" key={singleProduct.id}>
               <img
                 className="productImage"
@@ -76,6 +77,8 @@ const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCa
               <h2>{singleProduct.name}({singleProduct.price})</h2>
               
               <p>{singleProduct.description}</p>
+              { (userName) ? 
+              <div>
               <select onChange={(event) => setSingleQuantity(event.target.value)}>
                 {quantityArray.map((singleQuantity) => (
                   <option key={singleQuantity} value={singleQuantity}>
@@ -87,7 +90,10 @@ const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCa
                 Add To Cart
               </button>
               <h2>{singleProductMessage}</h2>
+            </div> : null}
             </div>
+            <button className='message' onClick={() => history.push("/products")}>Back To Meals</button>
+            </>
           );
     }
     else {

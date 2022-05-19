@@ -17,9 +17,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         setCartItems([])
         const getCart = async () => {
            const cart = await callApi({url: '/orders/cart', token})
-            if (parsedCart) {
-                setCart(parsedCart);
-            }
+            
             if(cart) setCart(cart);
               const cartProducts = cart&&cart[0]
             if (cartProducts) {
@@ -28,13 +26,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         };
         if (token) getCart();
         
-        const matchedCart = localStorage.getItem('cart');
-        const parsedCart = JSON.parse(matchedCart)
-        
-        if (!user.id && parsedCart) {
-            setCartItems(parsedCart.products)
-        }
-    }, [token])
+      }, [token])
     
    const history = useHistory()
    
@@ -45,8 +37,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         return response
        }
        if(!user.id) {
-        localStorage.removeItem('cart'); 
-        setCartItems([])  
+         setCartItems([])  
        }
     }    
 
