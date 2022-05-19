@@ -202,7 +202,7 @@ button {
 }
 
 .logout {
-  background-color: #5a7D35;
+  background-color: black;
   border-radius: 5px;
   border-width: 0;
   cursor: pointer;
@@ -212,7 +212,7 @@ button {
   margin: 25px;
   color: white;
   border: none;
-  font-size: 1em;
+  font-size: 40px;
   transition: all 200ms;
   outline: none;
 }
