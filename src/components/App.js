@@ -117,8 +117,8 @@ const App = () => {
     <>
       <header>
         <div className="app-container"></div>
-        <div className='nav-bar'>
-        <Link to="/" className="nav-link">
+        <nav className="nav">
+        <Link to="/" className="nav-link" >
           Home
         </Link>
         <Link to="/products" className="nav-link">
@@ -164,14 +164,14 @@ const App = () => {
             >
               Logout
             </button>
+            
           </>
         ) : (
           <Link to="/account/login" className="nav-link">
             Sign In
           </Link>
         )}
-      </div>
-      <br></br>
+        </nav>
       </header>
       <main>
         <Route exact path="/">
