@@ -9,7 +9,7 @@ const Home = ({userName, message}) => {
             {(userName ==='') ? <h2 className='message'>Sign In To Order</h2> : <h2>You are Signed in as {userName}</h2>}
             <br/>
             <br/>
-            <h2>{message}</h2>
+            <h2 className='ordermessage'>{message}</h2>
             <br/>
         <img src="images/modern.jpg" className="welcome" alt="welcome to meals-and-deals"/>
         <br/>

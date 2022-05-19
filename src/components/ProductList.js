@@ -6,7 +6,7 @@ import AddProduct from './AddProduct';
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const newObj = {products: []}
 
-const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart, orderId, setOrderId}) => {
+const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart, orderId, setOrderId, userName}) => {
   const [quantity, setQuantity] = useState('1');
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -98,7 +98,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
 
   return (
     <>
-
+    {(userName ==='') ? <h2 className='message'>Sign In To Order</h2> : <h2>You are Signed in as {userName}</h2>}
     { (user.isAdmin) ? <AddProduct/> :null}
     { (user.isAdmin) ? 
           products.map((product) => {
@@ -133,10 +133,12 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
             />
             <Link to={`/products/${product.id}`}>
               <h2>
-                {product.name}({product.price})
+                {product.name}<br></br>{product.price}
               </h2>
             </Link>
             <p>{product.description}</p>
+            { (userName) ? 
+            <div> 
             <select onChange={(event) => setQuantity(event.target.value)}>
               {quantityArray.map((quantity) => (
                 <option key={quantity} value={quantity}>
@@ -148,6 +150,8 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               Add To Cart
             </button>
             {product.name === added ? <h2>{productMessage}</h2> : null}
+            </div>
+            : null}
           </div>
         );
       })}

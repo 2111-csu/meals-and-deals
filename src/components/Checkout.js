@@ -8,6 +8,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage, setOrderId }) => {
      
     const completeOrder = async (orderId) => {
         const response = await callApi({url: `/orders/${orderId}`, method: 'POST', token})
+        alert("Your Order Has Been Completed")
         setMessage("Your Order Has Been Completed")
         setCart({})
         setOrderId('')
