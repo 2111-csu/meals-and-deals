@@ -187,7 +187,6 @@ const App = () => {
         </Route>
         <Route exact path="/admin">
           <AddProduct {...props} />
-          {/* <Orders {...props} /> */}
         </Route>
       </main>
     </>
