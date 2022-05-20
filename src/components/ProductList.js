@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import { callApi, getCartByUser } from '../axios-services';
 import AddProduct from './AddProduct';
 
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const newObj = {products: []}
 
-const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart, orderId, setOrderId, userName}) => {
+const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, orderId, setOrderId, userName}) => {
+  const history = useHistory()
   const [quantity, setQuantity] = useState('1');
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
@@ -23,7 +24,6 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
       product.quantity = quantity
       newObj.products.push(product)
       setLocalCart([newObj])
-      localStorage.setItem('cart', JSON.stringify(newObj));
     } 
     if (user.id) {
       if (cart[0]) {
@@ -42,7 +42,6 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               token,
             });
             if (newOrder) {
-              console.log('newORder', newOrder)
               orderId = newOrder.id
               setOrderId(newOrder.id)
             }
@@ -98,8 +97,8 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
 
   return (
     <>
-    {(userName ==='') ? <h2 className='message'>Sign In To Order</h2> : <h2>You are Signed in as {userName}</h2>}
-    { (user.isAdmin) ? <AddProduct/> :null}
+    {(userName ==='') ? <button className='message' onClick={() => history.push("/account/register")}>Sign In To Order</button> : <h2 className='message'>You are Signed in as {userName}</h2>}
+    { (user.isAdmin) ? <AddProduct setProducts={setProducts} token={token} user={user}/> :null}
     { (user.isAdmin) ? 
           products.map((product) => {
           return ( 
@@ -126,17 +125,19 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
         return (
           
           <div className="singleProduct" key={product.id}>
+            <Link to={`/products/${product.id}`}>
             <img
               className="productImage"
               src={product.imageURL}
               alt="Product"
             />
-            <Link to={`/products/${product.id}`}>
-              <h2>
-                {product.name}<br></br>{product.price}
-              </h2>
+            
+            <h2>
+              {product.name}<br></br>{product.price}
+            </h2>
             </Link>
             <p>{product.description}</p>
+            
             { (userName) ? 
             <div> 
             <select onChange={(event) => setQuantity(event.target.value)}>
@@ -149,12 +150,20 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
             <button key={product.id} onClick={() => addProducttoCart(product)}>
               Add To Cart
             </button>
-            {product.name === added ? <h2>{productMessage}</h2> : null}
+            {product.name === added ?
+            <>
+              <h2>{productMessage}</h2>
+              <br></br>
+              <button className='message' onClick={() => history.push("/cart")}>View Cart</button>
+            </>
+               : null}
             </div>
             : null}
           </div>
+          
         );
       })}
+      {(userName) ? <button className='message' onClick={() => history.push("/cart")}>View Cart</button> : null}
       </>
       
     

@@ -17,9 +17,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         setCartItems([])
         const getCart = async () => {
            const cart = await callApi({url: '/orders/cart', token})
-            if (parsedCart) {
-                setCart(parsedCart);
-            }
+            
             if(cart) setCart(cart);
               const cartProducts = cart&&cart[0]
             if (cartProducts) {
@@ -28,13 +26,7 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         };
         if (token) getCart();
         
-        const matchedCart = localStorage.getItem('cart');
-        const parsedCart = JSON.parse(matchedCart)
-        
-        if (!user.id && parsedCart) {
-            setCartItems(parsedCart.products)
-        }
-    }, [token])
+      }, [token])
     
    const history = useHistory()
    
@@ -44,11 +36,27 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         regetCart()
         return response
        }
-       if(!user.id) {
-        localStorage.removeItem('cart'); 
-        setCartItems([])  
-       }
-    }    
+    }
+    
+    const increaseProduct = async (orderProductId, quantity) => {
+      const newQuantity = +quantity+1
+      const response = await callApi({url: `/order_products/${orderProductId}`, method: 'PATCH', body: {quantity: newQuantity},  token})
+      regetCart()
+      return response
+   }
+   
+   const decreaseProduct = async (orderProductId, quantity) => {
+    const newQuantity = +quantity-1
+    if (newQuantity === 0) {
+      deleteProduct(orderProductId)
+    }
+    else{
+      const response = await callApi({url: `/order_products/${orderProductId}`, method: 'PATCH', body: {quantity: newQuantity},  token})
+      regetCart()
+      return response
+    }
+ }
+   
 
     return (
         <>
@@ -61,7 +69,9 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
               return (
                 <div className="cartProduct" key={product.orderProductsId}>
                   <h2>
-                    {product.name}({product.price})x{product.quantity}
+                    {product.name}({product.price})
+                    <br></br>
+                    <button onClick={() => decreaseProduct(product.orderProductsId, product.quantity)}>-</button>x{product.quantity}<button onClick={() => increaseProduct(product.orderProductsId, product.quantity)}>+</button>
                     <br/>
                     <button
                       key={product.orderProductsId}

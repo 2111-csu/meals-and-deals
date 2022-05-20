@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useParams, useHistory } from "react-router";
-import { callApi, getCartByUser } from "../axios-services";
+import { callApi } from "../axios-services";
 
 const RegisterLogin = ({
   setToken,
@@ -13,6 +13,7 @@ const RegisterLogin = ({
   setOrderId
 }) => {
   const [firstName, setFirstName] = useState("");
+  const [loginMessage, setLoginMessage] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -21,7 +22,7 @@ const RegisterLogin = ({
   const [error, setError] = useState("");
   const params = useParams();
   const history = useHistory();
-
+  
   return (
     <>
       <div className="form-container">
@@ -42,6 +43,11 @@ const RegisterLogin = ({
                 method: "POST",
                 body: { firstName, lastName, email, username, password },
               });
+              
+              if(!response) {
+                if (params.method === 'login') setLoginMessage('Incorrect Credentials') 
+                if (params.method === 'register') setLoginMessage('Failed To Register')
+              }
               if (response.error) {
                 setError(response.error);
               }
@@ -139,7 +145,7 @@ const RegisterLogin = ({
               />
             </fieldset>
           ) : null}
-
+          {(params.method === "register" && loginMessage === 'Failed To Register') || (params.method === "login" && loginMessage === 'Incorrect Credentials')  ? <h1>{loginMessage}</h1> : null}
           {params.method === "register" ? (
             <button
               className="login-button"
@@ -157,13 +163,16 @@ const RegisterLogin = ({
             <button
               className="login-button"
               type="submit"
-              disabled={!password || !username || password.length < 8}
+              disabled={!password || !username}
             >
               Login
             </button>
           )}
           {params.method === "register" && password !== verPass && (
             <span className="password-alert">Passwords must match!</span>
+          )}
+          {params.method === "register" && (username === '' || email === ''||lastName === ''||firstName === '' ) && (
+            <span className="password-alert">All Fields Required!</span>
           )}
 
           {params.method === "register" && password.length < 8 && (

@@ -273,7 +273,7 @@ async function populateInitialData() {
   
     const productsToCreate = [
       {
-        name: "Pasta",
+        name: "Alfredo Pasta",
         description: "Yummy!",
         price: "$30",
         imageURL:
@@ -309,7 +309,7 @@ async function populateInitialData() {
         category: "Lunch",
       },
       {
-        name: "Budda Bowl",
+        name: "Buddha Bowl",
         description: "Nutrient Packed!",
         price: "$20",
         imageURL:
