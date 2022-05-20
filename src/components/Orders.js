@@ -10,7 +10,7 @@ const Orders = ({ user, orders }) => {
       {orders.map((order) => {
         return (
           <>
-            <div className="adminOrderLog" key={order.id}>
+            <div className="users" key={order.id}>
               {user.isAdmin === true ? (
                 <h2>
                   {order.id} {order.status} <br /> by {order.creatorName} <br />
@@ -22,11 +22,6 @@ const Orders = ({ user, orders }) => {
                           {product.name} {product.price}
                           {product.description}
                           <br />
-                          <img
-                            className="orderImage"
-                            src={product.imageURL}
-                            alt="Product"
-                          />
                         </div>
                       </>
                     );
