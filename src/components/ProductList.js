@@ -107,12 +107,12 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
                   <p>{product.description}</p>
                   <img className="productImage" src={product.imageURL} alt='Product'/>
                   <form onSubmit={(event) => handleSubmit(event, product)} >
-                    <input type='text' placeholder='New Product Name' value={name} onChange={(event) => setName(event.target.value)} />
-                    <input type='text' placeholder='New Product Description' value={description} onChange={(event) => setDescription(event.target.value)} />
-                    <input type='text' placeholder='New Product Price' value={price} onChange={(event) => setPrice(event.target.value)} />
-                    <input type='text' placeholder='New Product ImageURL' value={imageURL} onChange={(event) => setImageURL(event.target.value)} />
-                    <input type='text' placeholder='New Product InStock' value={inStock} onChange={(event) => setInStock(event.target.value)} />
-                    <input type='text' placeholder='New Product Category' value={category} onChange={(event) => setCategory(event.target.value)} />
+                    <input type='text' placeholder='Edit Name' value={name} onChange={(event) => setName(event.target.value)} />
+                    <input type='text' placeholder='Edit Description' value={description} onChange={(event) => setDescription(event.target.value)} />
+                    <input type='text' placeholder='Edit Price' value={price} onChange={(event) => setPrice(event.target.value)} />
+                    <input type='text' placeholder='Edit ImageURL' value={imageURL} onChange={(event) => setImageURL(event.target.value)} />
+                    <input type='text' placeholder='Edit InStock' value={inStock} onChange={(event) => setInStock(event.target.value)} />
+                    <input type='text' placeholder='Edit Category' value={category} onChange={(event) => setCategory(event.target.value)} />
                     <button type="submit">Edit Product</button>
                   </form>
                   <button key={product.id} onClick={() => deleteProduct(product)}>Delete Product</button>

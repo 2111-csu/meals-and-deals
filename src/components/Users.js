@@ -31,11 +31,12 @@ const Users = ({ user, setUser, userName }) => {
         allUsers.map((user) => {
           return (
             <div className='users' key={user.id}>
-              <h2>
+              <h2 className='users'>
                 {user.firstname} {user.lastname}
               </h2>
               <Link to={`/users/${user.id}`}>
-                <p>{user.username}</p>
+                <p className='users'>{user.username}</p>
+                <p className='users'>{user.email}</p>
               </Link>
             </div>
           );
