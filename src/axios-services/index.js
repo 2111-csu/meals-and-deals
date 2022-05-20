@@ -1,12 +1,5 @@
 import axios from "axios";
 
-// this file holds your frontend network request adapters
-// think about each function as a service that provides data
-// to your React UI through AJAX calls
-
-// for example, if we need to display a list of users
-// we'd probably want to define a getUsers service like this:
-
 const { REACT_API_URL = "https://sleepy-citadel-97219.herokuapp.com/api" } =
   process.env;
 
@@ -24,11 +17,11 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
     const resp = await axios(REACT_API_URL + url, options);
-    // const data = await resp.json();
+   
     return resp.data;
   } catch (error) {
     console.error(error);
-  }
+  };
 };
 
 export async function getCartByUser(user, token) {
