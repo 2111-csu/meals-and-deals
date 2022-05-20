@@ -11,7 +11,6 @@ const { REACT_API_URL = "https://sleepy-citadel-97219.herokuapp.com/api" } =
   process.env;
 
 export const callApi = async ({ url, method = "GET", token, body }) => {
-  console.log(url, method)
   try {
     const options = {
       method: method.toUpperCase(),

@@ -36,10 +36,27 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
         regetCart()
         return response
        }
-       if(!user.id) {
-         setCartItems([])  
-       }
-    }    
+    }
+    
+    const increaseProduct = async (orderProductId, quantity) => {
+      const newQuantity = +quantity+1
+      const response = await callApi({url: `/order_products/${orderProductId}`, method: 'PATCH', body: {quantity: newQuantity},  token})
+      regetCart()
+      return response
+   }
+   
+   const decreaseProduct = async (orderProductId, quantity) => {
+    const newQuantity = +quantity-1
+    if (newQuantity === 0) {
+      deleteProduct(orderProductId)
+    }
+    else{
+      const response = await callApi({url: `/order_products/${orderProductId}`, method: 'PATCH', body: {quantity: newQuantity},  token})
+      regetCart()
+      return response
+    }
+ }
+   
 
     return (
         <>
@@ -52,14 +69,16 @@ const Cart = ({ token, user, setCart, cart, setCartItems, cartItems }) => {
               return (
                 <div className="cartProduct" key={product.orderProductsId}>
                   <h2>
-                    {product.name}({product.price})x{product.quantity}
+                    {product.name}({product.price})
+                    <br></br>
+                    <button onClick={() => decreaseProduct(product.orderProductsId, product.quantity)}>-</button>x{product.quantity}<button onClick={() => increaseProduct(product.orderProductsId, product.quantity)}>+</button>
                     <br/>
                     <button
                       key={product.orderProductsId}
                       className='removeItem'
                       onClick={() => deleteProduct(product.orderProductsId)}
                     >
-                      Remove Item
+                      Remove
                     </button>
                   </h2>
                 </div>

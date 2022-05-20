@@ -193,8 +193,8 @@ const App = () => {
           <Cart {...props} />
         </Route>
         <Route exact path="/users">
-          <Users {...props} />
           <AddUser {...props} />
+          <Users {...props} />
         </Route>
         <Route exact path="/users/:userId">
           <AdminSingleUser {...props} />

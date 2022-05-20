@@ -141,6 +141,11 @@ button {
   transition: all 200ms;
   outline: none;
 }
+
+.login-button:disabled {
+  background-color: gray;
+}
+
 .checkout-button {
   display: flex;
   justify-content: center;
@@ -268,5 +273,9 @@ button {
   transition: all 200ms;
   outline: none;
   padding: 10px;
+}
+
+form {
+   padding-bottom: 30px;
 }
 

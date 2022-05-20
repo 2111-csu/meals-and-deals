@@ -10,7 +10,6 @@ const Account = ({user, token}) => {
            if (orders) {
              setOrderHistory(orders)
            }
-           console.log(orders)
         } 
         getOrderHistory()
     }, [token])    
@@ -27,7 +26,7 @@ const Account = ({user, token}) => {
         orderHistory.map((order) => {
             return (
               <>
-                <div className="welcome" key={order}>
+                <div className="welcome" key={order.orderId}>
                     <h2>
                       Date Ordered: {order.datePlaced.slice(0,10)}
                       <br/>

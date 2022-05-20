@@ -6,7 +6,7 @@ import { callApi } from "../axios-services";
 
 const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
   const [singleUser, setSingleUser] = useState({});
-  const [admin, setAdmin] = useState("");
+  const [admin, setAdmin] = useState(true);
   const params = useParams();
   const id = params.userId;
   console.log(params);
@@ -20,18 +20,19 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
   //   });
   // };
   const handleChange = async (e) => {
-    const editSingleUser = { isAdmin };
+    setAdmin(true)
+    console.log('ADMIN', admin)
     try {
       await callApi({
         url: `/users/${id}`,
         method: "PATCH",
         token,
         body: {
-          isAdmin,
+          isAdmin: admin
         },
       });
 
-      setSingleUser(editSingleUser);
+      setSingleUser(isAdmin);
       setAdmin("");
       if (token) {
         alert("Changed User to Admin");
@@ -55,7 +56,7 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
   if (singleUser) {
     return (
       <>
-        <h2>
+        <div>
           User is {singleUser.id} {singleUser.firstname} {singleUser.lastname}
           <br /> email: {singleUser.email} <br />
           {singleUser.isAdmin ? (
@@ -69,12 +70,12 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
               <input
                 type='checkbox'
                 label='make admin'
-                value='true'
+                value={true}
                 onClick={(e) => handleChange(e.target.value)}
               ></input>
             </>
           )}
-        </h2>
+        </div>
       </>
     );
   } else {

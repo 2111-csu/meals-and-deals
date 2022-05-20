@@ -6,7 +6,7 @@ import AddProduct from './AddProduct';
 const quantityArray = [ 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const newObj = {products: []}
 
-const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, localCart, orderId, setOrderId, userName}) => {
+const ProductList = ({ products , setProducts, token, cart, user, setCart, setLocalCart, orderId, setOrderId, userName}) => {
   const history = useHistory()
   const [quantity, setQuantity] = useState('1');
   const [name, setName] = useState('')
@@ -24,7 +24,6 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
       product.quantity = quantity
       newObj.products.push(product)
       setLocalCart([newObj])
-      localStorage.setItem('cart', JSON.stringify(newObj));
     } 
     if (user.id) {
       if (cart[0]) {
@@ -43,7 +42,6 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
               token,
             });
             if (newOrder) {
-              console.log('newORder', newOrder)
               orderId = newOrder.id
               setOrderId(newOrder.id)
             }
