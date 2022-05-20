@@ -22,8 +22,6 @@ export const callApi = async ({ url, method = "GET", token, body }) => {
     if (token) {
       options.headers["Authorization"] = `Bearer ${token}`;
     }
-    console.log(url);
-    console.log(options);
     const resp = await axios(REACT_API_URL + url, options);
     // const data = await resp.json();
     return resp.data;

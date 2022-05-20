@@ -4,7 +4,7 @@ module.exports = {
   ...require("./orders"),
   ...require("./products"),
   ...require("./order_products"),
-  ...require("./admin")
+  ...require("./admin"),
 };
 
 // add each model to your exports object here

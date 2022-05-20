@@ -49,7 +49,8 @@ router.post("/login", async (req, res, next) => {
 // POST /api/users/register
 router.post("/register", async (req, res, next) => {
   try {
-    const { firstName, lastName, email, username, password } = req.body;
+    const { firstName, lastName, email, username, password, isAdmin } =
+      req.body;
     const queriedUser = await getUserByUsername(username);
     if (queriedUser) {
       res.status(401);
@@ -70,7 +71,7 @@ router.post("/register", async (req, res, next) => {
         email,
         username,
         password,
-        isAdmin,
+        isAdmin: Boolean(isAdmin),
       });
       if (!user) {
         next({

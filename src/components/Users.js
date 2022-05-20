@@ -30,7 +30,7 @@ const Users = ({ user, setUser, userName }) => {
         allUsers.length &&
         allUsers.map((user) => {
           return (
-            <div className='singleUser' key={user.id}>
+            <div className='users' key={user.id}>
               <h2>
                 {user.firstname} {user.lastname}
               </h2>
@@ -47,87 +47,4 @@ const Users = ({ user, setUser, userName }) => {
   );
 };
 
-const AddUser = ({ token, setUser }) => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [isAdmin, setIsAdmin] = useState("");
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    await callApi({
-      url: "/users",
-      method: "POST",
-      token,
-      body: { firstName, lastName, email, username, password, isAdmin },
-    });
-    const usersResp = await callApi({ url: `/users`, method: "GET" });
-
-    setUser(usersResp);
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setUsername("");
-    setPassword("");
-    setEmail("");
-    setIsAdmin("");
-  };
-
-  const reRenderUsers = async () => {
-    const updatedUsers = await callApi({ url: `/users`, method: "GET" });
-    setUser(updatedUsers);
-    reRenderUsers();
-  };
-
-  return (
-    <>
-      <br />
-      <h2>New User Setup</h2>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <input
-          type='text'
-          placeholder='First Name'
-          value={firstName}
-          onChange={(event) => setFirstName(event.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Last Name'
-          value={lastName}
-          onChange={(event) => setLastName(event.target.value)}
-        />
-        <input
-          type='email'
-          placeholder='Email'
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
-        />
-        <input
-          type='password'
-          placeholder='Password (8 charater min)'
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <input
-          type='text'
-          placeholder='Make an Admin'
-          value={isAdmin}
-          onChange={(event) => setIsAdmin(event.target.value)}
-        />
-        <button type='submit'>Submit</button>
-      </form>
-    </>
-  );
-};
-
-export default { Users, AddUser };
+export default Users;

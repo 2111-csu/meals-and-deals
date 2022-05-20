@@ -9,19 +9,12 @@ const AddUser = ({ user, token }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isAdmin, setIsAdmin] = useState("");
-  // const [newUsers, setNewUsers] = useState("");
+  const [newUserMessage, setNewUserMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    setFirstName(firstName);
-    setLastName(lastName);
-    setEmail(email);
-    setUsername(username);
-    setPassword(password);
-    setIsAdmin(isAdmin);
-
     const userResp = await callApi({
-      url: `/users`,
+      url: `/users/register`,
       method: "POST",
       token,
       body: {
@@ -33,14 +26,14 @@ const AddUser = ({ user, token }) => {
         isAdmin,
       },
     });
-    console.log("user reponses", userResp);
-
-    // const resetUsers = async () => {
-    //   const newUsers = await callApi({ url: `/users`, method: "GET" });
-    //   setNewUsers(newUsers);
-    //   resetUsers();
-    // };
-    // console.log("new users", newUsers);
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setIsAdmin("");
+    if (userResp.user)
+      setNewUserMessage(`New User ${userResp.user.username} Created`);
   };
 
   return (
@@ -48,7 +41,8 @@ const AddUser = ({ user, token }) => {
       <div className='adduser'>
         {user.isAdmin ? (
           <>
-            <h1>Add a new User</h1>
+            <h1>{newUserMessage}</h1>
+            <h1>Add a New User</h1>
             <form onSubmit={handleSubmit}>
               <input
                 type='text'
@@ -80,7 +74,7 @@ const AddUser = ({ user, token }) => {
               <br />
               <input
                 type='text'
-                placeholder='password'
+                placeholder='Password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></input>{" "}
