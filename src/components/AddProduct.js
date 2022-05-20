@@ -31,8 +31,6 @@ const AddProduct = ({ token, setProducts }) => {
 };
 
 return <>
-{/* <br/>
-    <h2>Create a new Product for Meals and Deals</h2> */}
     <br/>
      <form className="product-form" onSubmit={handleSubmit} >
      <h2>Create A New Meals-And-Deals Meal:</h2>

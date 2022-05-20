@@ -61,8 +61,8 @@ const SingleProduct = ({ products, user, token, orderId, setOrderId, cart, setCa
               return response;
             } catch (error) {
               alert(error);
-            }
-         }
+            };
+         };
        };
 
     if(singleProduct) {

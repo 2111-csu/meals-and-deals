@@ -21,7 +21,7 @@ const SingleOrder = ({ orders }) => {
         <div>Order Loading...</div>
       </>
     );
-  }
+  };
 };
 
 export default SingleOrder;

@@ -21,10 +21,10 @@ console.log(client, "CLIENT");
 async function buildTables() {
   try {
     client.connect();
-    // drop tables in correct order
+
     console.log("Starting to drop tables...");
 
-    // have to make sure to drop in correct order
+
 
     await client.query(`
       DROP TABLE IF EXISTS reviews;
@@ -34,7 +34,7 @@ async function buildTables() {
       DROP TABLE IF EXISTS users;
 
     `);
-    // build tables in correct order
+
     console.log("Starting to build tables...");
     await client.query(`
         CREATE TABLE users(
@@ -95,10 +95,6 @@ async function buildTables() {
 
 async function populateInitialData() {
   try {
-    // create useful starting data by leveraging your
-    // Model.method() adapters to seed your db, for example:
-    // const user1 = await User.createUser({ ...user info goes here... })
-    // be created, cancelled, completed) - also optionally, processing
     const usersToCreate = [
       {
         id: 1,
@@ -182,26 +178,26 @@ async function populateInitialData() {
       },
 
       {
-      id: 9,
-      firstName: "Violet",
-      lastName: "Williams",
-      email: "violetw@thismail.com",
-      imageURL: "image.url",
-      username: "Williams78",
-      password: "Violet19!",
-      isAdmin: false,
-    },
+        id: 9,
+        firstName: "Violet",
+        lastName: "Williams",
+        email: "violetw@thismail.com",
+        imageURL: "image.url",
+        username: "Williams78",
+        password: "Violet19!",
+        isAdmin: false,
+      },
 
-    {
-    id: 8,
-    firstName: "Susie",
-    lastName: "Johnson",
-    email: "susieJohnson@thismail.com",
-    imageURL: "image.url",
-    username: "Susie890",
-    password: "Peonies45",
-    isAdmin: false,
-  },
+      {
+        id: 8,
+        firstName: "Susie",
+        lastName: "Johnson",
+        email: "susieJohnson@thismail.com",
+        imageURL: "image.url",
+        username: "Susie890",
+        password: "Peonies45",
+        isAdmin: false,
+      },
     ];
 
     const users = await Promise.all(
@@ -235,23 +231,23 @@ async function populateInitialData() {
         status: "created",
         userId: 5,
         datePlaced: "04 / 21 / 2022",
-      }, 
+      },
       {
         status: "created",
         userId: 7,
         datePlaced: "04 / 22 / 2022",
-      }, 
+      },
       {
         status: "created",
         userId: 7,
         datePlaced: "04 / 23 / 2022",
       },
-      
+
       {
         status: "created",
         userId: 6,
         datePlaced: "04 / 12 / 2022",
-      }, 
+      },
       {
         status: "created",
         userId: 1,
@@ -270,7 +266,7 @@ async function populateInitialData() {
     console.log("Orders Created: ", orders);
     console.log("Finished creating orders");
 
-  
+
     const productsToCreate = [
       {
         name: "Alfredo Pasta",
@@ -438,25 +434,25 @@ async function populateInitialData() {
         category: "Carnivore",
       },
     ];
-    
+
     const products = await Promise.all(productsToCreate.map(createProduct));
 
     console.log("Products Created: ", products);
     console.log("Finished creating products");
 
-    const orderProductsToCreate =[
-      {orderId: 1, productId: 1, price: '$30', quantity: 2},
-      {orderId: 2, productId: 2, price: '$30', quantity: 3},
-      {orderId: 1, productId: 3, price: '$10', quantity: 3},
-      {orderId: 2, productId: 4, price: '$10', quantity: 1},
-      {orderId: 3, productId: 1, price: '$30', quantity: 2},
-      {orderId: 3, productId: 1, price: '$30', quantity: 1},
+    const orderProductsToCreate = [
+      { orderId: 1, productId: 1, price: '$30', quantity: 2 },
+      { orderId: 2, productId: 2, price: '$30', quantity: 3 },
+      { orderId: 1, productId: 3, price: '$10', quantity: 3 },
+      { orderId: 2, productId: 4, price: '$10', quantity: 1 },
+      { orderId: 3, productId: 1, price: '$30', quantity: 2 },
+      { orderId: 3, productId: 1, price: '$30', quantity: 1 },
     ]
-      const orderProducts = await Promise.all(
-        orderProductsToCreate.map((orderProduct) => createOrderProduct(orderProduct)));
-      
-      console.log("orderProducts Created: ", orderProducts);
-      console.log("Finished creating orderProducts");
+    const orderProducts = await Promise.all(
+      orderProductsToCreate.map((orderProduct) => createOrderProduct(orderProduct)));
+
+    console.log("orderProducts Created: ", orderProducts);
+    console.log("Finished creating orderProducts");
   } catch (error) {
     throw error;
   }

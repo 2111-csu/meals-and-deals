@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import { useState } from "react/cjs/react.production.min";
 import { callApi } from "../axios-services";
 
 import { AdminSingleUser } from "./";

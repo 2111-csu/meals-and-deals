@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Orders = ({ user, orders }) => {
-  console.log(orders, "fetched");
 
   return (
     <>

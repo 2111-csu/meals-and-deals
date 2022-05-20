@@ -62,5 +62,4 @@ async function updateUser({id, ...fields}) {
       destroyProduct,
       updateProduct,
       updateUser
-
   }

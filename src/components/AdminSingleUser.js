@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import { Link } from "react-router-dom";
-
 import { callApi } from "../axios-services";
 
 const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
@@ -9,16 +7,7 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
   const [admin, setAdmin] = useState(true);
   const params = useParams();
   const id = params.userId;
-  console.log(params);
-  console.log("ID", id);
 
-  // const changeToAdmin = async (e) => {
-  //   const resp = await callApi({
-  //     url: `/users`,
-  //     method: "PATCH",
-  //     body: { user: {} },
-  //   });
-  // };
   const handleChange = async (e) => {
     setAdmin(true)
     console.log('ADMIN', admin)
@@ -39,8 +28,7 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
       }
     } catch (error) {
       alert(error);
-    }
-    console.log("changed user", singleUser);
+    };
   };
   useEffect(() => {
     const getUserById = async () => {
@@ -51,8 +39,7 @@ const AdminSingleUser = (token, isAdmin, userId, user, setUser) => {
     getUserById();
   }, []);
 
-  console.log("SINGLE USER", singleUser);
-  console.log(singleUser);
+
   if (singleUser) {
     return (
       <>

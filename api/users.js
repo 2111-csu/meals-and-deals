@@ -8,7 +8,7 @@ const { JWT_SECRET = 'soSecret' } = process.env;
 router.post('/login', async (req, res, next) => {
   const { username, password } = req.body;
 
-  // request must have both
+
   if (!username || !password) {
     next({
       name: 'MissingCredentialsError',
@@ -17,14 +17,14 @@ router.post('/login', async (req, res, next) => {
   }
 
   try {
-    const user = await getUser({username, password});
-    if(!user) {
+    const user = await getUser({ username, password });
+    if (!user) {
       next({
         name: 'IncorrectCredentialsError',
         message: 'Username or password is incorrect',
       })
     } else {
-      const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1w' });
+      const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1w' });
       res.send({ user, message: "you're logged in!", token });
     }
   } catch (error) {
@@ -33,10 +33,9 @@ router.post('/login', async (req, res, next) => {
   }
 });
 
-// POST /api/users/register
 router.post('/register', async (req, res, next) => {
   try {
-    const {firstName, lastName, email, username, password, isAdmin } = req.body;
+    const { firstName, lastName, email, username, password, isAdmin } = req.body;
     const queriedUser = await getUserByUsername(username);
     if (queriedUser) {
       res.status(401);
@@ -57,7 +56,7 @@ router.post('/register', async (req, res, next) => {
         email,
         username,
         password,
-        isAdmin: Boolean(isAdmin) 
+        isAdmin: Boolean(isAdmin)
       });
       if (!user) {
         next({
@@ -65,7 +64,7 @@ router.post('/register', async (req, res, next) => {
           message: 'There was a problem registering you. Please try again.',
         });
       } else {
-        const token = jwt.sign({id: user.id, username: user.username}, JWT_SECRET, { expiresIn: '1w' });
+        const token = jwt.sign({ id: user.id, username: user.username }, JWT_SECRET, { expiresIn: '1w' });
         res.send({ user, message: "you're signed up!", token });
       }
     }
@@ -74,7 +73,6 @@ router.post('/register', async (req, res, next) => {
   }
 })
 
-// GET /api/users/me
 router.get('/me', requireUser, async (req, res, next) => {
   try {
     res.send(req.user);
@@ -87,8 +85,8 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const { userId } = req.params
     const user = await getUserById(userId)
-  res.send(user)
-  }catch (error) {
+    res.send(user)
+  } catch (error) {
     next(error);
   }
 })
@@ -106,8 +104,8 @@ router.get('/:orderId', async (req, res, next) => {
   try {
     const { orderId } = req.params
     const order = await completeOrder(orderId)
-  res.send(order)
-  }catch (error) {
+    res.send(order)
+  } catch (error) {
     next(error);
   }
 })
@@ -116,21 +114,20 @@ router.get('/:orderId', async (req, res, next) => {
   try {
     const { orderId } = req.params
     const order = await cancelOrder(orderId)
-  res.send(order)
-  }catch (error) {
+    res.send(order)
+  } catch (error) {
     next(error);
   }
 })
 
-
 router.patch('/:userId', requireUser, async (req, res, next) => {
-  const {userId} = req.params;
-  const {firstName, lastName, email, username, password, isAdmin } = req.body;
-  try{
-      const userToUpdate = await updateUser({id: userId, firstName, lastName, email, username, password, isAdmin: Boolean(isAdmin) });
-      res.send(userToUpdate)
-  } catch (error){
-  throw error;
+  const { userId } = req.params;
+  const { firstName, lastName, email, username, password, isAdmin } = req.body;
+  try {
+    const userToUpdate = await updateUser({ id: userId, firstName, lastName, email, username, password, isAdmin: Boolean(isAdmin) });
+    res.send(userToUpdate)
+  } catch (error) {
+    throw error;
   }
 })
 
