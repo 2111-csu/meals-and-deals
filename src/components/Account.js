@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import { callApi } from '../axios-services';
 
 const Account = ({user, token}) => {
-    const [orderHistory, setOrderHistory] = useState([]);
+    let total = 0
+     const [orderHistory, setOrderHistory] = useState([]);
     useEffect (() => {
         
         const getOrderHistory = async () => {
@@ -24,7 +25,8 @@ const Account = ({user, token}) => {
         <h1>Order History</h1>
         { orderHistory[0] ?
         orderHistory.map((order) => {
-            return (
+          total = 0
+          return (
               <>
                 <div className="welcome" key={order.orderId}>
                     <h2>
@@ -32,6 +34,7 @@ const Account = ({user, token}) => {
                       <br/>
                       Status: {order.status}
                       {order.products.map((product) => {
+                        total = total + (product.price.slice(1))*(product.quantity)
                         return (
                           <>
                             <div className="productsOrders">
@@ -39,10 +42,11 @@ const Account = ({user, token}) => {
                               <br/> 
                               {product.price}x{product.quantity}
                              <br />
-                          </div>
+                            </div>
                           </>
                         );
                       })}
+                      <h1>Total: ${total}</h1>
                     </h2>
                 </div>
               </>

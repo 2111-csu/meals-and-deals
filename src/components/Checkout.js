@@ -3,7 +3,7 @@ import { callApi } from "../axios-services";
 import { useHistory } from "react-router";
 
 const Checkout = ({ token, user, setCart, cart, setMessage, setOrderId }) => {
-    
+    let total = 0
     const history = useHistory()
      
     const completeOrder = async (orderId) => {
@@ -47,6 +47,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage, setOrderId }) => {
         </>
         
         {cartItems.map((product) => {
+          total = total + (product.price.slice(1))*(product.quantity)
           return (
             <div className="cartProduct" key={product.orderProductsId}>
               <h2>
@@ -56,6 +57,7 @@ const Checkout = ({ token, user, setCart, cart, setMessage, setOrderId }) => {
             </div>
           );
         })}
+        <h1>Total: ${total}</h1>
         <button onClick={() => cancelOrder(item.orderId)}>Cancel Order</button>
         <button onClick={()=>history.push('/cart')}>Edit Order</button>
         <button onClick={() => completeOrder(item.orderId)}>

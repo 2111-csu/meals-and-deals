@@ -98,7 +98,7 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
   return (
     <>
     {(userName ==='') ? <button className='message' onClick={() => history.push("/account/register")}>Sign In To Order</button> : <h2 className='message'>You are Signed in as {userName}</h2>}
-    { (user.isAdmin) ? <AddProduct/> :null}
+    { (user.isAdmin) ? <AddProduct setProducts={setProducts} token={token} user={user}/> :null}
     { (user.isAdmin) ? 
           products.map((product) => {
           return ( 
