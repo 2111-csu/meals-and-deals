@@ -72,7 +72,4 @@ router.get('/:productId/orders', async (req, res, next) => {
   }
 })
 
-
-
-
 module.exports = router;

@@ -3,7 +3,7 @@ const client = require("../client");
 const bcrypt = require("bcrypt");
 const SALT_COUNT = 10;
 
-// added isAdmin
+
 const createUser = async ({
   firstName,
   lastName,
@@ -26,18 +26,17 @@ const createUser = async ({
     `,
       [firstName, lastName, email, username, hashPassword, isAdmin]
     );
-    console.log("user", user);
+
     return user;
   } catch (error) {
     throw error;
   }
 };
-/* this adapter should fetch a list of users from your db */
 
 async function getUser({ username, password }) {
   if (!username || !password) {
     return;
-  }
+  };
 
   try {
     const user = await getUserByUsername(username);
@@ -49,8 +48,8 @@ async function getUser({ username, password }) {
     return user;
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getUserById(id) {
   try {
@@ -71,8 +70,8 @@ async function getUserById(id) {
     return user;
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getAllUsers() {
   try {
@@ -102,8 +101,8 @@ async function getUserByUsername(username) {
     return user;
   } catch (error) {
     console.error(error);
-  }
-}
+  };
+};
 
 module.exports = {
   // add your database adapter fns here

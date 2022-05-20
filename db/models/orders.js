@@ -16,7 +16,7 @@ const createOrders = async ({ status, userId, datePlaced }) => {
     return orders;
   } catch (error) {
     throw error;
-  }
+  };
 };
 
 const getOrderById = async (id) => {
@@ -34,7 +34,7 @@ const getOrderById = async (id) => {
     return attachProductsToOrders([order]);
   } catch (error) {
     throw error;
-  }
+  };
 };
 
 async function getAllOrders() {
@@ -47,8 +47,8 @@ async function getAllOrders() {
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getOrdersByUser({ id }) {
   try {
@@ -65,8 +65,8 @@ async function getOrdersByUser({ id }) {
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getCartByUser(userId) {
   try {
@@ -80,8 +80,8 @@ async function getCartByUser(userId) {
     return attachProductsToOrders([order]);
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getOrderHistory(userId) {
   try {
@@ -96,8 +96,8 @@ async function getOrderHistory(userId) {
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 async function getOrdersByProduct({ id }) {
   try {
@@ -114,8 +114,8 @@ async function getOrdersByProduct({ id }) {
     return attachProductsToOrders(orders);
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 const createOrder = async ({ status, userId }) => {
   try {
@@ -132,7 +132,7 @@ const createOrder = async ({ status, userId }) => {
     return order;
   } catch (error) {
     throw error;
-  }
+  };
 };
 
 async function updateOrder({ id, ...fields }) {
@@ -156,21 +156,21 @@ async function updateOrder({ id, ...fields }) {
     return order;
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
-  async function completeOrder(id){
-    try{
-        const {rows: [order]} = await client.query(`
+async function completeOrder(id) {
+  try {
+    const { rows: [order] } = await client.query(`
         UPDATE orders
         SET status = 'completed'
         WHERE id = $1
         RETURNING *;
         `, [id])
-        return order
-     }catch (error) {
-         throw error;
-     };
+    return order
+  } catch (error) {
+    throw error;
+  };
 };
 
 async function cancelOrder(id) {
@@ -189,8 +189,8 @@ async function cancelOrder(id) {
     return order;
   } catch (error) {
     throw error;
-  }
-}
+  };
+};
 
 module.exports = {
   createOrders,

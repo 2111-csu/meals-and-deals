@@ -39,9 +39,9 @@ const App = () => {
   const [orders, setOrders] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const history = useHistory();
-  
+
   useEffect(() => {
-    
+
     const matchedToken = localStorage.getItem('token');
     const matchedUsername = localStorage.getItem('username');
     const matchedUserId = localStorage.getItem('userId');
@@ -65,28 +65,6 @@ const App = () => {
       setCart(parsedCart);
     }
   }, [])
-  
-  // useEffect(() => {
-  //   // follow this pattern inside your useEffect calls:
-  //   // first, create an async function that will wrap your axios service adapter
-  //   // invoke the adapter, await the response, and set the data
-  //   const getAPIStatus = async () => {
-  //     const { healthy } = await getAPIHealth();
-  //     setAPIHealth(healthy ? 'api is up! :D' : 'api is down :/');
-  //   };
-  //   const fetchProducts = async () => {
-  //     const fetchedProducts = await getProducts();
-  //     setProducts(fetchedProducts);
-  //   }
-  //   // const fetchCart = async () => {
-  //   //   const fetchedCart = await getCartByUser(user);
-  //   //   setCart(fetchedCart);
-  //   // }
-    
-
-    //   // second, after you've defined your getter above
-    //   // invoke it immediately after its declaration, inside the useEffect callback
-  
 
   const props = {
     products,
@@ -118,59 +96,58 @@ const App = () => {
       <header>
         <div className="app-container"></div>
         <nav className="nav">
-        <Link to="/" className="nav-link" >
-          Home
-        </Link>
-        <Link to="/products" className="nav-link">
-          Meals
-        </Link>
-        <Link to="/cart" className="nav-link">
-           Cart
-        </Link>
-        
-        {user.isAdmin === true ? (
-          <>
-            <Link to="/users" className="nav-link">
-              Users
-            </Link>
-            <Link to="/admin" className="nav-link">
-              Admin
-            </Link>
-          </>
-        ) : null}
-        {token ? (
-          <>
-            <Link to="/account" className="nav-link">
-              Account
-            </Link>
-
-            <button
-              className="logout"
-              onClick={() => {
-                localStorage.removeItem("token");
-                localStorage.removeItem("username");
-                localStorage.removeItem("userId");
-                localStorage.removeItem("user");
-                localStorage.removeItem("cart");
-                setUserName("");
-                setUserId("");
-                setMessage("");
-                setToken("");
-                setOrderId("")
-                setUser({});
-                setCart({});
-                history.push("/");
-              }}
-            >
-              Logout
-            </button>
-            
-          </>
-        ) : (
-          <Link to="/account/login" className="nav-link">
-            Sign In
+          <Link to="/" className="nav-link" >
+            Home
           </Link>
-        )}
+          <Link to="/products" className="nav-link">
+            Meals
+          </Link>
+          <Link to="/cart" className="nav-link">
+            Cart
+          </Link>
+
+          {user.isAdmin === true ? (
+            <>
+              <Link to="/users" className="nav-link">
+                Users
+              </Link>
+              <Link to="/admin" className="nav-link">
+                Admin
+              </Link>
+            </>
+          ) : null}
+          {token ? (
+            <>
+              <Link to="/account" className="nav-link">
+                Account
+              </Link>
+              <button
+                className="logout"
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  localStorage.removeItem("username");
+                  localStorage.removeItem("userId");
+                  localStorage.removeItem("user");
+                  localStorage.removeItem("cart");
+                  setUserName("");
+                  setUserId("");
+                  setMessage("");
+                  setToken("");
+                  setOrderId("")
+                  setUser({});
+                  setCart({});
+                  history.push("/");
+                }}
+              >
+                Logout
+              </button>
+
+            </>
+          ) : (
+            <Link to="/account/login" className="nav-link">
+              Sign In
+            </Link>
+          )}
         </nav>
       </header>
       <main>
@@ -193,8 +170,8 @@ const App = () => {
           <Cart {...props} />
         </Route>
         <Route exact path="/users">
-        <AddUser {...props} />  
-        <Users {...props} />
+          <AddUser {...props} />
+          <Users {...props} />
         </Route>
         <Route exact path="/users/:userId">
           <AdminSingleUser {...props} />
@@ -211,8 +188,9 @@ const App = () => {
         <Route exact path="/admin">
           <AddProduct {...props} />
         </Route>
-    </main>
-  </>
-)};
+      </main>
+    </>
+  )
+};
 
 export default App;
