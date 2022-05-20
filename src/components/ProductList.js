@@ -150,7 +150,13 @@ const ProductList = ({ products , setProducts, token, cart, user, setCart, setLo
             <button key={product.id} onClick={() => addProducttoCart(product)}>
               Add To Cart
             </button>
-            {product.name === added ? <h2>{productMessage}</h2> : null}
+            {product.name === added ?
+            <>
+              <h2>{productMessage}</h2>
+              <br></br>
+              <button className='message' onClick={() => history.push("/cart")}>View Cart</button>
+            </>
+               : null}
             </div>
             : null}
           </div>
