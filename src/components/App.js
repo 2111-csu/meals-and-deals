@@ -66,6 +66,16 @@ const App = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const fetchOrders= async () => {
+      const fetchedOrders = await getOrdersByUser();
+      console.log(fetchedOrders)
+      setOrders(fetchedOrders);
+    }
+    fetchOrders()
+  }, [token]
+  )
+
   const props = {
     products,
     setProducts,
@@ -179,14 +189,12 @@ const App = () => {
         <Route exact path="/cart/checkout">
           <Checkout {...props} />
         </Route>
-        <Route exact path="/orders">
-          <Orders {...props} />
-        </Route>
         <Route exact path="/orders/:orderId">
           <SingleOrder orders={orders} />
         </Route>
         <Route exact path="/admin">
           <AddProduct {...props} />
+          <Orders {...props} />
         </Route>
       </main>
     </>
