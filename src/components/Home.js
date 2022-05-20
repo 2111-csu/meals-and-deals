@@ -6,7 +6,7 @@ const Home = ({userName, message}) => {
     const history = useHistory()
     return <>
         <div>
-            {(userName ==='') ? <h2 className='message'>Sign In To Order</h2> : <h2>You are Signed in as {userName}</h2>}
+            {(userName ==='') ? <h2 className='message'>Sign In To Order</h2> : <h2 className='message'>You are Signed in as {userName}</h2>}
             <br/>
             <br/>
             <h2 className='ordermessage'>{message}</h2>

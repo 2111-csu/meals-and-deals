@@ -31,16 +31,17 @@ const AddProduct = ({ token, setProducts }) => {
 };
 
 return <>
-<br/>
-    <h2>Create a new Product for Meals and Deals</h2>
+{/* <br/>
+    <h2>Create a new Product for Meals and Deals</h2> */}
     <br/>
-     <form onSubmit={handleSubmit} >
-            <input type='text' placeholder='New Product Name' value={name} onChange={(event) => setName(event.target.value)} />
-            <input type='text' placeholder='New Product Description' value={description} onChange={(event) => setDescription(event.target.value)} />
-            <input type='text' placeholder='New Product Price' value={price} onChange={(event) => setPrice(event.target.value)} />
-            <input type='text' placeholder='New Product ImageURL' value={imageURL} onChange={(event) => setImageURL(event.target.value)} />
-            <input type='text' placeholder='New Product InStock' value={inStock} onChange={(event) => setInStock(event.target.value)} />
-            <input type='text' placeholder='New Product Category' value={category} onChange={(event) => setCategory(event.target.value)} />
+     <form className="product-form" onSubmit={handleSubmit} >
+     <h2>Create A New Meals-And-Deals Meal:</h2>
+            <input type='text' placeholder='Create Name' value={name} onChange={(event) => setName(event.target.value)} />
+            <input type='text' placeholder='Create Description' value={description} onChange={(event) => setDescription(event.target.value)} />
+            <input type='text' placeholder='Create Price' value={price} onChange={(event) => setPrice(event.target.value)} />
+            <input type='text' placeholder='Create ImageURL' value={imageURL} onChange={(event) => setImageURL(event.target.value)} />
+            <input type='text' placeholder='Create InStock' value={inStock} onChange={(event) => setInStock(event.target.value)} />
+            <input type='text' placeholder='Create Category' value={category} onChange={(event) => setCategory(event.target.value)} />
             <button type="submit">Submit</button>
     </form>
     </>

@@ -182,8 +182,9 @@ button {
 .singleProduct {
   text-align: center;
   border: 3px solid white;
-  padding: 2%;
-  width: 100%;
+  padding: 5%;
+  width: 90%;
+  background-position: center;
 }
 
 .cartProduct {
@@ -218,10 +219,13 @@ button {
 }
 
 .users {
+  justify-content: center;
   text-align:left;
   border: 5px solid #5a7D35 ;
   padding: 1%;
-  width: 100%;
+  width: 30%;
+  background-color: #5a7D35;
+  color:white;
 }
 
 .message {
@@ -244,11 +248,9 @@ button {
 }
 
 .adduser {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: left;
   flex-grow: 2;
-  margin: 1em 0;
+  margin: 0;
   font-size: 1em;
 }
 
@@ -270,3 +272,12 @@ button {
   padding: 10px;
 }
 
+.product-form{
+  display:flex;
+  text-align:center;
+  justify-content: center;
+  align-items: center;
+  width:100%;
+  border: 5px solid #5a7D35 ;
+  color: white
+}
